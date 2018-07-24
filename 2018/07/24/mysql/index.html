@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -81,16 +81,16 @@
 
 <meta name="description" content="mysql索引查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。索引有两种存储类型，包括btree和hash，btree为默认索引类型  创建数据表时创建索引普通索引   查看建表语句，如图 该表结构索引为id   唯一性索引需要使用UNIQUE参数进行约束（有时不能实现优化查询的目的） 全文索引适用于char varchar text类型，使用fulltext参数约">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="wen">
 <meta property="og:url" content="http://yoursite.com/2018/07/24/mysql/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="wen">
 <meta property="og:description" content="mysql索引查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。索引有两种存储类型，包括btree和hash，btree为默认索引类型  创建数据表时创建索引普通索引   查看建表语句，如图 该表结构索引为id   唯一性索引需要使用UNIQUE参数进行约束（有时不能实现优化查询的目的） 全文索引适用于char varchar text类型，使用fulltext参数约">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/07/24/mysql/mysql/20180604100504.png">
 <meta property="og:image" content="http://yoursite.com/2018/07/24/mysql/mysql/20180604100512.png">
 <meta property="og:updated_time" content="2018-07-20T03:27:03.581Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="wen">
 <meta name="twitter:description" content="mysql索引查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。索引有两种存储类型，包括btree和hash，btree为默认索引类型  创建数据表时创建索引普通索引   查看建表语句，如图 该表结构索引为id   唯一性索引需要使用UNIQUE参数进行约束（有时不能实现优化查询的目的） 全文索引适用于char varchar text类型，使用fulltext参数约">
 <meta name="twitter:image" content="http://yoursite.com/2018/07/24/mysql/mysql/20180604100504.png">
 
@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -108,7 +108,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -128,7 +128,7 @@
 
 
 
-  <title> | Hexo</title>
+  <title> | wen</title>
   
 
 
@@ -140,7 +140,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -158,7 +158,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">wen</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -188,7 +188,27 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -198,7 +218,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -238,13 +258,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/24/mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="������">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/my_photo.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="wen">
     </span>
 
     
@@ -262,9 +282,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-24T09:08:33+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T09:08:33+08:00">
                 2018-07-24
               </time>
             
@@ -399,10 +419,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -413,10 +433,10 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/my_photo.jpg"
-                alt="John Doe" />
+                alt="������" />
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">������</p>
+              <p class="site-description motion-element" itemprop="description">�ҵ�ż�����ɹ�â</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -427,7 +447,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -438,7 +458,7 @@
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">分类</span>
                 
               </div>
             
@@ -449,7 +469,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">标签</span>
                 
               </div>
             
@@ -505,13 +525,13 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">������</span>
 
   
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -519,7 +539,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -618,6 +638,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
