@@ -62,6 +62,98 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/24/mysql/" class="article-date">
+  <time datetime="2018-07-24T01:08:33.909Z" itemprop="datePublished">2018-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="mysql索引"><a href="#mysql索引" class="headerlink" title="mysql索引"></a>mysql索引</h2><p>查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。<br>索引有两种存储类型，包括<strong>btree</strong>和<strong>hash</strong>，btree为默认索引类型 </p>
+<h3 id="创建数据表时创建索引"><a href="#创建数据表时创建索引" class="headerlink" title="创建数据表时创建索引"></a>创建数据表时创建索引</h3><h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><p><img src="mysql/20180604100504.png" alt="mysql"> </p>
+<p> 查看建表语句，如图 该表结构索引为id<br><img src="mysql/20180604100512.png" alt="mysql">  </p>
+<h4 id="唯一性索引"><a href="#唯一性索引" class="headerlink" title="唯一性索引"></a>唯一性索引</h4><p>需要使用<strong>UNIQUE</strong>参数进行约束<br>（有时不能实现优化查询的目的）</p>
+<h4 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h4><p>适用于char varchar text类型，使用<strong>fulltext</strong>参数约束<br>(fulltext key)</p>
+<h4 id="单列索引"><a href="#单列索引" class="headerlink" title="单列索引"></a>单列索引</h4><p>只需指定字段名，可指定索引字段长度，提高查询速度  </p>
+<h4 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h4><p>查询条件满足第一个字段才会使用索引  </p>
+<h4 id="空间索引"><a href="#空间索引" class="headerlink" title="空间索引"></a>空间索引</h4><p>myisam类型表，设置<strong>spatial</strong>参数,类型应为geometry  </p>
+<h3 id="在已存在的数据表中创建索引"><a href="#在已存在的数据表中创建索引" class="headerlink" title="在已存在的数据表中创建索引"></a>在已存在的数据表中创建索引</h3><p>create （参数）index index_name on table_name (字段名称)  </p>
+<p>alter table table_name add (参数) index index_name(字段名称)  </p>
+<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><p>drop index index_name on table_name;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/24/mysql/" data-id="cjjz04yzx00056wtw04so8419" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-LAMP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/24/LAMP/" class="article-date">
+  <time datetime="2018-07-24T01:08:23.082Z" itemprop="datePublished">2018-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: LAMP<br>date: 2018-05-24   </p>
+<p>====确定存在linux系统，新手第一次安装可参考以上网址  ====</p>
+<p>可参考 <a href="https://blog.csdn.net/yuchao2015/article/details/52132270" target="_blank" rel="noopener">virtual box安装centos6版本的Linux系统 </a>  </p>
+<blockquote>
+<p>www服务器</p>
+</blockquote>
+<p>使用的语言多数为超文本标记语言（HTML）  </p>
+<p>支持的协议为 http（明码），https（加密）  </p>
+<p>浏览器应支持制定标准（W3C）  –如firefox chrome<br>附：IE由于是内核编译，缺乏安全性  </p>
+<p>URL是浏览器与服务器获取与接收的定位网址（协议：//ip.目录资源)  </p>
+<p><em>LAMP是WWW服务器类型</em>，包括系统（Linux），平台（Apache），数据库（mysql），程序（php，perl，asp，jsp，cgi网页程序语言）<br>附：php，perl，asp，jsp，cgi都是网页程序语言  </p>
+<p>（笔者使用centos自带的apache，php，mysql）<br>须知，php是apache执行的一个模块，另外php也需mysql支持      </p>
+<p>yum install httpd  mysql mysql-server php php-mysql</p>
+<ul>
+<li><p>Apache<br>配置文件为 /etc/httpd/conf/httpd.conf<br>可设置系统管理员邮箱  ServerAdmin选项<br>对中文编码的设置 default charset   </p>
+</li>
+<li><p>PHP<br>配置文件为 /etc/php.ini<br>修改ignore_repeated_errors = On;   ignore_repeated_errors = On;<br>以上，将存在的重复日志数据忽略  </p>
+</li>
+</ul>
+<p><em>启动服务</em><br>/etc/init.d/httpd start<br>/etc/init.d/httpd configtest    (测试配置文件的语法错误）<br>chkconfig httpd on     </p>
+<p>附：Apache携带的apachectl程序启动与关闭服务<br>/usr/sbin/apachectl  start<br>/usr/sbin/apachectl  stop</p>
+<ul>
+<li>mysql<br>启动：/etc/init.d/mysql start<br>chkconfig mysqld on<br>手动连接mysql数据库 ：mysql  -u root -p<br>（首次登陆不用密码，可用mysqladmin配置密码：mysqladmin -u root password‘xxx’）  </li>
+</ul>
+<p>防火墙与selinux设置<br>iptables -A INPUT -t TCP -i eth0 –dport 80 –sport 1024：65534 -j  ACCEPT<br>附：请勿开放3306数据库端口  </p>
+<p>setsebool -P httpd_can_network_connect=1  </p>
+<hr>
+<p>  有错误的地方请指导，邮箱<a href="mailto:985207502@qq.com" target="_blank" rel="noopener">985207502@qq.com</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/07/24/LAMP/" data-id="cjjz04yzt00046wtwibaoub79" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/23/hello-world/" class="article-date">
@@ -97,9 +189,61 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/23/hello-world/" data-id="cjjyz89nm0000pgtwflpgszbr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/23/hello-world/" data-id="cjjz04yzk00016wtwmno4v9mt" class="article-share-link">Share</a>
       
       
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ftp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/21/ftp/" class="article-date">
+  <time datetime="2018-05-20T16:00:00.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/服务器搭建/">服务器搭建</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/21/ftp/">ftp</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ftp服务器搭建（Linux）"><a href="#ftp服务器搭建（Linux）" class="headerlink" title="ftp服务器搭建（Linux）"></a>ftp服务器搭建（Linux）</h1><h2 id="相关软件-vsftpd"><a href="#相关软件-vsftpd" class="headerlink" title="相关软件 vsftpd"></a>相关软件 vsftpd</h2><p>如果是第一次使用，在命令行输入   <strong>yum install vsftpd</strong>   </p>
+<h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><h3 id="1-服务器环境设置"><a href="#1-服务器环境设置" class="headerlink" title="1.服务器环境设置"></a>1.服务器环境设置</h3><p>服务器启动模式:listen=YES(默认为stand daemon，如果改用super daemon应启动xined，listen=NO）<br>欢迎信息<br>配置banner_file=/etc/vsftpd/welcome.txt<br>建立欢迎界面<br>vim /etc/vsftpd/welcome.txt  </p>
+<h3 id="2-与实体用户较相关设置"><a href="#2-与实体用户较相关设置" class="headerlink" title="2.与实体用户较相关设置"></a>2.与实体用户较相关设置</h3><h3 id="3-匿名用户登录设置"><a href="#3-匿名用户登录设置" class="headerlink" title="3.匿名用户登录设置"></a>3.匿名用户登录设置</h3><p>匿名用户只能在<strong>/var/ftp</strong>浏览（可在此目录放置文件）   </p>
+<h3 id="4-关于系统安全方面设置"><a href="#4-关于系统安全方面设置" class="headerlink" title="4.关于系统安全方面设置"></a>4.关于系统安全方面设置</h3><p>==防火墙加入所需要的FTP模块==<br>vim /etc/sysconfig/iptables-config<br>IPTABLES_MODULES=”ip_nat_ftp ip_conntrack_ftp”<br>开启iptables  /etc/init.d/iptables restart     </p>
+<p>==兼顾主动式与被动式连接==<br>iptables -A INPUT -p TCP -i eth0 –dport 21  –sport 1024:65534 -j ACCEPT<br>iptables -A INPUT -p TCP -i eth0 –dport 65400:65410  –sport 1024:65534 -j ACCEPT  </p>
+<p>附：<br>ftp账号添加命令：useradd passwd<br>知道自己ftp服务器的ip地址： ifconfig  </p>
+<h2 id="登录ftp"><a href="#登录ftp" class="headerlink" title="登录ftp"></a><strong>登录ftp</strong></h2><p>ftp –&gt;  open [服务器ip地址]  </p>
+<h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><p>默认一般用户登录无法取得用户主目录，是SElinux问题，可通过修改规则：<br>setsebool -P ftp_home_dir=1  </p>
+<hr>
+<p>有错误的地方请指导，邮箱<a href="mailto:985207502@qq.com" target="_blank" rel="noopener">985207502@qq.com</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/21/ftp/" data-id="cjjz04yzc00006wtwnu7y3iq4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ftp/">ftp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器/">服务器</a></li></ul>
+
     </footer>
   </div>
   
@@ -114,18 +258,39 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/服务器搭建/">服务器搭建</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器/">服务器</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
     </div>
   </div>
 
@@ -138,7 +303,19 @@
       <ul>
         
           <li>
+            <a href="/2018/07/24/mysql/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/24/LAMP/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2018/07/23/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/21/ftp/">ftp</a>
           </li>
         
       </ul>

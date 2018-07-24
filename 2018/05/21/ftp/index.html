@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ftp | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ftp服务器搭建（Linux）相关软件 vsftpd如果是第一次使用，在命令行输入   yum install vsftpd    服务器设置1.服务器环境设置服务器启动模式:listen=YES(默认为stand daemon，如果改用super daemon应启动xined，listen=NO）欢迎信息配置banner_file=/etc/vsftpd/welcome.txt建立欢迎界面vim">
+<meta name="keywords" content="ftp,服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ftp">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/ftp/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ftp服务器搭建（Linux）相关软件 vsftpd如果是第一次使用，在命令行输入   yum install vsftpd    服务器设置1.服务器环境设置服务器启动模式:listen=YES(默认为stand daemon，如果改用super daemon应启动xined，listen=NO）欢迎信息配置banner_file=/etc/vsftpd/welcome.txt建立欢迎界面vim">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-20T03:27:03.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ftp">
+<meta name="twitter:description" content="ftp服务器搭建（Linux）相关软件 vsftpd如果是第一次使用，在命令行输入   yum install vsftpd    服务器设置1.服务器环境设置服务器启动模式:listen=YES(默认为stand daemon，如果改用super daemon应启动xined，listen=NO）欢迎信息配置banner_file=/etc/vsftpd/welcome.txt建立欢迎界面vim">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ftp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/21/ftp/" class="article-date">
+  <time datetime="2018-05-20T16:00:00.000Z" itemprop="datePublished">2018-05-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/服务器搭建/">服务器搭建</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ftp
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ftp服务器搭建（Linux）"><a href="#ftp服务器搭建（Linux）" class="headerlink" title="ftp服务器搭建（Linux）"></a>ftp服务器搭建（Linux）</h1><h2 id="相关软件-vsftpd"><a href="#相关软件-vsftpd" class="headerlink" title="相关软件 vsftpd"></a>相关软件 vsftpd</h2><p>如果是第一次使用，在命令行输入   <strong>yum install vsftpd</strong>   </p>
+<h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><h3 id="1-服务器环境设置"><a href="#1-服务器环境设置" class="headerlink" title="1.服务器环境设置"></a>1.服务器环境设置</h3><p>服务器启动模式:listen=YES(默认为stand daemon，如果改用super daemon应启动xined，listen=NO）<br>欢迎信息<br>配置banner_file=/etc/vsftpd/welcome.txt<br>建立欢迎界面<br>vim /etc/vsftpd/welcome.txt  </p>
+<h3 id="2-与实体用户较相关设置"><a href="#2-与实体用户较相关设置" class="headerlink" title="2.与实体用户较相关设置"></a>2.与实体用户较相关设置</h3><h3 id="3-匿名用户登录设置"><a href="#3-匿名用户登录设置" class="headerlink" title="3.匿名用户登录设置"></a>3.匿名用户登录设置</h3><p>匿名用户只能在<strong>/var/ftp</strong>浏览（可在此目录放置文件）   </p>
+<h3 id="4-关于系统安全方面设置"><a href="#4-关于系统安全方面设置" class="headerlink" title="4.关于系统安全方面设置"></a>4.关于系统安全方面设置</h3><p>==防火墙加入所需要的FTP模块==<br>vim /etc/sysconfig/iptables-config<br>IPTABLES_MODULES=”ip_nat_ftp ip_conntrack_ftp”<br>开启iptables  /etc/init.d/iptables restart     </p>
+<p>==兼顾主动式与被动式连接==<br>iptables -A INPUT -p TCP -i eth0 –dport 21  –sport 1024:65534 -j ACCEPT<br>iptables -A INPUT -p TCP -i eth0 –dport 65400:65410  –sport 1024:65534 -j ACCEPT  </p>
+<p>附：<br>ftp账号添加命令：useradd passwd<br>知道自己ftp服务器的ip地址： ifconfig  </p>
+<h2 id="登录ftp"><a href="#登录ftp" class="headerlink" title="登录ftp"></a><strong>登录ftp</strong></h2><p>ftp –&gt;  open [服务器ip地址]  </p>
+<h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><p>默认一般用户登录无法取得用户主目录，是SElinux问题，可通过修改规则：<br>setsebool -P ftp_home_dir=1  </p>
+<hr>
+<p>有错误的地方请指导，邮箱<a href="mailto:985207502@qq.com" target="_blank" rel="noopener">985207502@qq.com</a>  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/21/ftp/" data-id="cjjz04yzc00006wtwnu7y3iq4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ftp/">ftp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器/">服务器</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/07/23/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/服务器搭建/">服务器搭建</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ftp/">ftp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/服务器/">服务器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ftp/" style="font-size: 10px;">ftp</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/24/mysql/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/24/LAMP/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/23/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/21/ftp/">ftp</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
