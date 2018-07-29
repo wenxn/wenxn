@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="mysql索引查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。索引有两种存储类型，包括btree和hash，btree为默认索引类型  创建数据表时创建索引普通索引唯一性索引需要使用UNIQUE参数进行约束（有时不能实现优化查询的目的） 全文索引适用于char varchar text类型，使用fulltext参数约束(fulltext key) 单列索引只需指定字">
-<meta name="keywords" content="mysql">
+<meta name="description" content="Python下载以及ipython安装笔者运行的环境（centos6.9），参考多个博客，打算记录一下    首先更新依赖包  yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-deve">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql">
-<meta property="og:url" content="http://yoursite.com/2018/05/28/mysql/index.html">
+<meta property="og:title" content="python3和ipython安装">
+<meta property="og:url" content="http://yoursite.com/2018/07/21/python安装/index.html">
 <meta property="og:site_name" content="wen">
-<meta property="og:description" content="mysql索引查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。索引有两种存储类型，包括btree和hash，btree为默认索引类型  创建数据表时创建索引普通索引唯一性索引需要使用UNIQUE参数进行约束（有时不能实现优化查询的目的） 全文索引适用于char varchar text类型，使用fulltext参数约束(fulltext key) 单列索引只需指定字">
+<meta property="og:description" content="Python下载以及ipython安装笔者运行的环境（centos6.9），参考多个博客，打算记录一下    首先更新依赖包  yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-deve">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-24T09:20:15.723Z">
+<meta property="og:updated_time" content="2018-07-29T04:55:54.024Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mysql">
-<meta name="twitter:description" content="mysql索引查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。索引有两种存储类型，包括btree和hash，btree为默认索引类型  创建数据表时创建索引普通索引唯一性索引需要使用UNIQUE参数进行约束（有时不能实现优化查询的目的） 全文索引适用于char varchar text类型，使用fulltext参数约束(fulltext key) 单列索引只需指定字">
+<meta name="twitter:title" content="python3和ipython安装">
+<meta name="twitter:description" content="Python下载以及ipython安装笔者运行的环境（centos6.9），参考多个博客，打算记录一下    首先更新依赖包  yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-deve">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/28/mysql/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/21/python安装/"/>
 
 
 
 
 
-  <title>mysql | wen</title>
+  <title>python3和ipython安装 | wen</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/mysql/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/python安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="烟华。">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mysql</h1>
+          <h1 class="post-title" itemprop="name headline">python3和ipython安装</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T00:00:00+08:00">
-                2018-05-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-21T00:00:00+08:00">
+                2018-07-21
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识/" itemprop="url" rel="index">
-                    <span itemprop="name">知识</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -342,15 +342,29 @@
       
 
       
-        <h2 id="mysql索引"><a href="#mysql索引" class="headerlink" title="mysql索引"></a>mysql索引</h2><p>查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。<br>索引有两种存储类型，包括<strong>btree</strong>和<strong>hash</strong>，btree为默认索引类型 </p>
-<h3 id="创建数据表时创建索引"><a href="#创建数据表时创建索引" class="headerlink" title="创建数据表时创建索引"></a>创建数据表时创建索引</h3><h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><h4 id="唯一性索引"><a href="#唯一性索引" class="headerlink" title="唯一性索引"></a>唯一性索引</h4><p>需要使用<strong>UNIQUE</strong>参数进行约束<br>（有时不能实现优化查询的目的）</p>
-<h4 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h4><p>适用于char varchar text类型，使用<strong>fulltext</strong>参数约束<br>(fulltext key)</p>
-<h4 id="单列索引"><a href="#单列索引" class="headerlink" title="单列索引"></a>单列索引</h4><p>只需指定字段名，可指定索引字段长度，提高查询速度  </p>
-<h4 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h4><p>查询条件满足第一个字段才会使用索引  </p>
-<h4 id="空间索引"><a href="#空间索引" class="headerlink" title="空间索引"></a>空间索引</h4><p>myisam类型表，设置<strong>spatial</strong>参数,类型应为geometry  </p>
-<h3 id="在已存在的数据表中创建索引"><a href="#在已存在的数据表中创建索引" class="headerlink" title="在已存在的数据表中创建索引"></a>在已存在的数据表中创建索引</h3><p>create （参数）index index_name on table_name (字段名称)  </p>
-<p>alter table table_name add (参数) index index_name(字段名称)  </p>
-<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><p>drop index index_name on table_name;</p>
+        <p>Python下载以及ipython安装<br>笔者运行的环境（centos6.9），参考多个博客，打算记录一下   </p>
+<p>首先<br>更新依赖包<br>  <code>yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel  gcc openssl openssl-devel libcurl-devel</code>  </p>
+<p>下载Python程序包<br>wget <a href="http://python.org/ftp/python/3.3.0/Python-3.3.0.tar.bz2" target="_blank" rel="noopener">http://python.org/ftp/python/3.3.0/Python-3.3.0.tar.bz2</a>  </p>
+<p>编译安装<br>tar -jxvf Python-3.3.0.tar.bz2<br>cd Python-3.3.0<br>./configure<br>make all<br>make install   </p>
+<p>建立软连接（可修改默认Python为python3）<br>ln -s /usr/local/src/bin/python3.3 /usr/bin/python<br>此时运行python3命令的话会报错，缺少.so文件，我们需要进行如下操作：  </p>
+<p>cp -R /usr/local/python3.5/lib/* /usr/lib64/  </p>
+<p>pip下载（以后可以下载Python模块）<br>1、安装pip前需要前置安装setuptools<br>wget –no-check-certificate  <a href="https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26" target="_blank" rel="noopener">https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26</a></p>
+<p>tar -zxvf setuptools-19.6.tar.gz</p>
+<p>cd setuptools-19.6</p>
+<p>python3 setup.py build</p>
+<p>python3 setup.py install</p>
+<p>2、安装pip<br>wget –no-check-certificate  <a href="https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz#md5=3a73c4188f8dbad6a1e6f6d44d117eeb" target="_blank" rel="noopener">https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz#md5=3a73c4188f8dbad6a1e6f6d44d117eeb</a></p>
+<p>tar -zxvf pip-8.0.2.tar.gz</p>
+<p>cd pip-8.0.2</p>
+<p>python3 setup.py build</p>
+<p>python3 setup.py install</p>
+<p>ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3  </p>
+<p>ok，我们终于完成了整个python3环境的安装。  </p>
+<hr>
+<p>使用Easy Install安装ipython<br>yum install python-setuptools </p>
+<p>iPython是一个随Python发行的标准交互解释器第三方实现。它在Python原本的基础上添加了许多有用的功能，包括自动完成变量名和属性名、命令行历史、自动对齐、可以轻松的访问docstring和参数签名等。如下：</p>
+<p>sudo yum install python-matplotlib PyQt4 numpy scipy python-requests python-docop  </p>
+<p>直接 sudo yum install ipython</p>
 
       
     </div>
@@ -368,7 +382,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
         </div>
       
@@ -381,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/24/LAMP/" rel="next" title="LAMP">
-                <i class="fa fa-chevron-left"></i> LAMP
+              <a href="/2018/05/28/mysql/" rel="next" title="mysql">
+                <i class="fa fa-chevron-left"></i> mysql
               </a>
             
           </div>
@@ -390,10 +404,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/21/python安装/" rel="prev" title="python3和ipython安装">
-                python3和ipython安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -445,17 +455,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -519,22 +520,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql索引"><span class="nav-number">1.</span> <span class="nav-text">mysql索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据表时创建索引"><span class="nav-number">1.1.</span> <span class="nav-text">创建数据表时创建索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#普通索引"><span class="nav-number">1.1.1.</span> <span class="nav-text">普通索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#唯一性索引"><span class="nav-number">1.1.2.</span> <span class="nav-text">唯一性索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全文索引"><span class="nav-number">1.1.3.</span> <span class="nav-text">全文索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单列索引"><span class="nav-number">1.1.4.</span> <span class="nav-text">单列索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多列索引"><span class="nav-number">1.1.5.</span> <span class="nav-text">多列索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#空间索引"><span class="nav-number">1.1.6.</span> <span class="nav-text">空间索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在已存在的数据表中创建索引"><span class="nav-number">1.2.</span> <span class="nav-text">在已存在的数据表中创建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除索引"><span class="nav-number">1.3.</span> <span class="nav-text">删除索引</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

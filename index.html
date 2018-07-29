@@ -252,6 +252,170 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/python安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/21/python安装/" itemprop="url">python3和ipython安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-21T00:00:00+08:00">
+                2018-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Python下载以及ipython安装<br>笔者运行的环境（centos6.9），参考多个博客，打算记录一下   </p>
+<p>首先<br>更新依赖包<br>  <code>yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel  gcc openssl openssl-devel libcurl-devel</code>  </p>
+<p>下载Python程序包<br>wget <a href="http://python.org/ftp/python/3.3.0/Python-3.3.0.tar.bz2" target="_blank" rel="noopener">http://python.org/ftp/python/3.3.0/Python-3.3.0.tar.bz2</a>  </p>
+<p>编译安装<br>tar -jxvf Python-3.3.0.tar.bz2<br>cd Python-3.3.0<br>./configure<br>make all<br>make install   </p>
+<p>建立软连接（可修改默认Python为python3）<br>ln -s /usr/local/src/bin/python3.3 /usr/bin/python<br>此时运行python3命令的话会报错，缺少.so文件，我们需要进行如下操作：  </p>
+<p>cp -R /usr/local/python3.5/lib/* /usr/lib64/  </p>
+<p>pip下载（以后可以下载Python模块）<br>1、安装pip前需要前置安装setuptools<br>wget –no-check-certificate  <a href="https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26" target="_blank" rel="noopener">https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26</a></p>
+<p>tar -zxvf setuptools-19.6.tar.gz</p>
+<p>cd setuptools-19.6</p>
+<p>python3 setup.py build</p>
+<p>python3 setup.py install</p>
+<p>2、安装pip<br>wget –no-check-certificate  <a href="https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz#md5=3a73c4188f8dbad6a1e6f6d44d117eeb" target="_blank" rel="noopener">https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz#md5=3a73c4188f8dbad6a1e6f6d44d117eeb</a></p>
+<p>tar -zxvf pip-8.0.2.tar.gz</p>
+<p>cd pip-8.0.2</p>
+<p>python3 setup.py build</p>
+<p>python3 setup.py install</p>
+<p>ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3  </p>
+<p>ok，我们终于完成了整个python3环境的安装。  </p>
+<hr>
+<p>使用Easy Install安装ipython<br>yum install python-setuptools </p>
+<p>iPython是一个随Python发行的标准交互解释器第三方实现。它在Python原本的基础上添加了许多有用的功能，包括自动完成变量名和属性名、命令行历史、自动对齐、可以轻松的访问docstring和参数签名等。如下：</p>
+<p>sudo yum install python-matplotlib PyQt4 numpy scipy python-requests python-docop  </p>
+<p>直接 sudo yum install ipython</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -758,7 +922,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -769,7 +933,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -780,7 +944,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
