@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/13/practice-1/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/08/13/practice-1/" itemprop="url">Python编程学习</a></h1>
         
 
         <div class="post-meta">
@@ -283,7 +283,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T19:46:13+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T00:00:00+08:00">
                 2018-08-13
               </time>
             
@@ -293,6 +293,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -323,10 +345,9 @@
       
         
           
-            <hr>
-<p>title: Python编程学习<br>date: 2018-08-13<br>tags: [python]<br>categories: python</p>
-<hr>
-<p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本</p>
+            <p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本</p>
+<pre><code>1.二维数组中的查找  
+</code></pre><p>题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中  </p>
 
           
         
@@ -601,161 +622,6 @@ date.timezone = PRC
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/连接Oracle数据库访问数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烟华。">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/my_photo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/07/连接Oracle数据库访问数据/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T15:19:11+08:00">
-                2018-08-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<p>title: Python访问Oracle<br>date: 2018-08-01<br>tags: [python,数据库]<br>categories: linux，python</p>
-<hr>
-<pre><code>用Python访问Oracle，使用cx_Oracle进行数据库表空间监控和最大连接数查询
-</code></pre><p>Linux安装，下载的应该对应Oracle数据库位数</p>
-<p>（自己的测试环境是32位，正式环境是64位）  </p>
-<blockquote>
-<p>测试环境  </p>
-</blockquote>
-<p>1、安装instantclient  </p>
-<p><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
-<p>我下载的是<br>oracle-instantclient12.2-basic-12.2.0.1.0-1.i386.rpm</p>
-<p>oracle-instantclient12.2-devel-12.2.0.1.0-1.i386.rpm  </p>
-<p>然后安装<br>rpm -ivh  oracle-instantclient11.2-basic-12.2.0.3.0-1.i386.rpm</p>
-<p>2.设置一下环境变量<br>export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib/oracle/12.2/client/lib</p>
-<p>pip install cx_Oracle  </p>
-<blockquote>
-<p>正式环境  </p>
-</blockquote>
-<p>1、安装instantclient  </p>
-<p><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a>  </p>
-<p>我下载的是<br>instantclient-basic-linux.x64-12.2.0.1.0.zip</p>
-<p>然后安装<br>unzip instantclient-basic-linux.x64-12.2.0.1.0.zip</p>
-<p>2.设置一下环境变量<br>vim /root/.bash_profile  </p>
-<p>LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib:/usr/local/lib<br>export LD_LIBRARY_PATH</p>
-<p>pip install cx_Oracle  </p>
-<p>3.连接数据库<br>import cx_Oracle</p>
-<p>conn = cx_Oracle.connect(‘用户名/密码@IP地址/orcl’)      </p>
-<p> #获取光标<br>cursor = conn.cursor ()   </p>
-<p>  #监控数据库的表空间<br>select 语句（保密）          </p>
-<p> #获取数据<br>cursor.execute(sql)<br>row = cursor.fetchone ()  </p>
-<p> #监控数据库在线连接数  </p>
-<p>sql1 = “select count(*) as c_process from v$session”  </p>
-<p> #获取数据<br>cursor.execute(sql1)<br>row1 = cursor.fetchone ()  </p>
-<p>  #创建数据库存活指标，python语言注意缩进<br>if row[0]&lt;200 and row1[0]&lt;85:<br>    print (“1”)<br>elif 200&lt;row[0]<300 90="" and="">row1[0]&gt;85:<br>    print (“2”)<br>elif 200&gt;row[0] and 90&lt;row1[0]:<br>    print (“0”)  </300></p>
-<p> #关闭光标<br>cursor.close ()</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/ansible安装以及配置高可用架构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -877,6 +743,180 @@ yum clean dbcache
 <p>为Ansible定义节点的清单<br> vi /etc/ansible/hosts<br>[web]<br>192.168.211.25</p>
 <p>下载virtualenv，进入虚拟环境<br> pip install ansible==1.9.4 Django==1.8 django-filter djangorestframework==3.2.3  MySQL-python</p>
 <p>pip安装的模块大致就是这样了</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/连接Oracle数据库访问数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/01/连接Oracle数据库访问数据/" itemprop="url">Python访问Oracle</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T00:00:00+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux，python/" itemprop="url" rel="index">
+                    <span itemprop="name">linux，python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>用Python访问Oracle，使用cx_Oracle进行数据库表空间监控和最大连接数查询
+</code></pre><p>Linux安装，下载的应该对应Oracle数据库位数</p>
+<p>（自己的测试环境是32位，正式环境是64位）  </p>
+<blockquote>
+<p>测试环境  </p>
+</blockquote>
+<p>1、安装instantclient  </p>
+<p><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
+<p>我下载的是<br>oracle-instantclient12.2-basic-12.2.0.1.0-1.i386.rpm</p>
+<p>oracle-instantclient12.2-devel-12.2.0.1.0-1.i386.rpm  </p>
+<p>然后安装<br>rpm -ivh  oracle-instantclient11.2-basic-12.2.0.3.0-1.i386.rpm</p>
+<p>2.设置一下环境变量<br>export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib/oracle/12.2/client/lib</p>
+<p>pip install cx_Oracle  </p>
+<blockquote>
+<p>正式环境  </p>
+</blockquote>
+<p>1、安装instantclient  </p>
+<p><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a>  </p>
+<p>我下载的是<br>instantclient-basic-linux.x64-12.2.0.1.0.zip</p>
+<p>然后安装<br>unzip instantclient-basic-linux.x64-12.2.0.1.0.zip</p>
+<p>2.设置一下环境变量<br>vim /root/.bash_profile  </p>
+<p>LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib:/usr/local/lib<br>export LD_LIBRARY_PATH</p>
+<p>pip install cx_Oracle  </p>
+<p>3.连接数据库<br>import cx_Oracle</p>
+<p>conn = cx_Oracle.connect(‘用户名/密码@IP地址/orcl’)      </p>
+<p> #获取光标<br>cursor = conn.cursor ()   </p>
+<p>  #监控数据库的表空间<br>select 语句（保密）          </p>
+<p> #获取数据<br>cursor.execute(sql)<br>row = cursor.fetchone ()  </p>
+<p> #监控数据库在线连接数  </p>
+<p>sql1 = “select count(*) as c_process from v$session”  </p>
+<p> #获取数据<br>cursor.execute(sql1)<br>row1 = cursor.fetchone ()  </p>
+<p>  #创建数据库存活指标，python语言注意缩进<br>if row[0]&lt;200 and row1[0]&lt;85:<br>    print (“1”)<br>elif 200&lt;row[0]<300 90="" and="">row1[0]&gt;85:<br>    print (“2”)<br>elif 200&gt;row[0] and 90&lt;row1[0]:<br>    print (“0”)  </300></p>
+<p> #关闭光标<br>cursor.close ()</p>
 
           
         
@@ -1762,7 +1802,7 @@ yum clean dbcache
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -1773,7 +1813,7 @@ yum clean dbcache
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
