@@ -252,6 +252,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/practice-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/13/practice-1/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T19:46:13+08:00">
+                2018-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>title: Python编程学习<br>date: 2018-08-13<br>tags: [python]<br>categories: python</p>
+<hr>
+<p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/zabbix服务端与客户端配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -633,7 +756,7 @@ date.timezone = PRC
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/ansible安装以及配置高可用架构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/ansible安装以及配置高可用架构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="烟华。">
@@ -652,7 +775,7 @@ date.timezone = PRC
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/04/ansible安装以及配置高可用架构/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/08/01/ansible安装以及配置高可用架构/" itemprop="url">ansible安装和搭建django</a></h1>
         
 
         <div class="post-meta">
@@ -664,8 +787,8 @@ date.timezone = PRC
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T09:21:08+08:00">
-                2018-08-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T00:00:00+08:00">
+                2018-08-01
               </time>
             
 
@@ -674,6 +797,28 @@ date.timezone = PRC
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux，zabbix/" itemprop="url" rel="index">
+                    <span itemprop="name">linux，zabbix</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -704,10 +849,7 @@ date.timezone = PRC
       
         
           
-            <hr>
-<p>title: ansible安装和搭建django<br>date: 2018-08-01<br>tags: [zabbix]<br>categories: linux，zabbix</p>
-<hr>
-<p>笔者的操作环境（centos6.9），确认机器已有Python和pip<br>1.pip安装<br>yum install python-pip python-devel  </p>
+            <p>笔者的操作环境（centos6.9），确认机器已有Python和pip<br>1.pip安装<br>yum install python-pip python-devel  </p>
 <p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y  </p>
 <p>pip3 install –upgrade pip</p>
 <p>pip3 install ansible –upgrade  </p>
@@ -734,7 +876,7 @@ yum clean dbcache
 <p>测试免密登录<br>ssh 192.168.211.25<br>（测试成功）</p>
 <p>为Ansible定义节点的清单<br> vi /etc/ansible/hosts<br>[web]<br>192.168.211.25</p>
 <p>下载virtualenv，进入虚拟环境<br> pip install ansible==1.9.4 Django==1.8 django-filter djangorestframework==3.2.3  MySQL-python</p>
-<p>pip安装的模块大致就是这样了,接下来的django搭建，之后更新</p>
+<p>pip安装的模块大致就是这样了</p>
 
           
         
@@ -1609,7 +1751,7 @@ yum clean dbcache
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
