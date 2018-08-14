@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/13/practice-1/" itemprop="url">Python编程学习</a></h1>
+                <a class="post-title-link" href="/2018/08/13/practice-1/" itemprop="url">Python编程--practice_1</a></h1>
         
 
         <div class="post-meta">
@@ -346,8 +346,65 @@
         
           
             <p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本</p>
-<pre><code>1.二维数组中的查找  
+<pre><code>1.二维数组中的查找 
 </code></pre><p>题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中  </p>
+<p>思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断</p>
+<p>假设rows, cols = len(array), len(array[0])，表示array的长度为数组的行数，array[0]的长度为数组列数</p>
+<p>查看代码：</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+# array 二维列表
+def Find(self, target, array):
+    rows, cols = len(array), len(array[0])
+    row, col = rows - 1, 0
+    while row &gt;= 0 and col &lt;= cols - 1:
+        if array[row][col] == target:
+               return True
+        elif array[row][col] &gt; target:
+            row -= 1
+        else:
+            col += 1
+        return False
+</code></pre><p>ps：查看一个数是否在列表上可以试试看 in 标识符</p>
+<pre><code>2.替换空格 
+</code></pre><p>题目：把字符串中的空格替换成’20%’</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+   # s 源字符串
+def replaceSpace(self, s):
+    return s.replace(&apos; &apos;,&apos;%20&apos;)
+</code></pre><p>ps：直接用内置方法，掌握一下replace的用法</p>
+<pre><code>3.从尾到头打印单链表
+</code></pre><p>思路：新建一个空列表，加入元素，再反向排序，返回</p>
+<pre><code>class Solution:
+# 返回从尾部到头部的列表值序列，例如[1,2,3]
+def printListFromTailToHead(self, listNode):
+# write code here
+    d = []
+    listNode = listNode
+    while listNode:
+        d.append(listNode.val)
+        listNode = listNode.next
+    d.reverse()
+    return d 
+</code></pre><p>ps：listNode还需定义一下变量，listNode = listNode，否则为空。</p>
+<pre><code>4.重建二叉树
+</code></pre><p>要求：用前序和中序遍历结果构建二叉树，遍历结果中不包含重复值<br>思路：前序的第一个元素是根结点的值，在中序中找到该值，（使用一下内置方法index找出对应的字符串，返回索引），中序中该值的左边的元素是根结点的左子树left，右边是右子树right，然后递归的处理左边和右边</p>
+<pre><code>class Solution:
+# 返回构造的TreeNode根节点
+def reConstructBinaryTree(self, pre, tin):
+    if not pre or not tin:
+        return None
+    index = tin.index(pre[0])
+    left = tin[0:index]
+    right = tin[index+1:]
+    root = TreeNode(pre[0])
+    root.left = self.reConstructBinaryTree(pre[1:1+len(left)], left)
+    root.right = self.reConstructBinaryTree(pre[-len(right):], right)
+    return root
+</code></pre><p>ps：在递归处理时，应该是调用自身的方法，不是用self做参数。里边的参数分别是前序遍历和中序遍历  </p>
+<pre><code>5.用两个栈实现队列
+</code></pre><p>要求：用两个栈实现队列，分别实现入队和出队操作<br>思路：一个栈负责入队，另一个负责出队，出栈为空则从入栈中导入到出栈中</p>
 
           
         
