@@ -252,6 +252,252 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/14/practice-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/14/practice-2/" itemprop="url">Python编程--practice_2</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T00:00:00+08:00">
+                2018-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>6.旋转数组的最小数字
+</code></pre><p>要求：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。<br>思路：将一个元素与遍历数组其他元素比较</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+    def minNumberInRotateArray(self, rotateArray):
+        if len(rotateArray) == 0:
+            return 0
+        ret = rotateArray[0]
+        if len(rotateArray) == 1:
+            return ret
+        for i in range(1,len(rotateArray)):
+            now = rotateArray[i]
+            if now &lt; ret:
+                ret = now
+                   break
+        return ret
+</code></pre><p>ps:当len（）为1时，这里灵活处理return ret</p>
+<pre><code>7.斐波那契数列
+</code></pre><p>题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&lt;=39。<br>思路：这里考虑栈空间，不用递归做法，我用的是循环。斐波那契数列是指一个数是他前面两个数之和，已知数列前三个数为0，1，1，以空列表append方式循环加入</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+    def Fibonacci(self, n):
+        if n == 0:
+            return 0
+        if n == 1:
+            return 1
+        if n == 2:
+            return 1
+        if n &gt;= 3:
+            s = []
+            s.append(1)
+            s.append(1)
+            for i in xrange(2,n):
+                s.append(s[i-1]+s[i-2])
+            return s[n-1]
+</code></pre><p>ps：不考虑栈空间可以用递归，f(n)=f(n-2)+f(n-1)</p>
+<pre><code>8.跳台阶
+</code></pre><p>题目描述<br>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
+<p>思路：可以按照找规律的解法，f(1) = 1, f(2) = 2, f(3) = 3, f(4) = 5，  可以总结出f(n) = f(n-1) + f(n-2)的规律，这个问题属于斐波那契数列类型。</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+    def jumpFloor(self, number):
+        if number == 0:
+            return 0
+        if number &lt;= 3:
+            return number
+        if number &gt;= 4:
+            s = []
+            s.append(1)
+            s.append(2)
+            s.append(3)
+            for i in xrange(3,number):
+                s.append(s[i-1]+s[i-2])
+            return s[number-1]
+</code></pre><p>ps：在过代码时候出现了缩进的错误，python对于缩进很严格的哦。另外，在换不同情境的斐波那契数列类型问题，先罗列出数列再进行算法。</p>
+<pre><code>9.变态跳台阶
+</code></pre><p>题目描述：<br>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+<p>思路：（这个是从网上看到的，觉得分析得很清晰）<br>f(1) = 1</p>
+<p>f(2) = f(2-1) + f(2-2)         //f(2-2) 表示2阶一次跳2阶的次数。</p>
+<p>f(3) = f(3-1) + f(3-2) + f(3-3) </p>
+<p>…</p>
+<p>f(n) = f(n-1) + f(n-2) + f(n-3) + … + f(n-(n-1)) + f(n-n) </p>
+<p>说明： </p>
+<blockquote>
+<p>这里的f(n) 代表的是n个台阶有一次1,2,…n阶的 跳法数。</p>
+</blockquote>
+<p>n = 1时，只有1种跳法，f(1) = 1</p>
+<p>n = 2时，会有两个跳得方式，一次1阶或者2阶，这回归到了问题（1） ，f(2) = f(2-1) + f(2-2) </p>
+<p>n = 3时，会有三种跳得方式，1阶、2阶、3阶，</p>
+<pre><code>那么就是第一次跳出1阶后面剩下：f(3-1);第一次跳出2阶，剩下f(3-2)；第一次3阶，那么剩下f(3-3)
+
+因此结论是f(3) = f(3-1)+f(3-2)+f(3-3)
+</code></pre><p>n = n时，会有n中跳的方式，1阶、2阶…n阶，得出结论：</p>
+<pre><code>f(n) = f(n-1)+f(n-2)+...+f(n-(n-1)) + f(n-n) =&gt; f(0) + f(1) + f(2) + f(3) + ... + f(n-1)  
+</code></pre><p>由以上已经是一种结论，但是为了简单，我们可以继续简化：</p>
+<pre><code>f(n-1) = f(0) + f(1)+f(2)+f(3) + ... + f((n-1)-1) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2)
+
+f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
+
+可以得出：
+</code></pre><h5 id="f-n-2-f-n-1-n-0时为0-1时为1-，数列为1，2，4，8…"><a href="#f-n-2-f-n-1-n-0时为0-1时为1-，数列为1，2，4，8…" class="headerlink" title="f(n) = 2*f(n-1) [n=0时为0,1时为1]，数列为1，2，4，8…"></a>f(n) = 2*f(n-1) [n=0时为0,1时为1]，数列为1，2，4，8…</h5><p>代码如下：</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+    def jumpFloorII(self, number):
+        val=0
+        if number&lt;=0:
+               val=0
+        elif number==1:
+            val=1
+        elif number==2:
+            val=2
+        else:
+            val=2
+            for i in range(3,number+1):
+                val=2*val
+        return val
+</code></pre><p>ps：觉得return的位置有点迷茫，这些代码是只有返回一个值，就是val，所以应该是和函数对应的。</p>
+<p>10.矩形覆盖</p>
+<p>题目描述：<br>我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2<em>1的小矩形无重叠地覆盖一个2\</em>n的大矩形，总共有多少种方法？</p>
+<p>思路：仍是斐波那契数列。<br>网友讨论如下：  </p>
+<p>（1）当 n &lt; 1时，显然不需要用2*1块覆盖，按照题目提示应该返回 0。<br>（2）当 n = 1时，只存在一种情况。<br>（3）当 n = 2时，存在两种情况。<br>自然而然可以得出规律： f(n) = f(n-1) + f(n-2)， (n &gt; 2)。<br>可以尝试将题目改成1*3方块覆盖3*n、1*4方块覆盖4*n。<br>相应的结论应该是：<br>（1）1 * 3方块 覆 盖3*n区域：f(n) = f(n-1) + f(n - 3)， (n &gt; 3)<br>（2） 1 *4 方块 覆 盖4*n区域：f(n) = f(n-1) + f(n - 4)，(n &gt; 4)  </p>
+<blockquote>
+<p>如果用1*m的方块覆盖m*n区域，递推关系式为f(n) = f(n-1) + f(n-m)，(n&gt;m)。</p>
+</blockquote>
+<p>代码与第八同，不重复了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/practice-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -345,7 +591,7 @@
       
         
           
-            <p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本</p>
+            <p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本，自己整理外加思路，有疑惑的欢迎沟通交流。</p>
 <pre><code>1.二维数组中的查找 
 </code></pre><p>题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中  </p>
 <p>思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断</p>
@@ -404,7 +650,27 @@ def reConstructBinaryTree(self, pre, tin):
     return root
 </code></pre><p>ps：在递归处理时，应该是调用自身的方法，不是用self做参数。里边的参数分别是前序遍历和中序遍历  </p>
 <pre><code>5.用两个栈实现队列
-</code></pre><p>要求：用两个栈实现队列，分别实现入队和出队操作<br>思路：一个栈负责入队，另一个负责出队，出栈为空则从入栈中导入到出栈中</p>
+</code></pre><p>要求：用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。<br>思路：栈A用来作入队列;栈B用来出队列，当栈B为空时，栈A全部出栈到栈B,栈B再出栈（即出队列）</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+    #初始化两个栈
+    def __init__(self):
+        self.stackA = []
+        self.stackB = []
+    #A入队列     
+    def push(self, node):
+        self.stackA.append(node)
+    #B出队列，A如果还有元素，加入B，再出     
+    def pop(self):
+        if self.stackB:
+            return self.stackB.pop()
+        elif not self.stackA:
+            return None
+        else:
+            while self.stackA:
+                self.stackB.append(self.stackA.pop())
+            return self.stackB.pop()
+</code></pre><p>ps：在做题之前没想过初始化栈，对队列不太理解。主要算法难在b队列先出，a队列后出，表明队列有先进先出，与栈不同。</p>
 
           
         
@@ -1848,7 +2114,7 @@ yum clean dbcache
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

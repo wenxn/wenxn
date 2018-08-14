@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本 1.二维数组中的查找  题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中   思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断 假设rows, cols = len(array), len(array[0])，表示array的长度为数组的行数，a">
+<meta name="description" content="准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本，自己整理外加思路，有疑惑的欢迎沟通交流。 1.二维数组中的查找  题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中   思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断 假设rows, cols = len(array), len(array[0">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python编程--practice_1">
 <meta property="og:url" content="http://yoursite.com/2018/08/13/practice-1/index.html">
 <meta property="og:site_name" content="wen">
-<meta property="og:description" content="准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本 1.二维数组中的查找  题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中   思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断 假设rows, cols = len(array), len(array[0])，表示array的长度为数组的行数，a">
+<meta property="og:description" content="准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本，自己整理外加思路，有疑惑的欢迎沟通交流。 1.二维数组中的查找  题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中   思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断 假设rows, cols = len(array), len(array[0">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-13T12:51:55.752Z">
+<meta property="og:updated_time" content="2018-08-14T08:54:34.879Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python编程--practice_1">
-<meta name="twitter:description" content="准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本 1.二维数组中的查找  题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中   思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断 假设rows, cols = len(array), len(array[0])，表示array的长度为数组的行数，a">
+<meta name="twitter:description" content="准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本，自己整理外加思路，有疑惑的欢迎沟通交流。 1.二维数组中的查找  题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中   思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断 假设rows, cols = len(array), len(array[0">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本</p>
+        <p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本，自己整理外加思路，有疑惑的欢迎沟通交流。</p>
 <pre><code>1.二维数组中的查找 
 </code></pre><p>题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中  </p>
 <p>思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断</p>
@@ -401,7 +401,27 @@ def reConstructBinaryTree(self, pre, tin):
     return root
 </code></pre><p>ps：在递归处理时，应该是调用自身的方法，不是用self做参数。里边的参数分别是前序遍历和中序遍历  </p>
 <pre><code>5.用两个栈实现队列
-</code></pre><p>要求：用两个栈实现队列，分别实现入队和出队操作<br>思路：一个栈负责入队，另一个负责出队，出栈为空则从入栈中导入到出栈中</p>
+</code></pre><p>要求：用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。<br>思路：栈A用来作入队列;栈B用来出队列，当栈B为空时，栈A全部出栈到栈B,栈B再出栈（即出队列）</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+    #初始化两个栈
+    def __init__(self):
+        self.stackA = []
+        self.stackB = []
+    #A入队列     
+    def push(self, node):
+        self.stackA.append(node)
+    #B出队列，A如果还有元素，加入B，再出     
+    def pop(self):
+        if self.stackB:
+            return self.stackB.pop()
+        elif not self.stackA:
+            return None
+        else:
+            while self.stackA:
+                self.stackB.append(self.stackA.pop())
+            return self.stackB.pop()
+</code></pre><p>ps：在做题之前没想过初始化栈，对队列不太理解。主要算法难在b队列先出，a队列后出，表明队列有先进先出，与栈不同。</p>
 
       
     </div>
@@ -441,6 +461,10 @@ def reConstructBinaryTree(self, pre, tin):
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/14/practice-2/" rel="prev" title="Python编程--practice_2">
+                Python编程--practice_2 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -512,7 +536,7 @@ def reConstructBinaryTree(self, pre, tin):
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
