@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/14/practice-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/15/practice-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="烟华。">
@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/14/practice-3/" itemprop="url">Python编程--practice_2</a></h1>
+                <a class="post-title-link" href="/2018/08/15/practice-3/" itemprop="url">Python编程--practice_3</a></h1>
         
 
         <div class="post-meta">
@@ -283,8 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T00:00:00+08:00">
-                2018-08-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T00:00:00+08:00">
+                2018-08-15
               </time>
             
 
@@ -1147,6 +1147,175 @@ date.timezone = PRC
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/ansible安装以及配置高可用架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/01/ansible安装以及配置高可用架构/" itemprop="url">ansible</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T00:00:00+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux，zabbix/" itemprop="url" rel="index">
+                    <span itemprop="name">linux，zabbix</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>笔者的操作环境（centos6.9），确认机器已有Python和pip<br>1.pip安装<br>yum install python-pip python-devel  </p>
+<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y  </p>
+<p>pip3 install –upgrade pip</p>
+<p>pip3 install ansible –upgrade  </p>
+<p>（这样安装没有出现/etc/ansible/hosts,所以我选择了源码安装，很疑惑，欢迎解答我的问题）</p>
+<p>2.源码安装（使用git，先把需要的依赖都yum）<br>yum install git -y    </p>
+<p>yum install python-pip python-devel  </p>
+<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y<br> python-jinja2 python-yaml </p>
+<pre><code>如果出现报错Loaded plugins: fastestmirror：
+
+vim  /etc/yum/pluginconf.d/fastestmirror.conf 
+
+enabled = 0
+
+vim /etc/yum.conf
+
+plugins=0
+
+yum clean dbcache
+</code></pre><p>git clone git://github.com/ansible/ansible.git –recursive<br>cd ./ansible/<br> source ./hacking/env-setup<br>ansible –version  </p>
+<p>我们就完成了ansible的源码安装，接下来，为新系统（192.168.211.25）添加安全认证，ansible主机为（192.168.211.23）</p>
+<p>免密SSH密钥<br>1、在Ansible服务端生成密钥，并且复制公钥到节点中。<br>ssh-keygen</p>
+<p>2、使用ssh-copy-id命令来复制Ansible公钥到节点中。</p>
+<p>ssh-copy-id -i /root/.ssh/id_rsa.pub <a href="mailto:root@192.168.211.25" target="_blank" rel="noopener">root@192.168.211.25</a></p>
+<p>测试免密登录<br>ssh 192.168.211.25<br>（测试成功）</p>
+<p>为Ansible定义节点的清单<br> vi /etc/ansible/hosts<br>[web]<br>192.168.211.25</p>
+<p>下载virtualenv，进入虚拟环境<br> pip install ansible==1.9.4 Django==1.8 django-filter djangorestframework==3.2.3  MySQL-python</p>
+<p>pip安装的模块大致就是这样了</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/连接Oracle数据库访问数据/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1273,175 +1442,6 @@ date.timezone = PRC
 <p> #获取数据<br>cursor.execute(sql1)<br>row1 = cursor.fetchone ()  </p>
 <p>  #创建数据库存活指标，python语言注意缩进<br>if row[0]&lt;200 and row1[0]&lt;85:<br>    print (“1”)<br>elif 200&lt;row[0]<300 90="" and="">row1[0]&gt;85:<br>    print (“2”)<br>elif 200&gt;row[0] and 90&lt;row1[0]:<br>    print (“0”)  </300></p>
 <p> #关闭光标<br>cursor.close ()</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/ansible安装以及配置高可用架构/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烟华。">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/my_photo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/01/ansible安装以及配置高可用架构/" itemprop="url">ansible</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T00:00:00+08:00">
-                2018-08-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux，zabbix/" itemprop="url" rel="index">
-                    <span itemprop="name">linux，zabbix</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>笔者的操作环境（centos6.9），确认机器已有Python和pip<br>1.pip安装<br>yum install python-pip python-devel  </p>
-<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y  </p>
-<p>pip3 install –upgrade pip</p>
-<p>pip3 install ansible –upgrade  </p>
-<p>（这样安装没有出现/etc/ansible/hosts,所以我选择了源码安装，很疑惑，欢迎解答我的问题）</p>
-<p>2.源码安装（使用git，先把需要的依赖都yum）<br>yum install git -y    </p>
-<p>yum install python-pip python-devel  </p>
-<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y<br> python-jinja2 python-yaml </p>
-<pre><code>如果出现报错Loaded plugins: fastestmirror：
-
-vim  /etc/yum/pluginconf.d/fastestmirror.conf 
-
-enabled = 0
-
-vim /etc/yum.conf
-
-plugins=0
-
-yum clean dbcache
-</code></pre><p>git clone git://github.com/ansible/ansible.git –recursive<br>cd ./ansible/<br> source ./hacking/env-setup<br>ansible –version  </p>
-<p>我们就完成了ansible的源码安装，接下来，为新系统（192.168.211.25）添加安全认证，ansible主机为（192.168.211.23）</p>
-<p>免密SSH密钥<br>1、在Ansible服务端生成密钥，并且复制公钥到节点中。<br>ssh-keygen</p>
-<p>2、使用ssh-copy-id命令来复制Ansible公钥到节点中。</p>
-<p>ssh-copy-id -i /root/.ssh/id_rsa.pub <a href="mailto:root@192.168.211.25" target="_blank" rel="noopener">root@192.168.211.25</a></p>
-<p>测试免密登录<br>ssh 192.168.211.25<br>（测试成功）</p>
-<p>为Ansible定义节点的清单<br> vi /etc/ansible/hosts<br>[web]<br>192.168.211.25</p>
-<p>下载virtualenv，进入虚拟环境<br> pip install ansible==1.9.4 Django==1.8 django-filter djangorestframework==3.2.3  MySQL-python</p>
-<p>pip安装的模块大致就是这样了</p>
 
           
         
