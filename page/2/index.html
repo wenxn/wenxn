@@ -82,7 +82,7 @@
 <meta name="description" content="我的偶像万丈光芒，我不能一身戾气">
 <meta property="og:type" content="website">
 <meta property="og:title" content="wen">
-<meta property="og:url" content="http://yoursite.com/categories/linux，zabbix/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="wen">
 <meta property="og:description" content="我的偶像万丈光芒，我不能一身戾气">
 <meta property="og:locale" content="zh-CN">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/linux，zabbix/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
 
 
-  <title>分类: linux，zabbix | wen</title>
+  <title>wen</title>
   
 
 
@@ -143,7 +143,8 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,83 +237,165 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
 
   
   
   
-  <div class="post-block category">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>linux，zabbix<small>分类</small>
-        </h1>
-      </div>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/ftp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/21/ftp/" itemprop="url">ftp</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T00:00:00+08:00">
+                2018-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
 
       
         
+          
+            <h1 id="ftp服务器搭建（Linux）"><a href="#ftp服务器搭建（Linux）" class="headerlink" title="ftp服务器搭建（Linux）"></a>ftp服务器搭建（Linux）</h1><h2 id="相关软件-vsftpd"><a href="#相关软件-vsftpd" class="headerlink" title="相关软件 vsftpd"></a>相关软件 vsftpd</h2><p>如果是第一次使用，在命令行输入   <strong>yum install vsftpd</strong>   </p>
+<h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><h3 id="1-服务器环境设置"><a href="#1-服务器环境设置" class="headerlink" title="1.服务器环境设置"></a>1.服务器环境设置</h3><p>服务器启动模式:listen=YES(默认为stand daemon，如果改用super daemon应启动xined，listen=NO）<br>欢迎信息<br>配置banner_file=/etc/vsftpd/welcome.txt<br>建立欢迎界面<br>vim /etc/vsftpd/welcome.txt  </p>
+<h3 id="2-与实体用户较相关设置"><a href="#2-与实体用户较相关设置" class="headerlink" title="2.与实体用户较相关设置"></a>2.与实体用户较相关设置</h3><h3 id="3-匿名用户登录设置"><a href="#3-匿名用户登录设置" class="headerlink" title="3.匿名用户登录设置"></a>3.匿名用户登录设置</h3><p>匿名用户只能在<strong>/var/ftp</strong>浏览（可在此目录放置文件）   </p>
+<h3 id="4-关于系统安全方面设置"><a href="#4-关于系统安全方面设置" class="headerlink" title="4.关于系统安全方面设置"></a>4.关于系统安全方面设置</h3><p>==防火墙加入所需要的FTP模块==<br>vim /etc/sysconfig/iptables-config<br>IPTABLES_MODULES=”ip_nat_ftp ip_conntrack_ftp”<br>开启iptables  /etc/init.d/iptables restart     </p>
+<p>==兼顾主动式与被动式连接==<br>iptables -A INPUT -p TCP -i eth0 –dport 21  –sport 1024:65534 -j ACCEPT<br>iptables -A INPUT -p TCP -i eth0 –dport 65400:65410  –sport 1024:65534 -j ACCEPT  </p>
+<p>附：<br>ftp账号添加命令：useradd passwd<br>知道自己ftp服务器的ip地址： ifconfig  </p>
+<h2 id="登录ftp"><a href="#登录ftp" class="headerlink" title="登录ftp"></a><strong>登录ftp</strong></h2><p>ftp –&gt;  open [服务器ip地址]  </p>
+<h2 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h2><p>默认一般用户登录无法取得用户主目录，是SElinux问题，可通过修改规则：<br>setsebool -P ftp_home_dir=1  </p>
+<hr>
+<p>有错误的地方请指导，邮箱<a href="mailto:985207502@qq.com" target="_blank" rel="noopener">985207502@qq.com</a>  </p>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
+          
         
-            <a class="post-title-link" href="/2018/08/11/zabbix服务端与客户端配置/" itemprop="url">
-              
-                <span itemprop="name">zabbix部署</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-11T00:00:00+08:00"
-              content="2018-08-11" >
-          08-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/01/ansible安装以及配置高可用架构/" itemprop="url">
-              
-                <span itemprop="name">ansible</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-01T00:00:00+08:00"
-              content="2018-08-01" >
-          08-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
   
   
   
+  </article>
+
+
+    
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
 
