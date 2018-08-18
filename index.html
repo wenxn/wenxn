@@ -252,6 +252,386 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/practice-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/17/practice-5/" itemprop="url">Python编程--practice_5</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-17T00:00:00+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/16/practice-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/16/practice-4/" itemprop="url">Python编程--practice_4</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T00:00:00+08:00">
+                2018-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>15.反转列表
+</code></pre><p>题目描述：输入一个链表，反转链表后，输出新链表的表头。</p>
+<p>思路：先判断输入的链表是否为空，非空时  </p>
+<p>pHead始终指向要反转的结点<br>last 指向反转后的首结点<br>每反转一个结点，把pHead结点的下一个结点指向last, last指向pHead成为反转后首结点, 再把pHead向前移动一个结点直至None结束</p>
+<pre><code># -*- coding:utf-8 -*-
+class Solution:
+    # 返回ListNode
+    def ReverseList(self, pHead):
+        if not pHead or not pHead.next:
+            return pHead
+
+        last = None
+
+        while pHead:
+            tmp = pHead.next
+            pHead.next = last
+            last = pHead
+            pHead = tmp
+        return last
+</code></pre><p>ps：反转是指最后一个元素移动到最前面</p>
+<pre><code>16.合并两个排序的列表
+</code></pre><p>题目描述<br>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则</p>
+<p>思路：先遍历两个链表，进行比较两个链表的首结点，哪个小的的结点则合并到第三个链表尾结点，并向前移动一个结点。<br>结果会有一个链表先遍历结束，或者没有<br>第三个链表尾结点指向剩余未遍历结束的链表，返回第三个链表首结点</p>
+<p>代码如下：</p>
+<pre><code>def Merge(self, pHead1, pHead2):
+    # write code here
+    dummy = ListNode(0)
+    pHead = dummy
+
+    while pHead1 and pHead2:
+        if pHead1.val &gt;= pHead2.val:
+            dummy.next = pHead2
+            pHead2 = pHead2.next
+        else:
+            dummy.next = pHead1
+            pHead1 = pHead1.next
+
+        dummy = dummy.next
+
+    if pHead1:
+        dummy.next = pHead1
+    elif pHead2:
+        dummy.next = pHead2
+
+    return pHead.next
+</code></pre><p>ps:单调不减为递增，小的先加入链表</p>
+<pre><code>17.树的子结构
+</code></pre><p>题目描述：输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
+<p>思路：参考牛客网大神的思路，他这边用了字符串串接和递归的方法</p>
+<pre><code>def HasSubtree(self, pRoot1, pRoot2):
+
+    def convert(p):
+        if p:
+            return str(p.val) +  convert(p.left) + convert(p.right)
+        else:
+            return &quot;&quot;
+    return convert(pRoot2) in convert(pRoot1) if pRoot2 else False
+</code></pre><p>ps：用了双层函数递归</p>
+<pre><code>18.二叉树的镜像
+</code></pre><p>题目描述：操作给定的二叉树，将其变换为源二叉树的镜像。  </p>
+<p>输入描述:</p>
+<blockquote>
+<pre><code> 源二叉树 
+    8
+   /  \
+  6   10
+ / \  / \
+5  7 9  11
+镜像二叉树
+    8
+   /  \
+  10   6
+ / \  / \
+11 9 7   5
+</code></pre></blockquote>
+<p>思路：镜像可以使用交换。a,b=b,a.本题目详细处理一下。</p>
+<pre><code># 返回镜像树的根节点
+def Mirror(self, root):
+    # write code here
+    if root == None:
+        return
+    root.left, root.right = root.right, root.left
+    self.Mirror(root.left)
+    self.Mirror(root.right)
+</code></pre><p>ps:这里用了return，当root根节点为空时，才返回所有</p>
+<pre><code>19.顺时针打印矩阵
+</code></pre><p>题目描述：输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 则依次打印出数1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.</p>
+<p>思路：<br>用旋转魔法的方式，一直取出第一行；<br>例如<br>1 2 3<br>4 5 6<br>7 8 9<br>输出并删除第一行后，变为<br>4 5 6<br>7 8 9<br>再进行一次逆时针旋转，就变成：<br>6 9<br>5 8<br>4 7<br>继续重复上述操作即可。  </p>
+<p>代码如下：  </p>
+<pre><code>def printMatrix(self, matrix):
+    # write code here
+    s=[]
+    while matrix:
+        s+=matrix[0]
+        del matrix[0]
+        matrix=zip(*matrix)[::-1]
+    return s
+</code></pre><p>ps：打印第一行，删除第一行，逆时针zip(*matrix)[::-1]转动90度。重复以上步骤，直到矩阵为空。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/15/practice-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1797,324 +2177,6 @@ yum clean dbcache
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/mysql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烟华。">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/my_photo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/28/mysql/" itemprop="url">mysql</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T00:00:00+08:00">
-                2018-05-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识/" itemprop="url" rel="index">
-                    <span itemprop="name">知识</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="mysql索引"><a href="#mysql索引" class="headerlink" title="mysql索引"></a>mysql索引</h2><p>查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。<br>索引有两种存储类型，包括<strong>btree</strong>和<strong>hash</strong>，btree为默认索引类型 </p>
-<h3 id="创建数据表时创建索引"><a href="#创建数据表时创建索引" class="headerlink" title="创建数据表时创建索引"></a>创建数据表时创建索引</h3><h4 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h4><h4 id="唯一性索引"><a href="#唯一性索引" class="headerlink" title="唯一性索引"></a>唯一性索引</h4><p>需要使用<strong>UNIQUE</strong>参数进行约束<br>（有时不能实现优化查询的目的）</p>
-<h4 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h4><p>适用于char varchar text类型，使用<strong>fulltext</strong>参数约束<br>(fulltext key)</p>
-<h4 id="单列索引"><a href="#单列索引" class="headerlink" title="单列索引"></a>单列索引</h4><p>只需指定字段名，可指定索引字段长度，提高查询速度  </p>
-<h4 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h4><p>查询条件满足第一个字段才会使用索引  </p>
-<h4 id="空间索引"><a href="#空间索引" class="headerlink" title="空间索引"></a>空间索引</h4><p>myisam类型表，设置<strong>spatial</strong>参数,类型应为geometry  </p>
-<h3 id="在已存在的数据表中创建索引"><a href="#在已存在的数据表中创建索引" class="headerlink" title="在已存在的数据表中创建索引"></a>在已存在的数据表中创建索引</h3><p>create （参数）index index_name on table_name (字段名称)  </p>
-<p>alter table table_name add (参数) index index_name(字段名称)  </p>
-<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><p>drop index index_name on table_name;</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/LAMP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烟华。">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/my_photo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/24/LAMP/" itemprop="url">LAMP</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T00:00:00+08:00">
-                2018-05-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>====确定存在linux系统，新手第一次安装可参考以上网址  ====</p>
-<p>可参考 <a href="https://blog.csdn.net/yuchao2015/article/details/52132270" target="_blank" rel="noopener">virtual box安装centos6版本的Linux系统 </a>  </p>
-<blockquote>
-<p>www服务器</p>
-</blockquote>
-<p>使用的语言多数为超文本标记语言（HTML）  </p>
-<p>支持的协议为 http（明码），https（加密）  </p>
-<p>浏览器应支持制定标准（W3C）  –如firefox chrome<br>附：IE由于是内核编译，缺乏安全性  </p>
-<p>URL是浏览器与服务器获取与接收的定位网址（协议：//ip.目录资源)  </p>
-<p><em>LAMP是WWW服务器类型</em>，包括系统（Linux），平台（Apache），数据库（mysql），程序（php，perl，asp，jsp，cgi网页程序语言）<br>附：php，perl，asp，jsp，cgi都是网页程序语言  </p>
-<p>（笔者使用centos自带的apache，php，mysql）<br>须知，php是apache执行的一个模块，另外php也需mysql支持      </p>
-<p>yum install httpd  mysql mysql-server php php-mysql</p>
-<ul>
-<li><p>Apache<br>配置文件为 /etc/httpd/conf/httpd.conf<br>可设置系统管理员邮箱  ServerAdmin选项<br>对中文编码的设置 default charset   </p>
-</li>
-<li><p>PHP<br>配置文件为 /etc/php.ini<br>修改ignore_repeated_errors = On;   ignore_repeated_errors = On;<br>以上，将存在的重复日志数据忽略  </p>
-</li>
-</ul>
-<p><em>启动服务</em><br>/etc/init.d/httpd start<br>/etc/init.d/httpd configtest    (测试配置文件的语法错误）<br>chkconfig httpd on     </p>
-<p>附：Apache携带的apachectl程序启动与关闭服务<br>/usr/sbin/apachectl  start<br>/usr/sbin/apachectl  stop</p>
-<ul>
-<li>mysql<br>启动：/etc/init.d/mysql start<br>chkconfig mysqld on<br>手动连接mysql数据库 ：mysql  -u root -p<br>（首次登陆不用密码，可用mysqladmin配置密码：mysqladmin -u root password‘xxx’）  </li>
-</ul>
-<p>防火墙与selinux设置<br>iptables -A INPUT -t TCP -i eth0 –dport 80 –sport 1024：65534 -j  ACCEPT<br>附：请勿开放3306数据库端口  </p>
-<p>setsebool -P httpd_can_network_connect=1  </p>
-<hr>
-<p>  有错误的地方请指导，邮箱<a href="mailto:985207502@qq.com" target="_blank" rel="noopener">985207502@qq.com</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2169,7 +2231,7 @@ yum clean dbcache
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
