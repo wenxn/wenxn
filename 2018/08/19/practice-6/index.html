@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="15.反转列表 题目描述：输入一个链表，反转链表后，输出新链表的表头。 思路：先判断输入的链表是否为空，非空时   pHead始终指向要反转的结点last 指向反转后的首结点每反转一个结点，把pHead结点的下一个结点指向last, last指向pHead成为反转后首结点, 再把pHead向前移动一个结点直至None结束 # -*- coding:utf-8 -*- class Solution:">
+<meta name="description" content="25.复杂链表的复制 题目描述：输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空） 思路：递归法 def Clone(self, head):     if not head: return     newNode = RandomLi">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python编程--practice_4">
-<meta property="og:url" content="http://yoursite.com/2018/08/16/practice-4/index.html">
+<meta property="og:title" content="Python编程--practice_6">
+<meta property="og:url" content="http://yoursite.com/2018/08/19/practice-6/index.html">
 <meta property="og:site_name" content="wen">
-<meta property="og:description" content="15.反转列表 题目描述：输入一个链表，反转链表后，输出新链表的表头。 思路：先判断输入的链表是否为空，非空时   pHead始终指向要反转的结点last 指向反转后的首结点每反转一个结点，把pHead结点的下一个结点指向last, last指向pHead成为反转后首结点, 再把pHead向前移动一个结点直至None结束 # -*- coding:utf-8 -*- class Solution:">
+<meta property="og:description" content="25.复杂链表的复制 题目描述：输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空） 思路：递归法 def Clone(self, head):     if not head: return     newNode = RandomLi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-18T03:04:36.392Z">
+<meta property="og:updated_time" content="2018-08-19T13:39:11.584Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python编程--practice_4">
-<meta name="twitter:description" content="15.反转列表 题目描述：输入一个链表，反转链表后，输出新链表的表头。 思路：先判断输入的链表是否为空，非空时   pHead始终指向要反转的结点last 指向反转后的首结点每反转一个结点，把pHead结点的下一个结点指向last, last指向pHead成为反转后首结点, 再把pHead向前移动一个结点直至None结束 # -*- coding:utf-8 -*- class Solution:">
+<meta name="twitter:title" content="Python编程--practice_6">
+<meta name="twitter:description" content="25.复杂链表的复制 题目描述：输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空） 思路：递归法 def Clone(self, head):     if not head: return     newNode = RandomLi">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/16/practice-4/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/19/practice-6/"/>
 
 
 
 
 
-  <title>Python编程--practice_4 | wen</title>
+  <title>Python编程--practice_6 | wen</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/16/practice-4/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/19/practice-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="烟华。">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python编程--practice_4</h1>
+          <h1 class="post-title" itemprop="name headline">Python编程--practice_6</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-16T00:00:00+08:00">
-                2018-08-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-19T00:00:00+08:00">
+                2018-08-19
               </time>
             
 
@@ -342,104 +342,155 @@
       
 
       
-        <pre><code>15.反转列表
-</code></pre><p>题目描述：输入一个链表，反转链表后，输出新链表的表头。</p>
-<p>思路：先判断输入的链表是否为空，非空时  </p>
-<p>pHead始终指向要反转的结点<br>last 指向反转后的首结点<br>每反转一个结点，把pHead结点的下一个结点指向last, last指向pHead成为反转后首结点, 再把pHead向前移动一个结点直至None结束</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    # 返回ListNode
-    def ReverseList(self, pHead):
-        if not pHead or not pHead.next:
-            return pHead
-
-        last = None
-
-        while pHead:
-            tmp = pHead.next
-            pHead.next = last
-            last = pHead
-            pHead = tmp
-        return last
-</code></pre><p>ps：反转是指最后一个元素移动到最前面</p>
-<pre><code>16.合并两个排序的列表
-</code></pre><p>题目描述<br>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则</p>
-<p>思路：先遍历两个链表，进行比较两个链表的首结点，哪个小的的结点则合并到第三个链表尾结点，并向前移动一个结点。<br>结果会有一个链表先遍历结束，或者没有<br>第三个链表尾结点指向剩余未遍历结束的链表，返回第三个链表首结点</p>
-<p>代码如下：</p>
-<pre><code>def Merge(self, pHead1, pHead2):
+        <pre><code>25.复杂链表的复制
+</code></pre><p>题目描述：输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）</p>
+<p>思路：递归法</p>
+<pre><code>def Clone(self, head):
+    if not head: return
+    newNode = RandomListNode(head.label)
+    newNode.random = head.random
+    newNode.next = self.Clone(head.next)
+    return newNode
+</code></pre><p>ps：深度复制</p>
+<pre><code>26.二叉搜索树与双向链表
+</code></pre><p>题目描述：输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。</p>
+<p>思路：双向链表，即添加树中结点指针的指向</p>
+<pre><code>def NodeList(self, pRootOfTree):
+    if not pRootOfTree:
+        return []
+    return self.NodeList(pRootOfTree.left) + [pRootOfTree] + self.NodeList(pRootOfTree.right)
+def Convert(self, pRootOfTree):
     # write code here
-    dummy = ListNode(0)
-    pHead = dummy
-
-    while pHead1 and pHead2:
-        if pHead1.val &gt;= pHead2.val:
-            dummy.next = pHead2
-            pHead2 = pHead2.next
-        else:
-            dummy.next = pHead1
-            pHead1 = pHead1.next
-
-        dummy = dummy.next
-
-    if pHead1:
-        dummy.next = pHead1
-    elif pHead2:
-        dummy.next = pHead2
-
-    return pHead.next
-</code></pre><p>ps:单调不减为递增，小的先加入链表</p>
-<pre><code>17.树的子结构
-</code></pre><p>题目描述：输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
-<p>思路：参考牛客网大神的思路，他这边用了字符串串接和递归的方法</p>
-<pre><code>def HasSubtree(self, pRoot1, pRoot2):
-
-    def convert(p):
-        if p:
-            return str(p.val) +  convert(p.left) + convert(p.right)
-        else:
-            return &quot;&quot;
-    return convert(pRoot2) in convert(pRoot1) if pRoot2 else False
-</code></pre><p>ps：用了双层函数递归</p>
-<pre><code>18.二叉树的镜像
-</code></pre><p>题目描述：操作给定的二叉树，将其变换为源二叉树的镜像。  </p>
-<p>输入描述:</p>
+    res = self.NodeList(pRootOfTree)
+    if len(res) == 0:
+        return None
+    if len(res) == 1:
+        return pRootOfTree
+    res[0].left = None
+    res[0].right = res[1]
+    res[-1].left = res[-2]
+    res[-1].right = None
+    for i in range(1,len(res)-1):
+        res[i].left = res[i-1]
+        res[i].right = res[i+1]
+    return res[0]
+</code></pre><p>ps：这里用了一个函数返回结点列表，列表的left和right方法表示结点指向，双向链表就构建完成，返回首结点。</p>
+<pre><code>27.字符串的排列
+</code></pre><p>题目描述：<br>输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。</p>
+<p>输入描述:<br>输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。</p>
+<p>思路：<br>首先审题，‘按字典序’是指不同排列的先后关系是从左到右逐个比较对应的数字的先后来决定的。比如’ab’,’ba’来排列的话，先比较最左边的字母，‘a’比‘b’靠前，所以‘ab’排在’ba’前面。使用python中的sorted函数就可以达到这个效果。</p>
+<p>然后我们先不考虑重复的字母，只在全部排列完成之后保留全部排列的set集合形式，就可以去重，然后利用list函数将集合化为列表形式，最后排成字典序。  于是这道题就变成简单的排序问题了。  </p>
+<p>对于排序问题，我们可以这样想，假设输入字符为abc，则当a放在最前面时考虑bc的排列(abc,acb)，当b放在最前面时考虑ac的排列(bac,bca)，当c放在最前面时考虑ab的排列（cab,cba）  </p>
+<p>因此可以使用递归的思想，每次取出字符串中的一个字符放在组合字符串的最前面（比如a），后面考虑原始字符串（abc）除去已拿出的字符（a）之后的排列(也就是bc的排列)，依次递归直到字符串长度为1为止。  </p>
+<pre><code>def Permutation(self, ss):
+    # write code here
+    if not ss:        #先判断ss是否为空，为空则返回空
+        return []
+    if len(ss)==1:
+        return ss
+    L=[]
+    a=list(ss)
+    for i in ss:    #每次取出字符串中的一个字符放在组合字符串的最前面
+        b=a[:]
+        b.remove(i)   #原始字符串除去已拿出字符后的字符串
+        for li in self.Permutation(&apos;&apos;.join(b)):    #遍历下一次迭代返回的每一个排列
+            L.append(&apos;&apos;.join([i,li]))              #将这个排列加在前面拿出的字符后面，组成一个字符串排序，并加入L中
+    return sorted(list(set(L)))      
+</code></pre><p>ps：这里使用了递归，join的方法。其中不太懂的是递归时候的‘ ’参数。  </p>
 <blockquote>
-<pre><code> 源二叉树 
-    8
-   /  \
-  6   10
- / \  / \
-5  7 9  11
-镜像二叉树
-    8
-   /  \
-  10   6
- / \  / \
-11 9 7   5
-</code></pre></blockquote>
-<p>思路：镜像可以使用交换。a,b=b,a.本题目详细处理一下。</p>
-<pre><code># 返回镜像树的根节点
-def Mirror(self, root):
+<p>str.join(元组、列表、字典、字符串) 之后生成的只能是字符串。<br>所以很多地方很多时候生成了元组、列表、字典后，可以用 join() 来转化为字符串。</p>
+</blockquote>
+<pre><code>28.数组中出现次数超过一半的数字
+</code></pre><p>题目描述：<br>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。</p>
+<p>思路：用字典表示数组，k，v。Counter类的目的是用来跟踪值出现的次数。它是一个无序的容器类型，以字典的键值对形式存储，其中元素作为key，其计数作为value。</p>
+<pre><code>import collections
+def MoreThanHalfNum_Solution(self, numbers):
     # write code here
-    if root == None:
+    tmp = collections.Counter(numbers)
+    x = len(numbers)/2
+    for k, v in tmp.items():
+        if v &gt; x:
+            return k
+    return 0
+</code></pre><p>ps：numbers为数组序列，返回值才是数字，k为key，counter类中的字典元素。</p>
+<pre><code>29.最小的k个数
+</code></pre><p>题目描述：<br>输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。</p>
+<p>思路：排序后取前几个数</p>
+<pre><code>def GetLeastNumbers_Solution(self, tinput, k):
+    # write code here
+    if tinput is None:
         return
-    root.left, root.right = root.right, root.left
-    self.Mirror(root.left)
-    self.Mirror(root.right)
-</code></pre><p>ps:这里用了return，当root根节点为空时，才返回所有</p>
-<pre><code>19.顺时针打印矩阵
-</code></pre><p>题目描述：输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 则依次打印出数1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.</p>
-<p>思路：<br>用旋转魔法的方式，一直取出第一行；<br>例如<br>1 2 3<br>4 5 6<br>7 8 9<br>输出并删除第一行后，变为<br>4 5 6<br>7 8 9<br>再进行一次逆时针旋转，就变成：<br>6 9<br>5 8<br>4 7<br>继续重复上述操作即可。  </p>
-<p>代码如下：  </p>
-<pre><code>def printMatrix(self, matrix):
-    # write code here
-    s=[]
-    while matrix:
-        s+=matrix[0]
-        del matrix[0]
-        matrix=zip(*matrix)[::-1]
-    return s
-</code></pre><p>ps：打印第一行，删除第一行，逆时针zip(*matrix)[::-1]转动90度。重复以上步骤，直到矩阵为空。</p>
+    n = len(tinput)
+    if n &lt; k:
+        return []
+    tinput = sorted(tinput)
+    return tinput[:k]
+</code></pre><p>ps：sort方法排序</p>
+<pre><code>30.连续子数组的最大和  
+</code></pre><p>题目描述：<br>HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？<br>例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)</p>
+<p>思路：基于数组本身特性，如果下一个数加上然后比原来的总值多，即加了正数，可继续加数字，否则就返回</p>
+<pre><code>def FindGreatestSumOfSubArray(self, array):
+    if not array:
+        return 0
+
+    max = array[0]
+    sum = array[0]
+
+    for num in array[1:]:
+        # 当前元素大于连续子数组和加上元素本身并且最大值比元素还小时，
+        # 抛弃前面的连续子数组，重新开始计算连续数组和
+        if num &gt; (sum + num) and max &lt; num:
+            sum = num
+            max = num
+        # 加上当前元素后，数组和比最大值还大，则连续该元素
+        elif sum + num &gt; max:
+            max = sum + num
+            sum += num
+        else:
+            sum += num
+
+    return max
+</code></pre><p>ps：用sum与max做比较</p>
+<pre><code>31.整数中1出现的次数（从1到n整数中1出现的次数）
+</code></pre><p>题目描述：求出1~13的整数中1出现的次数,并算出100~1300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。</p>
+<p>思路：看不懂T T</p>
+<pre><code>def countDigitOne(self, n):
+    &quot;&quot;&quot;
+    :type n: int
+    :rtype: int
+
+    例：对于824883294，先求0－800000000之间（不包括800000000）的，再求0－24883294之间的。
+    如果等于1，如1244444，先求0－1000000之间，再求1000000－1244444，那么只需要加上244444＋1，再求0－244444之间的1
+    如果大于1，例：0－800000000之间1的个数为8个100000000的1的个数加上100000000，因为从1000000000－200000000共有1000000000个数且最高位都为1。
+    对于最后一位数，如果大于1，直接加上1即可。
+    &quot;&quot;&quot;
+    result = 0
+    if n &lt; 0:
+        return 0
+    length = len(str(n))
+    listN = list(str(n))
+    for i, v in enumerate(listN):
+        a = length - i - 1  # a为10的幂
+        if i==length-1 and int(v)&gt;=1:
+            result+=1
+            break
+
+        if int(v) &gt; 1:
+            result += int(10 ** a * a / 10) * int(v) + 10**a
+        if int(v) == 1:
+            result += (int(10 ** a * a / 10) + int(&quot;&quot;.join(listN[i+1:])) + 1)
+    return result
+</code></pre><p>简单粗暴版：</p>
+<pre><code>def NumberOf1Between1AndN_Solution(self, n):
+    # 将1-n全部转换为字符串
+    # 只需要统计每个字符串中&apos;1&apos;出现的次数并相加即可
+    count = 0
+    for i in range(1,n+1):
+        for i in str(i):
+            if i == &apos;1&apos;:
+                count += 1
+    return count
+</code></pre><p>PS:没有考虑算法复杂度可以使用粗暴版</p>
 
       
     </div>
@@ -470,8 +521,8 @@ def Mirror(self, root):
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/15/practice-3/" rel="next" title="Python编程--practice_3">
-                <i class="fa fa-chevron-left"></i> Python编程--practice_3
+              <a href="/2018/08/18/practice-5/" rel="next" title="Python编程--practice_5">
+                <i class="fa fa-chevron-left"></i> Python编程--practice_5
               </a>
             
           </div>
@@ -479,10 +530,6 @@ def Mirror(self, root):
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/18/practice-5/" rel="prev" title="Python编程--practice_5">
-                Python编程--practice_5 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
