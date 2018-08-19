@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/practice-5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/practice-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="烟华。">
@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/17/practice-5/" itemprop="url">Python编程--practice_5</a></h1>
+                <a class="post-title-link" href="/2018/08/18/practice-5/" itemprop="url">Python编程--practice_5</a></h1>
         
 
         <div class="post-meta">
@@ -283,8 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-17T00:00:00+08:00">
-                2018-08-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-18T00:00:00+08:00">
+                2018-08-18
               </time>
             
 
@@ -345,8 +345,21 @@
       
         
           
-            
-          
+          20.包含mini函数的栈
+题目描述：定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。
+思路：利用一个辅助栈来存放最小值
+
+栈  3，4，2，5，1辅助栈 3，3，2，2，1  
+
+每入栈一次，就与辅助栈顶比较大小，如果小就入栈，如果大就入栈当前
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/18/practice-5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -486,106 +499,18 @@
       
         
           
-            <pre><code>15.反转列表
-</code></pre><p>题目描述：输入一个链表，反转链表后，输出新链表的表头。</p>
-<p>思路：先判断输入的链表是否为空，非空时  </p>
-<p>pHead始终指向要反转的结点<br>last 指向反转后的首结点<br>每反转一个结点，把pHead结点的下一个结点指向last, last指向pHead成为反转后首结点, 再把pHead向前移动一个结点直至None结束</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    # 返回ListNode
-    def ReverseList(self, pHead):
-        if not pHead or not pHead.next:
-            return pHead
-
-        last = None
-
-        while pHead:
-            tmp = pHead.next
-            pHead.next = last
-            last = pHead
-            pHead = tmp
-        return last
-</code></pre><p>ps：反转是指最后一个元素移动到最前面</p>
-<pre><code>16.合并两个排序的列表
-</code></pre><p>题目描述<br>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则</p>
-<p>思路：先遍历两个链表，进行比较两个链表的首结点，哪个小的的结点则合并到第三个链表尾结点，并向前移动一个结点。<br>结果会有一个链表先遍历结束，或者没有<br>第三个链表尾结点指向剩余未遍历结束的链表，返回第三个链表首结点</p>
-<p>代码如下：</p>
-<pre><code>def Merge(self, pHead1, pHead2):
-    # write code here
-    dummy = ListNode(0)
-    pHead = dummy
-
-    while pHead1 and pHead2:
-        if pHead1.val &gt;= pHead2.val:
-            dummy.next = pHead2
-            pHead2 = pHead2.next
-        else:
-            dummy.next = pHead1
-            pHead1 = pHead1.next
-
-        dummy = dummy.next
-
-    if pHead1:
-        dummy.next = pHead1
-    elif pHead2:
-        dummy.next = pHead2
-
-    return pHead.next
-</code></pre><p>ps:单调不减为递增，小的先加入链表</p>
-<pre><code>17.树的子结构
-</code></pre><p>题目描述：输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
-<p>思路：参考牛客网大神的思路，他这边用了字符串串接和递归的方法</p>
-<pre><code>def HasSubtree(self, pRoot1, pRoot2):
-
-    def convert(p):
-        if p:
-            return str(p.val) +  convert(p.left) + convert(p.right)
-        else:
-            return &quot;&quot;
-    return convert(pRoot2) in convert(pRoot1) if pRoot2 else False
-</code></pre><p>ps：用了双层函数递归</p>
-<pre><code>18.二叉树的镜像
-</code></pre><p>题目描述：操作给定的二叉树，将其变换为源二叉树的镜像。  </p>
-<p>输入描述:</p>
-<blockquote>
-<pre><code> 源二叉树 
-    8
-   /  \
-  6   10
- / \  / \
-5  7 9  11
-镜像二叉树
-    8
-   /  \
-  10   6
- / \  / \
-11 9 7   5
-</code></pre></blockquote>
-<p>思路：镜像可以使用交换。a,b=b,a.本题目详细处理一下。</p>
-<pre><code># 返回镜像树的根节点
-def Mirror(self, root):
-    # write code here
-    if root == None:
-        return
-    root.left, root.right = root.right, root.left
-    self.Mirror(root.left)
-    self.Mirror(root.right)
-</code></pre><p>ps:这里用了return，当root根节点为空时，才返回所有</p>
-<pre><code>19.顺时针打印矩阵
-</code></pre><p>题目描述：输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 则依次打印出数1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.</p>
-<p>思路：<br>用旋转魔法的方式，一直取出第一行；<br>例如<br>1 2 3<br>4 5 6<br>7 8 9<br>输出并删除第一行后，变为<br>4 5 6<br>7 8 9<br>再进行一次逆时针旋转，就变成：<br>6 9<br>5 8<br>4 7<br>继续重复上述操作即可。  </p>
-<p>代码如下：  </p>
-<pre><code>def printMatrix(self, matrix):
-    # write code here
-    s=[]
-    while matrix:
-        s+=matrix[0]
-        del matrix[0]
-        matrix=zip(*matrix)[::-1]
-    return s
-</code></pre><p>ps：打印第一行，删除第一行，逆时针zip(*matrix)[::-1]转动90度。重复以上步骤，直到矩阵为空。</p>
-
-          
+          15.反转列表
+题目描述：输入一个链表，反转链表后，输出新链表的表头。
+思路：先判断输入的链表是否为空，非空时  
+pHead始终指向要反转的结点last 指向反转后的首结点每反转一个结点，把pHead结点的下一个结点指向last, last指向pHead成为反转后首结点, 再把pHead向前移动一
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/16/practice-4/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -725,69 +650,16 @@ def Mirror(self, root):
       
         
           
-            <pre><code>11.二进制1的个数 
-</code></pre><p>题目描述：<br>输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。<br>思路：<br>（来自网友的看法，觉得很巧妙，可以学一学）<br>如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。</p>
-<p>举个例子：一个二进制数1100，从右边数起第三位是处于最右边的一个1。减去1后，第三位变成0，它后面的两位0变成了1，而前面的1保持不变，因此得到的结果是1011.我们发现减1的结果是把最右边的一个1开始的所有位都取反了。这个时候如果我们再把原来的整数和减去1之后的结果做与运算，从原来整数最右边一个1那一位开始所有位都会变成0。如1100&amp;1011=1000.也就是说，把一个整数减去1，再和原整数做与运算，会把该整数最右边一个1变成0.那么一个整数的二进制有多少个1，就可以进行多少次这样的操作。</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-def NumberOf1(self, n):
-# write code here
-        c = 0
-        if n&lt;0:
-            #对负数做处理，为32位
-            n = n&amp;0xffffffff
-        while n:
-            c += 1
-            n &amp;= n-1
-        return c
-</code></pre><p>因为python的int是无线精度的，c++的int是32位的，所以python的负数相当于前面有无限个1，要对python的负数做处理</p>
-<p>12.数值的整数次方</p>
-<p>题目描述：<br>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</p>
-<p>思路：考虑整数为正为负为零情况，结果可以用循环*=base返回</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    def Power(self, base, exponent):
-        flag = 0
-        if base == 0:
-            return False
-        if exponent == 0:
-            return 1
-        if exponent &lt; 0:
-            flag = 1
-        result = 1
-        for i in range(abs(exponent)):
-            result *= base
-        if flag == 1:
-            result = 1 / result
-        return result
-</code></pre><p>ps：此处用flag标识是否倒装，abs（）函数是取绝对值，for循环是为了得到result结果，总函数的return值是与def对应</p>
-<pre><code>13.调整数组顺序使奇数位于偶数前面  
-</code></pre><p>题目描述：<br>输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。</p>
-<p>思路：制作两个空列表，依次遍历写进去，不影响相对位置，也方便奇偶分组。</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-def reOrderArray(self, array):
-        ji,ou=[],[]
-        for i in array:
-            ji.append(i) if i%2==1 else ou.append(i)
-        return ji+ou
-</code></pre><p>ps：这里用到if三分选择，当然也可以使用简单的if语句  </p>
-<p>14.链表中倒数第k个结点  </p>
-<p>题目描述：输入一个链表，输出该链表中倒数第k个结点。</p>
-<p>思路：建立空列表，写入结点（head），并非是结点值（head.val）。这一点注意一下，接着函数值return[-k]表示倒数第k个值</p>
-<pre><code>class Solution:
-    def FindKthToTail(self, head, k):
-        # write code here
-        res=[]
-        while head:
-            res.append(head)
-            head=head.next
-        if k&gt;len(res) or k&lt;1:
-            return
-        return res[-k]
-</code></pre><p>ps：在调试过程中出现，“’NoneType’ object has no attribute ‘next’”，因为while判断条件有问题，要改成while head，假设空链表。</p>
-
-          
+          11.二进制1的个数 
+题目描述：输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。思路：（来自网友的看法，觉得很巧妙，可以学一学）如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/15/practice-3/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -927,113 +799,16 @@ def reOrderArray(self, array):
       
         
           
-            <pre><code>6.旋转数组的最小数字
-</code></pre><p>要求：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。<br>思路：将一个元素与遍历数组其他元素比较</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    def minNumberInRotateArray(self, rotateArray):
-        if len(rotateArray) == 0:
-            return 0
-        ret = rotateArray[0]
-        if len(rotateArray) == 1:
-            return ret
-        for i in range(1,len(rotateArray)):
-            now = rotateArray[i]
-            if now &lt; ret:
-                ret = now
-                   break
-        return ret
-</code></pre><p>ps:当len（）为1时，这里灵活处理return ret</p>
-<pre><code>7.斐波那契数列
-</code></pre><p>题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&lt;=39。<br>思路：这里考虑栈空间，不用递归做法，我用的是循环。斐波那契数列是指一个数是他前面两个数之和，已知数列前三个数为0，1，1，以空列表append方式循环加入</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    def Fibonacci(self, n):
-        if n == 0:
-            return 0
-        if n == 1:
-            return 1
-        if n == 2:
-            return 1
-        if n &gt;= 3:
-            s = []
-            s.append(1)
-            s.append(1)
-            for i in xrange(2,n):
-                s.append(s[i-1]+s[i-2])
-            return s[n-1]
-</code></pre><p>ps：不考虑栈空间可以用递归，f(n)=f(n-2)+f(n-1)</p>
-<pre><code>8.跳台阶
-</code></pre><p>题目描述<br>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
-<p>思路：可以按照找规律的解法，f(1) = 1, f(2) = 2, f(3) = 3, f(4) = 5，  可以总结出f(n) = f(n-1) + f(n-2)的规律，这个问题属于斐波那契数列类型。</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    def jumpFloor(self, number):
-        if number == 0:
-            return 0
-        if number &lt;= 3:
-            return number
-        if number &gt;= 4:
-            s = []
-            s.append(1)
-            s.append(2)
-            s.append(3)
-            for i in xrange(3,number):
-                s.append(s[i-1]+s[i-2])
-            return s[number-1]
-</code></pre><p>ps：在过代码时候出现了缩进的错误，python对于缩进很严格的哦。另外，在换不同情境的斐波那契数列类型问题，先罗列出数列再进行算法。</p>
-<pre><code>9.变态跳台阶
-</code></pre><p>题目描述：<br>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
-<p>思路：（这个是从网上看到的，觉得分析得很清晰）<br>f(1) = 1</p>
-<p>f(2) = f(2-1) + f(2-2)         //f(2-2) 表示2阶一次跳2阶的次数。</p>
-<p>f(3) = f(3-1) + f(3-2) + f(3-3) </p>
-<p>…</p>
-<p>f(n) = f(n-1) + f(n-2) + f(n-3) + … + f(n-(n-1)) + f(n-n) </p>
-<p>说明： </p>
-<blockquote>
-<p>这里的f(n) 代表的是n个台阶有一次1,2,…n阶的 跳法数。</p>
-</blockquote>
-<p>n = 1时，只有1种跳法，f(1) = 1</p>
-<p>n = 2时，会有两个跳得方式，一次1阶或者2阶，这回归到了问题（1） ，f(2) = f(2-1) + f(2-2) </p>
-<p>n = 3时，会有三种跳得方式，1阶、2阶、3阶，</p>
-<pre><code>那么就是第一次跳出1阶后面剩下：f(3-1);第一次跳出2阶，剩下f(3-2)；第一次3阶，那么剩下f(3-3)
-
-因此结论是f(3) = f(3-1)+f(3-2)+f(3-3)
-</code></pre><p>n = n时，会有n中跳的方式，1阶、2阶…n阶，得出结论：</p>
-<pre><code>f(n) = f(n-1)+f(n-2)+...+f(n-(n-1)) + f(n-n) =&gt; f(0) + f(1) + f(2) + f(3) + ... + f(n-1)  
-</code></pre><p>由以上已经是一种结论，但是为了简单，我们可以继续简化：</p>
-<pre><code>f(n-1) = f(0) + f(1)+f(2)+f(3) + ... + f((n-1)-1) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2)
-
-f(n) = f(0) + f(1) + f(2) + f(3) + ... + f(n-2) + f(n-1) = f(n-1) + f(n-1)
-
-可以得出：
-</code></pre><h5 id="f-n-2-f-n-1-n-0时为0-1时为1-，数列为1，2，4，8…"><a href="#f-n-2-f-n-1-n-0时为0-1时为1-，数列为1，2，4，8…" class="headerlink" title="f(n) = 2*f(n-1) [n=0时为0,1时为1]，数列为1，2，4，8…"></a>f(n) = 2*f(n-1) [n=0时为0,1时为1]，数列为1，2，4，8…</h5><p>代码如下：</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    def jumpFloorII(self, number):
-        val=0
-        if number&lt;=0:
-               val=0
-        elif number==1:
-            val=1
-        elif number==2:
-            val=2
-        else:
-            val=2
-            for i in range(3,number+1):
-                val=2*val
-        return val
-</code></pre><p>ps：觉得return的位置有点迷茫，这些代码是只有返回一个值，就是val，所以应该是和函数对应的。</p>
-<p>10.矩形覆盖</p>
-<p>题目描述：<br>我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2<em>1的小矩形无重叠地覆盖一个2\</em>n的大矩形，总共有多少种方法？</p>
-<p>思路：仍是斐波那契数列。<br>网友讨论如下：  </p>
-<p>（1）当 n &lt; 1时，显然不需要用2*1块覆盖，按照题目提示应该返回 0。<br>（2）当 n = 1时，只存在一种情况。<br>（3）当 n = 2时，存在两种情况。<br>自然而然可以得出规律： f(n) = f(n-1) + f(n-2)， (n &gt; 2)。<br>可以尝试将题目改成1*3方块覆盖3*n、1*4方块覆盖4*n。<br>相应的结论应该是：<br>（1）1 * 3方块 覆 盖3*n区域：f(n) = f(n-1) + f(n - 3)， (n &gt; 3)<br>（2） 1 *4 方块 覆 盖4*n区域：f(n) = f(n-1) + f(n - 4)，(n &gt; 4)  </p>
-<blockquote>
-<p>如果用1*m的方块覆盖m*n区域，递推关系式为f(n) = f(n-1) + f(n-m)，(n&gt;m)。</p>
-</blockquote>
-<p>代码与第八同，不重复了。</p>
-
-          
+          6.旋转数组的最小数字
+要求：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/14/practice-2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1173,88 +948,18 @@ class Solution:
       
         
           
-            <p>准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本，自己整理外加思路，有疑惑的欢迎沟通交流。</p>
-<pre><code>1.二维数组中的查找 
-</code></pre><p>题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中  </p>
-<p>思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有序序列，可以简单做判断</p>
-<p>假设rows, cols = len(array), len(array[0])，表示array的长度为数组的行数，array[0]的长度为数组列数</p>
-<p>查看代码：</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-# array 二维列表
-def Find(self, target, array):
-    rows, cols = len(array), len(array[0])
-    row, col = rows - 1, 0
-    while row &gt;= 0 and col &lt;= cols - 1:
-        if array[row][col] == target:
-               return True
-        elif array[row][col] &gt; target:
-            row -= 1
-        else:
-            col += 1
-        return False
-</code></pre><p>ps：查看一个数是否在列表上可以试试看 in 标识符</p>
-<pre><code>2.替换空格 
-</code></pre><p>题目：把字符串中的空格替换成’20%’</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-   # s 源字符串
-def replaceSpace(self, s):
-    return s.replace(&apos; &apos;,&apos;%20&apos;)
-</code></pre><p>ps：直接用内置方法，掌握一下replace的用法</p>
-<pre><code>3.从尾到头打印单链表
-</code></pre><p>思路：新建一个空列表，加入元素，再反向排序，返回</p>
-<pre><code>class Solution:
-# 返回从尾部到头部的列表值序列，例如[1,2,3]
-def printListFromTailToHead(self, listNode):
-# write code here
-    d = []
-    listNode = listNode
-    while listNode:
-        d.append(listNode.val)
-        listNode = listNode.next
-    d.reverse()
-    return d 
-</code></pre><p>ps：listNode还需定义一下变量，listNode = listNode，否则为空。</p>
-<pre><code>4.重建二叉树
-</code></pre><p>要求：用前序和中序遍历结果构建二叉树，遍历结果中不包含重复值<br>思路：前序的第一个元素是根结点的值，在中序中找到该值，（使用一下内置方法index找出对应的字符串，返回索引），中序中该值的左边的元素是根结点的左子树left，右边是右子树right，然后递归的处理左边和右边</p>
-<pre><code>class Solution:
-# 返回构造的TreeNode根节点
-def reConstructBinaryTree(self, pre, tin):
-    if not pre or not tin:
-        return None
-    index = tin.index(pre[0])
-    left = tin[0:index]
-    right = tin[index+1:]
-    root = TreeNode(pre[0])
-    root.left = self.reConstructBinaryTree(pre[1:1+len(left)], left)
-    root.right = self.reConstructBinaryTree(pre[-len(right):], right)
-    return root
-</code></pre><p>ps：在递归处理时，应该是调用自身的方法，不是用self做参数。里边的参数分别是前序遍历和中序遍历  </p>
-<pre><code>5.用两个栈实现队列
-</code></pre><p>要求：用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。<br>思路：栈A用来作入队列;栈B用来出队列，当栈B为空时，栈A全部出栈到栈B,栈B再出栈（即出队列）</p>
-<pre><code># -*- coding:utf-8 -*-
-class Solution:
-    #初始化两个栈
-    def __init__(self):
-        self.stackA = []
-        self.stackB = []
-    #A入队列     
-    def push(self, node):
-        self.stackA.append(node)
-    #B出队列，A如果还有元素，加入B，再出     
-    def pop(self):
-        if self.stackB:
-            return self.stackB.pop()
-        elif not self.stackA:
-            return None
-        else:
-            while self.stackA:
-                self.stackB.append(self.stackA.pop())
-            return self.stackB.pop()
-</code></pre><p>ps：在做题之前没想过初始化栈，对队列不太理解。主要算法难在b队列先出，a队列后出，表明队列有先进先出，与栈不同。</p>
-
-          
+          准备秋招，也想锻炼自己的编程能力，以下是剑指offer的python版本，自己整理外加思路，有疑惑的欢迎沟通交流。
+1.二维数组中的查找 
+题目：二维数组中，每行从左到右递增，每列从上到下递增，给出一个数，判断它是否在数组中  
+思路：通过一个一个比较，我的方法是由最后一行的第一个开始比较，因为是有
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/13/practice-1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1394,93 +1099,19 @@ class Solution:
       
         
           
-            <p>笔者的操作环境（centos6.9），感谢成哥的教导，也感谢很多同行给予的帮助，记录一下我搭建zabbix的情况，踩坑无数，实习大部分时间都是和zabbix打交道。</p>
-<pre><code>关于zabbix及相关服务软件版本：  
+          笔者的操作环境（centos6.9），感谢成哥的教导，也感谢很多同行给予的帮助，记录一下我搭建zabbix的情况，踩坑无数，实习大部分时间都是和zabbix打交道。
+关于zabbix及相关服务软件版本：  
 Linux：centos 6.9  
 nginx：1.9.15  
-MySQL：5.5.49  
-PHP：5.5.35
-</code></pre><p>一、安装nginx：<br>安装依赖包：<br>yum -y install gcc gcc-c++ autoconf automake zlib zlib-devel openssl openssl-devel pcre* make gd-devel libjpeg-devel libpng-devel libxml2-devel bzip2-devel libcurl-devel pcre-devel openssl openssl-devel   </p>
-<p>创建用户：<br>useradd nginx -s /sbin/nologin -M<br>下载nginx软件包，解压缩文件并进入到目录中：<br>wget <a href="http://nginx.org/download/nginx-1.9.15.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.9.15.tar.gz</a> &amp;&amp; tar xvf nginx-1.9.15.tar.gz &amp;&amp; cd nginx-1.9.15<br> 编译：<br>./configure  （以下参数可以根据自己情况添加）<br>–prefix=/usr/local/nginx  &ensp;–with-http_ssl_module  &ensp;–with-http_v2_module  &ensp;–with-http_stub_status_module  &ensp;–with-pcre<br>Make<br>make install  </p>
-<blockquote>
-<p>参数解释：<br>–prefix=/usr/local/nginx  :默认目录<br>–with-http_stub_status_module：支持nginx状态查询<br>–with-http_ssl_module： 支持https<br>–with-http_spdy_module：支持google的spdy,想了解请百度spdy,这个必须有ssl的支持<br>–with-pcre：为了支持rewrite重写功能，必须制定pcre  </p>
-</blockquote>
-<p>二、安装PHP<br>安装依赖包：<br>yum -y install libxml2-devel bzip2 bzip2-devel curl curl-devel libjpeg libpng freetype libjpeg-devel libpng-devel freetype-devel<br>下载PHP安装包：<br>wget <a href="http://cn2.php.net/get/php-5.5.35.tar.gz/from/this/mirror" target="_blank" rel="noopener">http://cn2.php.net/get/php-5.5.35.tar.gz/from/this/mirror</a><br>解压并编译：<br>mv mirror php-5.5.35.tar.gz<br>tar -zxvf php-5.5.35.tar.gz<br>cd php-5.5.35  </p>
-<p>./configure<br>–prefix=/usr/local/php&ensp; –with-config-file-path=/etc/php&ensp; –with-bz2&ensp; –with-curl&ensp; –enable-ftp&ensp; –enable-sockets&ensp; –disable-ipv6&ensp; –with-gd&ensp; –with-jpeg-dir=/usr/local&ensp; –with-png-dir=/usr/local&ensp; –with-freetype-dir=/usr/local&ensp; –enable-gd-native-ttf&ensp; –with-iconv-dir=/usr/local&ensp; –enable-mbstring&ensp; –enable-calendar&ensp; –with-gettext&ensp; –with-libxml-dir=/usr/local&ensp; –with-zlib&ensp; –with-pdo-mysql=mysqlnd&ensp; –with-mysqli=mysqlnd&ensp; –with-mysql=mysqlnd&ensp; –enable-dom&ensp; –enable-xml&ensp; –enable-fpm&ensp; –with-libdir=lib64&ensp; –enable-bcmath  </p>
-<p>make<br>make install  </p>
-<p>cp php.ini-production /usr/local/php/etc/php.ini<br>cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf<br>ln -s /usr/local/php/etc/php-fpm.conf /etc/php-fpm.conf  </p>
-<pre><code>修改php.ini参数：（zabbix环境需要修改的参数）  
-vim /usr/local/php/etc/php.ini  
-max_execution_time = 300   
-memory_limit = 128M   
-post_max_size = 16M   
-upload_max_filesize = 2M   
-max_input_time = 300   
-date.timezone = PRC  
-</code></pre><p>三、安装MySQL<br>添加mysql用户，创建mysql的数据目录：<br>groupadd mysql<br>mkdir -pv /data/mysql  </p>
-<p>useradd -r -g mysql -d /data/mysql -s /sbin/nologin mysql   </p>
-<p>chown -R mysql.mysql /data/mysql</p>
-<p>安装cmake及依赖：<br>yum install cmake gcc* ncurses-devel -y </p>
-<p>下载MySQL安装包：<br>cd /usr/local/src/<br>wget <a href="http://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.49.tar.gz" target="_blank" rel="noopener">http://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.49.tar.gz</a>  </p>
-<p>编译安装MySQL：  </p>
-<p>tar -xvf mysql-5.5.49.tar.gz &amp;&amp; cd mysql-5.5.49</p>
-<p>cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DDEFAULT_CHARSET=utf8 -DENABLED_LOCAL_INFILE=1 -DMYSQL_DATADIR=/data/mysql -DWITH_EXTRA_CHARSETS=all -DWITH_READLINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DMYSQL_TCP_PORT=3306 -DDEFAULT_COLLATION=utf8_general_ci</p>
-<p>make &amp;&amp; make install</p>
-<p>ln -s /usr/local/mysql/bin/mysql /usr/bin/mysql</p>
-<p>chown -R mysql.mysql /usr/local/mysql</p>
-<p>拷贝mysql的配置文件：</p>
-<p>cd /usr/local/mysql/support-files/</p>
-<p>cp my-medium.cnf /data/mysql/my.cnf</p>
-<p>cp mysql.server /etc/init.d/mysqld</p>
-<p>chmod +x /etc/init.d/mysqld</p>
-<p>初始化MySQL：<br>cd /usr/local/mysql/scripts  </p>
-<p>./mysql_install_db –user=mysql –basedir=/usr/local/mysql/ –datadir=/data/mysql/</p>
-<p>修改MySQL配置文件my.cnf中数据目录：<br>datadir=/data/mysql/</p>
-<p>启动MySQL：<br>/etc/init.d/mysqld start</p>
-<p>(如果无法启动，查看错误日志；端口被占用，ps -ef | grep mysql，杀死进程；如果显示Pidfile not found 授予权限，无法访问socket，建立socket软连接)</p>
-<p>登录数据库，创建zabbix数据库及用户名和密码：  </p>
-<p>Mysql -u root -p  </p>
-<p>mysql&gt; create database zabbix default charset utf8;<br>mysql&gt; grant all privileges on zabbix.* to ‘zabbix‘@’%’ identified by ‘zabbix’;<br>mysql&gt; flush privileges;<br>mysql&gt; show databases;<br>+——————–+<br>| Database |<br>+——————–+<br>| information_schema |<br>| mysql |<br>| performance_schema |<br>| test |<br>| zabbix |<br>+——————–+  </p>
-<p>为数据库的root创建密码：<br> mysqladmin -uroot password  “password”  </p>
-<p>四、安装zabbix server：<br>安装zabbix：<br>cd /usr/local/src  </p>
-<p>wget <a href="https://nchc.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.10/zabbix-3.0.10.tar.gz" target="_blank" rel="noopener">https://nchc.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.10/zabbix-3.0.10.tar.gz</a>  </p>
-<p>tar zxf zabbix-3.0.10.tar.gz &amp;&amp; cd zabbix-3.0.10</p>
-<p>编译zabbix：  </p>
-<p>./configure –prefix=/usr/local/zabbix –enable-server –enable-agent –with-mysql –with-net-snmp –with-libcurl –with-libxml2</p>
-<p>make &amp;&amp; make install</p>
-<p>编译过程中如果有报错：<br>故障：<br>checking for mysql_config… no<br>configure: error: MySQL library not found  </p>
-<p>解决：<br>yum install mysql-devel -y</p>
-<p>故障：<br>checking for net-snmp-config… no<br>configure: error: Invalid Net-SNMP directory - unable to find net-snmp-config  </p>
-<p>解决：<br>yum install net-snmp-devel -y</p>
-<p>创建zabbix用户：<br>groupadd zabbix<br>useradd zabbix -s /sbin/nologin -M -g zabbix  </p>
-<p>zabbix server需要导入3个sql文件：<br>mysql -uroot -pzabbix zabbix &lt; database/mysql/schema.sql<br>mysql -uroot -pzabbix zabbix &lt; database/mysql/images.sql<br>mysql -uroot -pzabbix zabbix &lt; database/mysql/data.sql </p>
-<p>五、zabbix管理网站配置（nginx）：<br>创建项目目录：<br>mkdir /data/web/zabbix -p<br>mkdir /data/logs/zabbix -p  </p>
-<p>(可将前端文件拷贝到项目目录下) </p>
-<p>编辑nginx虚拟主机：<br>cd /usr/local/nginx/conf<br>mkdir extra<br>cd extra<br>vim zabbix.conf</p>
-<p>server {<br>listen 8027;<br>server_name 192.168.211.23;       #建议写自己的主机IP<br>access_log /data/logs/zabbix/zabbix.access.log  main;<br>index index.html index.php index.html;<br>root /data/web/zabbix.lifec.com;  </p>
-<p>location /{<br>      try_files $uri $uri/ /index.php?$args;<br>}  </p>
-<p>location ~ ^(.+.php)(.<em>)$ {<br>       fastcgi_split_path_info ^(.+.php)(.</em>)$;<br>       include fastcgi.conf;<br>       fastcgi_pass 127.0.0.1:9000;<br>       fastcgi_index index.php;<br>       fastcgi_param PATH_INFO $fastcgi_path_info;<br>}</p>
-<p>}</p>
-<p>编辑nginx.conf配置文件：<br>cat nginx.conf</p>
-<p>http {  </p>
-<pre><code>include extra/*.conf;   #（主要加上这一行）
-</code></pre><p>}</p>
-<p>编辑zabbix_server.conf文件：<br>cd /usr/local/zabbix/etc/<br>vim zabbix_server.conf<br>LogFile=/var/log/zabbix/zabbix_server.log  </p>
-<p>PidFile=/tmp/zabbix_server.pid  </p>
-<p>DBHost=localhost  </p>
-<p>DBName=zabbix  </p>
-<p>DBUser=zabbix  </p>
-<p>DBPassword=zabbix  </p>
-<p>DBSocket=/data/mysql/mysql.sock</p>
-<p>六、启动服务<br>启动nginx：<br>/usr/local/nginx/sbin/nginx</p>
-<p>启动PHP：<br>/usr/local/php/sbin/php-fpm</p>
-<p>启动zabbix server：<br>/usr/local/zabbix/sbin/zabbix_server</p>
-<p>如果启动的时候报错：<br>/usr/local/zabbix-3.0.2/sbin/zabbix_server<br>  /usr/local/zabbix-3.0.2/sbin/zabbix_server: error while loading shared libraries: libmysqlclient.so.18: cannot open shared object file: No such file or directory<br>则：<br>ln -s /usr/local/mysql/lib/libmysqlclient.so.18 /usr/lib64/</p>
-<p>查看服务端口：<br> netstat -lntup</p>
-<p>将服务加入开机自启动：<br>echo “/usr/local/nginx/sbin/nginx” &gt;&gt;/etc/rc.local<br>echo “/usr/local/php/sbin/php-fpm” &gt;&gt;/etc/rc.local<br>echo “/etc/init.d/mysqld start” &gt;&gt;/etc/rc.local<br>echo “/usr/local/zabbix-3.0.10/sbin/zabbix_server”  &gt;&gt;/etc/rc.local</p>
-<p>然后在浏览器输入 192.168.211.23：8027就可以进行zabbix的web端</p>
-
-          
+MySQL：5.5.49
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/11/zabbix服务端与客户端配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1620,36 +1251,17 @@ date.timezone = PRC
       
         
           
-            <p>笔者的操作环境（centos6.9），确认机器已有Python和pip<br>1.pip安装<br>yum install python-pip python-devel  </p>
-<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y  </p>
-<p>pip3 install –upgrade pip</p>
-<p>pip3 install ansible –upgrade  </p>
-<p>（这样安装没有出现/etc/ansible/hosts,所以我选择了源码安装，很疑惑，欢迎解答我的问题）</p>
-<p>2.源码安装（使用git，先把需要的依赖都yum）<br>yum install git -y    </p>
-<p>yum install python-pip python-devel  </p>
-<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y<br> python-jinja2 python-yaml </p>
-<pre><code>如果出现报错Loaded plugins: fastestmirror：
-
-vim  /etc/yum/pluginconf.d/fastestmirror.conf 
-
-enabled = 0
-
-vim /etc/yum.conf
-
-plugins=0
-
-yum clean dbcache
-</code></pre><p>git clone git://github.com/ansible/ansible.git –recursive<br>cd ./ansible/<br> source ./hacking/env-setup<br>ansible –version  </p>
-<p>我们就完成了ansible的源码安装，接下来，为新系统（192.168.211.25）添加安全认证，ansible主机为（192.168.211.23）</p>
-<p>免密SSH密钥<br>1、在Ansible服务端生成密钥，并且复制公钥到节点中。<br>ssh-keygen</p>
-<p>2、使用ssh-copy-id命令来复制Ansible公钥到节点中。</p>
-<p>ssh-copy-id -i /root/.ssh/id_rsa.pub <a href="mailto:root@192.168.211.25" target="_blank" rel="noopener">root@192.168.211.25</a></p>
-<p>测试免密登录<br>ssh 192.168.211.25<br>（测试成功）</p>
-<p>为Ansible定义节点的清单<br> vi /etc/ansible/hosts<br>[web]<br>192.168.211.25</p>
-<p>下载virtualenv，进入虚拟环境<br> pip install ansible==1.9.4 Django==1.8 django-filter djangorestframework==3.2.3  MySQL-python</p>
-<p>pip安装的模块大致就是这样了</p>
-
-          
+          笔者的操作环境（centos6.9），确认机器已有Python和pip1.pip安装yum install python-pip python-devel  
+yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y  
+pi
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/01/ansible安装以及配置高可用架构/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1789,41 +1401,22 @@ yum clean dbcache
       
         
           
-            <pre><code>用Python访问Oracle，使用cx_Oracle进行数据库表空间监控和最大连接数查询
-</code></pre><p>Linux安装，下载的应该对应Oracle数据库位数</p>
-<p>（自己的测试环境是32位，正式环境是64位）  </p>
-<blockquote>
-<p>测试环境  </p>
-</blockquote>
-<p>1、安装instantclient  </p>
-<p><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a></p>
-<p>我下载的是<br>oracle-instantclient12.2-basic-12.2.0.1.0-1.i386.rpm</p>
-<p>oracle-instantclient12.2-devel-12.2.0.1.0-1.i386.rpm  </p>
-<p>然后安装<br>rpm -ivh  oracle-instantclient11.2-basic-12.2.0.3.0-1.i386.rpm</p>
-<p>2.设置一下环境变量<br>export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/lib/oracle/12.2/client/lib</p>
-<p>pip install cx_Oracle  </p>
-<blockquote>
-<p>正式环境  </p>
-</blockquote>
-<p>1、安装instantclient  </p>
-<p><a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/topics/linuxsoft-082809.html</a>  </p>
-<p>我下载的是<br>instantclient-basic-linux.x64-12.2.0.1.0.zip</p>
-<p>然后安装<br>unzip instantclient-basic-linux.x64-12.2.0.1.0.zip</p>
-<p>2.设置一下环境变量<br>vim /root/.bash_profile  </p>
-<p>LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib:/usr/local/lib<br>export LD_LIBRARY_PATH</p>
-<p>pip install cx_Oracle  </p>
-<p>3.连接数据库<br>import cx_Oracle</p>
-<p>conn = cx_Oracle.connect(‘用户名/密码@IP地址/orcl’)      </p>
-<p> #获取光标<br>cursor = conn.cursor ()   </p>
-<p>  #监控数据库的表空间<br>select 语句（保密）          </p>
-<p> #获取数据<br>cursor.execute(sql)<br>row = cursor.fetchone ()  </p>
-<p> #监控数据库在线连接数  </p>
-<p>sql1 = “select count(*) as c_process from v$session”  </p>
-<p> #获取数据<br>cursor.execute(sql1)<br>row1 = cursor.fetchone ()  </p>
-<p>  #创建数据库存活指标，python语言注意缩进<br>if row[0]&lt;200 and row1[0]&lt;85:<br>    print (“1”)<br>elif 200&lt;row[0]<300 90="" and="">row1[0]&gt;85:<br>    print (“2”)<br>elif 200&gt;row[0] and 90&lt;row1[0]:<br>    print (“0”)  </300></p>
-<p> #关闭光标<br>cursor.close ()</p>
+          用Python访问Oracle，使用cx_Oracle进行数据库表空间监控和最大连接数查询
+Linux安装，下载的应该对应Oracle数据库位数
+（自己的测试环境是32位，正式环境是64位）  
 
-          
+测试环境  
+
+1、安装instantclient  
+http://www.oracle.com/t
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/01/连接Oracle数据库访问数据/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1963,19 +1556,16 @@ yum clean dbcache
       
         
           
-            <p>笔者关于git的整理  </p>
-<h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><p>git config –global user.name “yanhua”<br>git config –global user.email “<a href="mailto:wenxiaoni0506@163.com" target="_blank" rel="noopener">wenxiaoni0506@163.com</a>“<br>git config –global color.ui true<br>git config –global alias.co checkout # 别名<br>git config –global alias.ci commit<br>git config –global alias.st status<br>git config –global alias.br branch<br>git config –global core.editor “vim” # 设置Editor使用vim<br>git config –global core.quotepath false # 设置显示中文文件名<br>用户的git配置文件~/.gitconfig  </p>
-<h2 id="Git常用命令"><a href="#Git常用命令" class="headerlink" title="Git常用命令"></a>Git常用命令</h2><p><code>查看、添加、提交、删除、找回，重置修改文件</code><br>git help <command> # 显示command的help<br>git show # 显示某次提交的内容<br>git show $id<br>git co – <file> # 抛弃工作区修改<br>git co . # 抛弃工作区修改<br>git add <file> # 将工作文件修改提交到本地暂存区<br>git add . # 将所有修改过的工作文件提交暂存区<br>git rm <file> # 从版本库中删除文件<br>git rm <file> –cached # 从版本库中删除文件，但不删除文件<br>git reset <file> # 从暂存区恢复到工作文件<br>git reset – . # 从暂存区恢复到工作文件<br>git reset –hard # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改<br>git ci  file<br>git ci .<br>git ci -a # 将git add, git rm和git ci等操作都合并在一起做<br>git ci -am “some comments”<br>git ci –amend # 修改最后一次提交记录<br>git revert &lt;$id&gt; # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象<br>git revert HEAD # 恢复最后一次提交的状态  </file></file></file></file></file></p>
-<p><code>查看文件diff</code><br>git diff <file> # 比较当前文件和暂存区文件差异<br>git diff<br>git diff &lt;$id1&gt; &lt;$id2&gt; # 比较两次提交之间的差异  </file></p>
-<p><code>查看提交记录</code><br>git log<br>git log <file> # 查看该文件每次提交记录<br>git log -p <file> # 查看每次详细修改内容的diff<br>git log -p -2 # 查看最近两次详细     </file></file></p>
-<h2 id="Git-本地分支管理"><a href="#Git-本地分支管理" class="headerlink" title="Git 本地分支管理"></a>Git 本地分支管理</h2><p><code>查看、切换、创建和删除分支</code><br>git br -r # 查看远程分支<br>git br &lt;new_branch&gt; # 创建新的分支<br>git br -v # 查看各个分支最后提交信息<br>git br –merged # 查看已经被合并到当前分支的分支<br>git br –no-merged # 查看尚未被合并到当前分支的分支<br>git co <branch> # 切换到某个分支<br>git co $id # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除<br>git co $id -b &lt;new_branch&gt; # 把某次历史提交记录checkout出来，创建成一个分支<br>git br -d <branch> # 删除某个分支<br>git br -D <branch> # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)<br>分支合并和rebase<br>git merge <branch> # 将branch分支合并到当前分支<br>git merge origin/master –no-ff # 不要Fast-Foward合并，这样可以生成merge提交<br>git rebase master <branch> # 将master rebase到branch，相当于：<br>git co <branch> &amp;&amp; git rebase master &amp;&amp; git co master &amp;&amp; git merge <branch>  </branch></branch></branch></branch></branch></branch></branch></p>
-<p> <code>Git补丁管理(方便在多台机器上开发同步时用)</code><br>git diff &gt; ../sync.patch # 生成补丁<br>git apply ../sync.patch # 打补丁<br>git apply –check ../sync.patch # 测试补丁能否成功  </p>
-<p><code>Git暂存管理</code><br>git stash # 暂存<br>git stash list # 列所有stash<br>git stash apply # 恢复暂存的内容<br>git stash drop # 删除暂存区<br>git stash clear </p>
-<p><code>Git远程分支管理</code><br>git pull # 抓取远程仓库所有分支更新并合并到本地<br>git pull –no-ff # 抓取远程仓库所有分支更新并合并到本地，不要快进合并<br>git fetch origin # 抓取远程仓库更新<br>git merge origin/master # 将远程主分支合并到本地当前分支<br>git co –track origin/branch # 跟踪某个远程分支创建相应的本地分支<br>git co -b &lt;local_branch&gt; origin/&lt;remote_branch&gt; # 基于远程分支创建本地分支，功能同上<br>git push # push所有分支<br>git push origin master # 将本地主分支推到远程主分支<br>git push -u origin master # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)<br>git push origin &lt;local_branch&gt; # 创建远程分支， origin是远程仓库名<br>git push origin &lt;local_branch&gt;:&lt;remote_branch&gt; # 创建远程分支<br>git push origin :&lt;remote_branch&gt; #先删除本地分支(git br -d <branch>)，然后再push删除远程分支  </branch></p>
-<p><code>Git远程仓库管理</code><br>git remote -v # 查看远程服务器地址和仓库名称<br>git remote show origin # 查看远程服务器仓库状态<br>git remote add origin git@github:stormzhang/demo.git # 添加远程仓库地址<br>git remote set-url origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:stormzhang/demo.git # 设置远程仓库地址(用于修改远程仓库地址</p>
-<p><code>创建远程仓库</code><br>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:wenxn/python.git # 克隆远程仓库到本地<br>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:wenxn/python.git # 设置远程仓库地址<br>git push -u origin master # 客户端首次提交<br>git push -u origin develop # 首次将本地develop分支提交到远程develop分支，并且track<br>git remote set-head origin master # 设置远程仓库的HEAD指向master分支  </p>
-
-          
+          笔者关于git的整理  
+Git配置git config –global user.name “yanhua”git config –global user.email “wenxiaoni0506@163.com“git config –global color.ui truegit config
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/27/git/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2115,35 +1705,19 @@ yum clean dbcache
       
         
           
-            <blockquote>
-<p>基于LINUX系统 </p>
-</blockquote>
-<p>Python下载以及ipython安装<br>笔者运行的环境（centos6.9），参考多个博客，打算记录一下   </p>
-<p>首先<br>更新依赖包<br>  <code>yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel  gcc openssl openssl-devel libcurl-devel</code>  </p>
-<p>下载Python程序包<br>wget <a href="http://python.org/ftp/python/3.6.6/Python-3.6.6.tar.xz" target="_blank" rel="noopener">http://python.org/ftp/python/3.6.6/Python-3.6.6.tar.xz</a> –no-check-certificate</p>
-<p>编译安装<br>tar xvf Python-3.6.6.tar.xz</p>
-<p>cd Python-3.6.6<br>./configure   –prefix=/usr/local/python<br>make all<br>make install   </p>
-<p>建立软连接<br>ln -s /usr/local/python3/bin/python3.6 /usr/bin/python3<br>此时运行python3命令的话会报错，缺少.so文件，我们需要进行如下操作：  </p>
-<p>cp -R /usr/local/python3.5/lib/* /usr/lib64/  </p>
-<p>pip下载（以后可以下载Python模块）<br>1、安装pip前需要前置安装setuptools<br>wget –no-check-certificate  <a href="https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26" target="_blank" rel="noopener">https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26</a></p>
-<p>tar -zxvf setuptools-19.6.tar.gz</p>
-<p>cd setuptools-19.6</p>
-<p>python3 setup.py build</p>
-<p>python3 setup.py install</p>
-<p>2、安装pip<br>wget –no-check-certificate  <a href="https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz#md5=3a73c4188f8dbad6a1e6f6d44d117eeb" target="_blank" rel="noopener">https://pypi.python.org/packages/source/p/pip/pip-8.0.2.tar.gz#md5=3a73c4188f8dbad6a1e6f6d44d117eeb</a></p>
-<p>tar -zxvf pip-8.0.2.tar.gz</p>
-<p>cd pip-8.0.2</p>
-<p>python3 setup.py build</p>
-<p>python3 setup.py install</p>
-<p>ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3  </p>
-<p>ok，我们终于完成了整个python3环境的安装。  </p>
-<hr>
-<p>使用Easy Install安装ipython<br>yum install python-setuptools </p>
-<p>iPython是一个随Python发行的标准交互解释器第三方实现。它在Python原本的基础上添加了许多有用的功能，包括自动完成变量名和属性名、命令行历史、自动对齐、可以轻松的访问docstring和参数签名等。如下：</p>
-<p>sudo yum install python-matplotlib PyQt4 numpy scipy python-requests python-docop  </p>
-<p>直接 sudo yum install ipython</p>
-
           
+基于LINUX系统 
+
+Python下载以及ipython安装笔者运行的环境（centos6.9），参考多个博客，打算记录一下   
+首先更新依赖包  yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/21/python安装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="我的偶像万丈光芒，我不能一身戾气">
-<meta property="og:type" content="website">
-<meta property="og:title" content="wen">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta name="description" content="20.包含mini函数的栈 题目描述：定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。 思路：利用一个辅助栈来存放最小值  栈  3，4，2，5，1辅助栈 3，3，2，2，1    每入栈一次，就与辅助栈顶比较大小，如果小就入栈，如果大就入栈当前的辅助栈顶当出栈时，辅助栈也要出栈, 与内置函数pop()不同，pop为出定义的push栈这种做法可">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python编程--practice_5">
+<meta property="og:url" content="http://yoursite.com/2018/08/18/practice-5/index.html">
 <meta property="og:site_name" content="wen">
-<meta property="og:description" content="我的偶像万丈光芒，我不能一身戾气">
+<meta property="og:description" content="20.包含mini函数的栈 题目描述：定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。 思路：利用一个辅助栈来存放最小值  栈  3，4，2，5，1辅助栈 3，3，2，2，1    每入栈一次，就与辅助栈顶比较大小，如果小就入栈，如果大就入栈当前的辅助栈顶当出栈时，辅助栈也要出栈, 与内置函数pop()不同，pop为出定义的push栈这种做法可">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-19T09:33:40.319Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wen">
-<meta name="twitter:description" content="我的偶像万丈光芒，我不能一身戾气">
+<meta name="twitter:title" content="Python编程--practice_5">
+<meta name="twitter:description" content="20.包含mini函数的栈 题目描述：定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。 思路：利用一个辅助栈来存放最小值  栈  3，4，2，5，1辅助栈 3，3，2，2，1    每入栈一次，就与辅助栈顶比较大小，如果小就入栈，如果大就入栈当前的辅助栈顶当出栈时，辅助栈也要出栈, 与内置函数pop()不同，pop为出定义的push栈这种做法可">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/2/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/18/practice-5/"/>
 
 
 
 
 
-  <title>wen</title>
+  <title>Python编程--practice_5 | wen</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -252,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/mysql/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/practice-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="烟华。">
@@ -269,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/28/mysql/" itemprop="url">mysql</a></h1>
+          <h1 class="post-title" itemprop="name headline">Python编程--practice_5</h1>
         
 
         <div class="post-meta">
@@ -283,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T00:00:00+08:00">
-                2018-05-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-18T00:00:00+08:00">
+                2018-08-18
               </time>
             
 
@@ -306,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/知识/" itemprop="url" rel="index">
-                    <span itemprop="name">知识</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -343,20 +342,149 @@
       
 
       
-        
-          
-          mysql索引查询数据时查询索引列。虽然可以提高查询速度，但是会影响插入操作，也占用物理空间。索引有两种存储类型，包括btree和hash，btree为默认索引类型 
-创建数据表时创建索引普通索引唯一性索引需要使用UNIQUE参数进行约束（有时不能实现优化查询的目的）
-全文索引适用于char var
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/28/mysql/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <pre><code>20.包含mini函数的栈
+</code></pre><p>题目描述：定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。</p>
+<p>思路：利用一个辅助栈来存放最小值</p>
+<blockquote>
+<p>栈  3，4，2，5，1<br>辅助栈 3，3，2，2，1  </p>
+</blockquote>
+<p>每入栈一次，就与辅助栈顶比较大小，如果小就入栈，如果大就入栈当前的辅助栈顶<br>当出栈时，辅助栈也要出栈, 与内置函数pop()不同，pop为出定义的push栈<br>这种做法可以保证辅助栈顶一定都当前栈的最小值</p>
+<pre><code>def __init__(self):
+    self.stack = []
+    self.assist = []
+
+def push(self, node):
+    min = self.min()
+    if not min or node &lt; min:
+        self.assist.append(node)
+    else:
+        self.assist.append(min)
+    self.stack.append(node)
+
+def pop(self):
+    if self.stack:
+        self.assist.pop()
+        return self.stack.pop()
+
+def top(self):
+    # write code here
+    if self.stack:
+        return self.stack[-1]
+
+def min(self):
+    # write code here
+    if self.assist:
+        return self.assist[-1]
+</code></pre><p>ps:不太懂top（）的用途</p>
+<pre><code>21.栈的压入，弹出序列
+</code></pre><p>题目描述：输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
+<p>【思路】借用一个辅助的栈，遍历压栈顺序，先讲第一个放入栈中，这里是1，然后判断栈顶元素是不是出栈顺序的第一个元素，这里是4，很显然1≠4，所以我们继续压栈，直到相等以后开始出栈，出栈一个元素，则将出栈顺序向后移动一位，直到不相等，这样循环等压栈顺序遍历完成，如果辅助栈还不为空，说明弹出序列不是该栈的弹出顺序。  </p>
+<p>举例：</p>
+<p>入栈1,2,3,4,5</p>
+<p>出栈4,5,3,2,1</p>
+<p>首先1入辅助栈，此时栈顶1≠4，继续入栈2</p>
+<p>此时栈顶2≠4，继续入栈3</p>
+<p>此时栈顶3≠4，继续入栈4</p>
+<p>此时栈顶4＝4，出栈4，弹出序列向后一位，此时为5，,辅助栈里面是1,2,3</p>
+<p>此时栈顶3≠5，继续入栈5</p>
+<p>此时栈顶5=5，出栈5,弹出序列向后一位，此时为3，,辅助栈里面是1,2,3</p>
+<p>….</p>
+<p>依次执行，最后辅助栈为空。如果不为空说明弹出序列不是该栈的弹出顺序。</p>
+<p>代码如下：</p>
+<pre><code>def IsPopOrder(self, pushV, popV):
+    # stack中存入pushV中取出的数据
+    stack=[]
+    while popV:
+        # 如果第一个元素相等，直接都弹出，根本不用压入stack
+        if pushV and popV[0]==pushV[0]:
+            popV.pop(0)
+            pushV.pop(0)
+        #如果stack的最后一个元素与popV中第一个元素相等，将两个元素都弹出
+        elif stack and stack[-1]==popV[0]:
+            stack.pop()
+            popV.pop(0)
+        # 如果pushV中有数据，压入stack
+        elif pushV:
+            stack.append(pushV.pop(0))
+        # 上面情况都不满足，直接返回false。
+        else:
+            return False
+    return True
+</code></pre><p>ps：没了解题意，并非单纯的倒序，利用栈先进后出的特点</p>
+<pre><code>22.从上往下打印出二叉树
+</code></pre><p>题目描述：从上往下打印出二叉树的每个节点，同层节点从左至右打印。</p>
+<p>思路：利用循环，存在结点打印，两个if也是算优先级。用另一个空列表append元素</p>
+<pre><code>def PrintFromTopToBottom(self, root):
+    if not root:
+        return []
+    currentStack = [root]
+    res = []
+    while currentStack:
+        nextStack = []
+        for i in currentStack:
+            if i.left: nextStack.append(i.left)
+            if i.right: nextStack.append(i.right)
+            res.append(i.val)
+        currentStack = nextStack
+    return res
+</code></pre><p>ps：灵活方法，这里在遍历循环开始前使用nextStack = []，最后遍历整个列表后用currentStack = nextStack结束循环，很不错</p>
+<pre><code>23.二叉搜索树的后序遍历序列
+</code></pre><p>题目描述：输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。</p>
+<p>思路：后序遍历的序列中，最后一个数字是树的根节点，数组中前面的数字可以分为两部分：第一部分是左子树节点的值，都比根节点的值小；第二部分是右子树节点的值，都比根节点的值大，后面用递归分别判断前后两部分是否符合以上原则</p>
+<pre><code>def VerifySquenceOfBST(self, sequence):
+    # write code here
+    if sequence==None or len(sequence)==0:
+        return False
+    length=len(sequence)
+    root=sequence[length-1]
+    # 在二叉搜索 树中 左子树节点小于根节点
+    for i in range(length):
+        if sequence[i]&gt;root:
+            break
+    # 二叉搜索树中右子树的节点都大于根节点
+    for j  in range(i,length):
+        if sequence[j]&lt;root:
+            return False
+    # 判断左子树是否为二叉树
+    left=True
+    if  i&gt;0:
+        left=self.VerifySquenceOfBST(sequence[0:i])
+    # 判断 右子树是否为二叉树
+    right=True
+    if i&lt;length-1:
+        right=self.VerifySquenceOfBST(sequence[i:-1])
+    return left and right
+</code></pre><p>ps：判断是否为后序遍历，返回值为true或false。for循环遍历，若不是返回false，另外 left=True，right=True是已设条件，若执行无错则默认true</p>
+<pre><code>24.二叉树中和为某一值的路径
+</code></pre><p>题目描述：输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)</p>
+<p>思路：这里使用递归，根结点到叶结点的和等于该值的路径，ret新列表返回的是结点所赋的值。当结点存在，与sum的最后一个元素相加并append，直到sum的最后一个元素等于num</p>
+<pre><code>def find_path(tree, num):
+
+ret = []
+if not tree:
+    return ret
+path = [tree]
+sums = [tree.val]
+
+def dfs(tree):
+    if tree.left:
+        path.append(tree.left)
+        sums.append(sums[-1]+tree.left.val)
+        dfs(tree.left)
+    if tree.right:
+        path.append(tree.right)
+        sums.append(sums[-1] + tree.right.val)
+        dfs(tree.right)
+    if not tree.left and not tree.right:
+        if sums[-1] == num:
+            ret.append([p.val for p in path])
+    path.pop()
+    sums.pop()
+
+dfs(tree)
+return ret
+</code></pre><p>ps：sum的列表为判断是否还加入元素</p>
+
       
     </div>
     
@@ -371,318 +499,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/LAMP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烟华。">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/my_photo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/24/LAMP/" itemprop="url">LAMP</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T00:00:00+08:00">
-                2018-05-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/python/" rel="tag"># python</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          ====确定存在linux系统，新手第一次安装可参考以上网址  ====
-可参考 virtual box安装centos6版本的Linux系统   
-
-www服务器
-
-使用的语言多数为超文本标记语言（HTML）  
-支持的协议为 http（明码），https（加密）  
-浏览器应支持制定标准（W3C
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/24/LAMP/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/16/practice-4/" rel="next" title="Python编程--practice_4">
+                <i class="fa fa-chevron-left"></i> Python编程--practice_4
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/ftp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烟华。">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/my_photo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/21/ftp/" itemprop="url">ftp</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T00:00:00+08:00">
-                2018-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          ftp服务器搭建（Linux）相关软件 vsftpd如果是第一次使用，在命令行输入   yum install vsftpd   
-服务器设置1.服务器环境设置服务器启动模式:listen=YES(默认为stand daemon，如果改用super daemon应启动xined，listen=NO）
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/ftp/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -692,14 +538,11 @@ www服务器
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -707,6 +550,10 @@ www服务器
 
 
           
+
+  
+
+
 
         </div>
         
@@ -932,6 +779,10 @@ www服务器
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
