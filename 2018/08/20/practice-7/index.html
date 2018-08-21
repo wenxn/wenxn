@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="32.把数组排成最小的数 题目描述：输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。 思路：用cmp函数进行排序，用map()根据提供的函数对指定序列做映射。将数组转化为str类型再做列表排序输出 cmp接受一个函数，拿整形举例，形式为: def f(a,b):">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python编程--practice_7">
+<meta property="og:url" content="http://yoursite.com/2018/08/20/practice-7/index.html">
+<meta property="og:site_name" content="wen">
+<meta property="og:description" content="32.把数组排成最小的数 题目描述：输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。 思路：用cmp函数进行排序，用map()根据提供的函数对指定序列做映射。将数组转化为str类型再做列表排序输出 cmp接受一个函数，拿整形举例，形式为: def f(a,b):">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-21T01:28:56.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python编程--practice_7">
+<meta name="twitter:description" content="32.把数组排成最小的数 题目描述：输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。 思路：用cmp函数进行排序，用map()根据提供的函数对指定序列做映射。将数组转化为str类型再做列表排序输出 cmp接受一个函数，拿整形举例，形式为: def f(a,b):">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/20/practice-7/"/>
+
+
+
+
+
+  <title>Python编程--practice_7 | wen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/practice-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python编程--practice_7</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T00:00:00+08:00">
+                2018-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>32.把数组排成最小的数
+</code></pre><p>题目描述：输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。</p>
+<p>思路：用cmp函数进行排序，用map()根据提供的函数对指定序列做映射。将数组转化为str类型再做列表排序输出</p>
+<p>cmp接受一个函数，拿整形举例，形式为:</p>
+<pre><code>def f(a,b):
+     return a-b
+</code></pre><p>如果排序的元素是其他类型的，如果a逻辑小于b，函数返回负数；a逻辑等于b，函数返回0；a逻辑大于b，函数返回正数就行了</p>
+<p>例如：</p>
+<ol>
+<li>>&gt;&gt; sorted(students, cmp=lambda x,y : cmp(x[2], y[2])) # sort by age  </li>
+<li>[(‘dave’, ‘B’, 10), (‘jane’, ‘B’, 12), (‘john’, ‘A’, 15)]  </li>
+</ol>
+<hr>
+<p>代码如下：</p>
+<pre><code>def PrintMinNumber(self, numbers):
+    # write code here
+    if not numbers: 
+        return &quot;&quot;
+    numbers = list(map(str, numbers))
+    numbers.sort(cmp=lambda x, y: cmp(x + y, y + x))
+    #cmp里边从小到大排序（x+y和y+x属于连接字符串）
+    return &quot;&quot;.join(numbers).lstrip(&apos;0&apos;) or&apos;0&apos;
+</code></pre><p>ps：<br>有这么一种情况，如果数组里面几个数全是0，比如[0,0,0,0], 那么组成最小的数依然还是0，不能输出0000。  这个是最大数的解法，就是为了这种情况……所以应该写成“return ‘’.join(nums).lstrip(0) or ‘0’”,把左边的0全部去掉。</p>
+<pre><code>33.丑数
+</code></pre><p>题目描述：把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。</p>
+<p>思路：按顺序把每个丑数放在数组中，求下一个丑数。下一个丑数必定由有数组中的某一个丑数A <em> 2， B </em> 3， C <em> 5 的中的最小值得来。在数组中必定有一个丑数M2， 在它之前的数 </em> 2 都小于当前最大丑数， 在它之后的数 * 2都大于当前最大丑数，同样有M3, M5 </p>
+<pre><code>def GetUglyNumber_Solution(self, index):
+    if index &lt; 1:
+        return 0
+
+    res = [1]
+    t2 = t3 = t5 = 0
+
+    nextIdx = 1
+    while nextIdx &lt; index:
+        minNum = min(res[t2] * 2, res[t3] * 3, res[t5] * 5)
+        res.append(minNum)
+
+        while res[t2] * 2 &lt;= minNum:
+            t2 += 1
+        while res[t3] * 3 &lt;= minNum:
+            t3 += 1
+        while res[t5] * 5 &lt;= minNum:
+            t5 += 1
+
+        nextIdx += 1
+
+    return res[nextIdx - 1]
+</code></pre><p>ps：取最小的放进去列表</p>
+<pre><code>34.第一个只出现一次的字符
+</code></pre><p>题目描述：在一个字符串(0&lt;=字符串长度&lt;=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 如果没有则返回 -1（需要区分大小写）.</p>
+<p>思路：遍历字符串，使用内置的count函数计算，等于1时打印索引值。</p>
+<pre><code>def FirstNotRepeatingChar(self, s):
+    # write code here
+    if len(s)&lt;0:
+        return -1
+    for i in s:
+        if s.count(i)==1:
+            return s.index(i)
+            break
+    return -1
+</code></pre><p>ps：字符串类计算可以使用内置函数count（）</p>
+<pre><code>35.两个链表的第一个公共结点
+</code></pre><p>题目描述：输入两个链表，找出它们的第一个公共结点。</p>
+<p>思路： 创建一个空列表，遍历a列表，加入所有的结点的值，判断b链表中的结点值是否在a中，有则返回结点，无则继续遍历</p>
+<pre><code>def FindFirstCommonNode(self, head1, head2):
+    # write code here
+    list1 = []
+    node1 = head1
+    node2 = head2
+    while node1:
+        list1.append(node1.val)
+        node1 = node1.next
+    while node2:
+        if node2.val in list1:
+            return node2
+        else:
+            node2 = node2.next
+</code></pre><p>ps：判断两个链表的，可以使用中间表</p>
+<pre><code>36.数字在排序数组中出现的次数
+</code></pre><p>题目描述；统计一个数字在排序数组中出现的次数。</p>
+<p>思路：遍历列表的range长度为len（）列表</p>
+<pre><code>def GetNumberOfK(self, data, k):
+    # write code here
+    count = len(data)
+    i = 0
+    for j in range(count):
+        if data[j] == k:
+            i += 1
+    return i
+</code></pre><p>ps:遍历列表range为len（）</p>
+<pre><code>37.二叉树的深度
+</code></pre><p>题目描述：输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
+<p>思路：求树的深度，可以从层次遍历出发考虑<br>层次遍历可以使用队列完成，也可以使用递归完成，所以有两种方法  </p>
+<p>方法一：使用队列  </p>
+<pre><code># 层次遍历
+def levelOrder(self, root):
+    # write your code here
+    # 存储最后层次遍历的结果
+    res = []
+    # 层数
+    count = 0
+    # 如果根节点为空，则返回空列表
+    if root is None:
+        return count
+    # 模拟一个队列储存节点
+    q = []
+    # 首先将根节点入队
+    q.append(root)
+    # 列表为空时，循环终止
+    while len(q) != 0:
+        # 使用列表存储同层节点
+        tmp = []
+        # 记录同层节点的个数
+        length = len(q)
+        for i in range(length):
+            # 将同层节点依次出队
+            r = q.pop(0)
+            if r.left is not None:
+                # 非空左孩子入队
+                q.append(r.left)
+            if r.right is not None:
+                # 非空右孩子入队
+                q.append(r.right)
+            tmp.append(r.val)
+        if tmp:
+            count += 1  # 统计层数
+        res.append(tmp)
+    return count
+
+def TreeDepth(self, pRoot):
+    # write code here
+    # 使用层次遍历
+    # 当树为空直接返回0
+    if pRoot is None:
+        return 0
+    count = self.levelOrder(pRoot)
+    return count
+</code></pre><p>方法二：使用递归方法  </p>
+<pre><code>def TreeDepth(self, pRoot):
+    # write code here
+    # 使用层次遍历
+    # 当树为空直接返回0
+    if pRoot is None:
+        return 0
+    # 方法2：使用递归
+    # 如果该树只有一个结点，它的深度为1.如果根节点只有左子树没有右子树，
+    # 那么树的深度为左子树的深度加1；同样，如果只有右子树没有左子树，
+    # 那么树的深度为右子树的深度加1。如果既有左子树也有右子树，
+    # 那该树的深度就是左子树和右子树的最大值加1.
+    count = max(self.TreeDepth(pRoot.left), self.TreeDepth(pRoot.right)) + 1
+    return count
+</code></pre><p>ps:遍历树都有这两种方法，递归比较难理解</p>
+<pre><code>38.平衡二叉树
+</code></pre><p>题目描述：输入一棵二叉树，判断该二叉树是否是平衡二叉树。</p>
+<p>思路：根据该结点的左右子树高度差判断是否平衡</p>
+<p>class Solution:</p>
+<pre><code>def IsBalanced_Solution(self, pRoot):
+    # write code here
+    if pRoot == None:
+        return True
+    if abs(self.TreeDepth(pRoot.left)-self.TreeDepth(pRoot.right)) &gt; 1:
+        return False
+    return self.IsBalanced_Solution(pRoot.left) and self.IsBalanced_Solution(pRoot.right)
+
+def TreeDepth(self, pRoot):
+    # write code here
+    if pRoot == None:
+        return 0
+    nLeft = self.TreeDepth(pRoot.left)
+    nRight = self.TreeDepth(pRoot.right)
+    return max(nLeft+1,nRight+1)#(nLeft+1 if nLeft &gt; nRight else nRight +1)
+</code></pre><p>ps：使用递归的话，注意参数，第一层是self，root参数，其他的都算proot.其他</p>
+<pre><code>39.数组中只出现一次的数字
+</code></pre><p>题目描述:一个整型数组里除了两个数字之外，其他的数字都出现了偶数次。请写程序找出这两个只出现一次的数字。</p>
+<pre><code># 返回[a,b] 其中ab是出现一次的两个数字
+def FindNumsAppearOnce(self, array):
+    # write code here
+    #tmp = set()
+    tmp = []
+    for a in array:
+        if a in tmp:
+            tmp.remove(a)
+        else:
+            tmp.append(a)
+    return tmp
+    #return list(tmp)
+</code></pre><p>ps：使用中间表</p>
+<pre><code>40.和为S的连续正数序列
+</code></pre><p>题目描述：小明很喜欢数学,有一天他在做数学作业时,要求计算出9~16的和,他马上就写出了正确答案是100。但是他并不满足于此,他在想究竟有多少种连续的正数序列的和为100(至少包括两个数)。没多久,他就得到另一组连续正数和为100的序列:18,19,20,21,22。现在把问题交给你,你能不能也很快的找出所有和为S的连续正数序列? Good Luck!</p>
+<p>思路：<br><em>初始化small=1，big=2;  
+</em>small到big序列和小于sum，big++;大于sum，small++;<br>*当small增加到(1+sum)/2是停止  </p>
+<pre><code>def FindContinuousSequence(self, tsum):
+    # write code here
+    if tsum &lt; 3:
+        return []
+    small = 1
+    big = 2
+    #由于序列至少要两个数字，则一直增加small到(1+tsum)/2
+    middle = (tsum + 1)&gt;&gt;1
+    curSum = small + big
+    output = []
+    while small &lt; middle:
+        if curSum == tsum:
+            output.append(range(small, big+1))
+            big += 1
+            curSum += big
+        elif curSum &gt; tsum:
+            curSum -= small
+            small += 1
+        else:
+            big += 1
+            curSum += big
+</code></pre><p>ps：连续序列和相同时，再往内看</p>
+<pre><code>41.和为S的两个数字
+</code></pre><p>题目描述:输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。</p>
+<p>输出描述:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对应每个测试案例，输出两个数，小的先输出。</span><br></pre></td></tr></table></figure>
+<pre><code>def FindNumbersWithSum(self, array, tsum):
+    # write code here
+    # 因为是递增数组，所以最靠两边的一对就是和最小的
+    l = []
+    for x in array:
+        l.append(tsum-x)
+    for y in l:
+        if y in array:
+            return [tsum-y,y]
+    return []
+</code></pre><p>ps：这里用了y=tsum-x加入序列，同时判断了x和y是否都存在于序列，返回时，x较小，所有先输出。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/19/practice-6/" rel="next" title="Python编程--practice_6">
+                <i class="fa fa-chevron-left"></i> Python编程--practice_6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_photo.jpg"
+                alt="烟华。" />
+            
+              <p class="site-author-name" itemprop="name">烟华。</p>
+              <p class="site-description motion-element" itemprop="description">我的偶像万丈光芒，我不能一身戾气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wenxn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烟华。</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
