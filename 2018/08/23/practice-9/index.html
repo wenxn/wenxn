@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="49.数组中重复的数字 题目描述：在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。 思路：遍历列表，count计算次数 import collections  # 这里要特别注意~找">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python编程--practice_9">
+<meta property="og:url" content="http://yoursite.com/2018/08/23/practice-9/index.html">
+<meta property="og:site_name" content="wen">
+<meta property="og:description" content="49.数组中重复的数字 题目描述：在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。 思路：遍历列表，count计算次数 import collections  # 这里要特别注意~找">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-23T14:02:26.918Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python编程--practice_9">
+<meta name="twitter:description" content="49.数组中重复的数字 题目描述：在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。 思路：遍历列表，count计算次数 import collections  # 这里要特别注意~找">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/23/practice-9/"/>
+
+
+
+
+
+  <title>Python编程--practice_9 | wen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/23/practice-9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python编程--practice_9</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T00:00:00+08:00">
+                2018-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>49.数组中重复的数字
+</code></pre><p>题目描述：在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。</p>
+<p>思路：遍历列表，count计算次数</p>
+<pre><code>import collections
+
+# 这里要特别注意~找到任意重复的一个值并赋值到duplication[0]
+# 函数返回True/False
+def duplicate(self, numbers, duplication):
+    # write code here
+    flag=False
+    c=collections.Counter(numbers)
+    for k,v in c.items():
+        if v&gt;1:
+            duplication[0]=k
+            flag=True
+            break
+    return flag
+</code></pre><p>ps：返回true or false</p>
+<pre><code>50.构建乘积数组
+</code></pre><p>题目描述<br>给定一个数组A[0,1,…,n-1],请构建一个数组B[0,1,…,n-1],其中B中的元素B[i]=A[0]*A[1]<em>…\</em>A[i-1]*A[i+1]*…*A[n-1]。不能使用除法。</p>
+<p>思路：唯独没有乘以自己对于的A[i]，分为两部分求解</p>
+<pre><code>def multiply(self, A):
+    # write code here
+    if not A:
+        return []
+    # 计算前面一部分
+    num = len(A)
+    B = [None] * num
+    B[0] = 1
+    for i in range(1, num):
+        B[i] = B[i-1] * A[i-1]
+    # 计算后面一部分
+    # 自下而上
+    # 保留上次的计算结果乘本轮新的数,因为只是后半部分进行累加，所以设置一个tmp,能够保留上次结果
+    tmp = 1
+    for i in range(num-2, -1, -1):
+        tmp *= A[i+1]   
+        B[i] *= tmp
+    return B
+</code></pre><p>ps：这里使用了前半部分的值放在一个变量上，继续加</p>
+<pre><code>51.正则表达式匹配
+</code></pre><p>题目描述：请实现一个函数用来匹配包括’.’和’<em>‘的正则表达式。模式中的字符’.’表示任意一个字符，而’</em>‘表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”a.a”和”ab<em>ac</em>a”匹配，但是与”aa.a”和”ab*a”均不匹配</p>
+<pre><code># s, pattern都是字符串
+def match(self, s, pattern):
+    # write code here
+    if (len(s) == 0 and len(pattern) == 0):
+        return True
+    if (len(s) &gt; 0 and len(pattern) == 0):
+        return False
+    if (len(pattern) &gt; 1 and pattern[1] == &apos;*&apos;):
+        if (len(s) &gt; 0 and (s[0] == pattern[0] or pattern[0] == &apos;.&apos;)):
+            return (self.match(s, pattern[2:]) or self.match(s[1:], pattern[2:]) or self.match(s[1:], pattern))
+        else:
+            return self.match(s, pattern[2:])
+    if (len(s) &gt; 0 and (pattern[0] == &apos;.&apos; or pattern[0] == s[0])):
+        return self.match(s[1:], pattern[1:])
+    return False
+</code></pre><p>ps：这里使用了分部分进行匹配，要了解*和.表达的正则表达式的含义</p>
+<pre><code>52.表示数值的字符串
+</code></pre><p>题目描述<br>请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串”+100”,”5e2”,”-123”,”3.1416”和”-1E-16”都表示数值。 但是”12e”,”1a3.14”,”1.2.3”,”+-5”和”12e+4.3”都不是。</p>
+<pre><code># s字符串
+def isNumeric(self, s):
+    # write code here
+    try :
+        p = float(s)
+        return True
+    except:
+        return False
+</code></pre><p>ps：想到的是内置函数float直接判断。另外有大神的答案，方便参考。</p>
+<pre><code># s字符串
+def isNumeric(self, s):
+    # write code here
+    if len(s) &lt;= 0:
+        return False
+    # 分别标记是否出现过正负号、小数点、e，因为这几个需要特殊考虑
+    has_sign = False
+    has_point = False
+    has_e = False
+    for i in range(len(s)):
+        # 对于e的情况
+        if s[i] == &apos;E&apos; or s[i] == &apos;e&apos;:
+            # 不同出现两个e
+            if has_e:
+                return False
+            # e不能出现在最后面，因为e后面要接数字
+            else:
+                has_e = True
+                if i == len(s) -1:
+                    return False   
+        # 对于符号位的情况
+        elif s[i] == &apos;+&apos; or s[i] == &apos;-&apos;:
+            # 如果前面已经出现过了符号位，那么这个符号位，必须是跟在e后面的
+            if has_sign:
+                if s[i-1] != &apos;e&apos; and s[i-1] != &apos;E&apos;:
+                    return False
+            # 如果这是第一次出现符号位，而且出现的位置不是字符串第一个位置，那么就只能出现在e后面
+            else:
+                has_sign = True
+                if i &gt; 0 and s[i-1] != &apos;e&apos; and s[i-1] != &apos;E&apos;:
+                    return False
+        # 对于小数点的情况
+        elif s[i] == &apos;.&apos;:
+            # 小数点不能出现两次；而且如果已经出现过e了，那么就不能再出现小数点，因为e后面只能是整数
+            if has_point or has_e:
+                return False
+            # 如果是第一次出现小数点，如果前面出现过e，那么还是不能出现小数点
+            else:
+                has_point = True
+                if i &gt; 0 and (s[i-1] == &apos;e&apos; or s[i-1] == &apos;E&apos;):
+                    return False
+        else:
+            # 其他字符必须是‘0’到‘9’之间的
+            if s[i] &lt; &apos;0&apos; or s[i] &gt; &apos;9&apos;:
+                return False
+    return True
+</code></pre><p>ps：如果是考虑算法，建议大神的方法。</p>
+<pre><code>53.字节流中第一个不重复的字符
+</code></pre><p>题目描述<br>请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符”go”时，第一个只出现一次的字符是”g”。当从该字符流中读出前六个字符“google”时，第一个只出现一次的字符是”l”。 </p>
+<p>输出描述:<br>如果当前字符流没有存在出现一次的字符，返回#字符。</p>
+<pre><code>def __init__(self):
+    self.s=&quot;&quot;
+
+def FirstAppearingOnce(self):
+    res=list(filter(lambda c:self.s.count(c==1,self.s))
+    return res[0] if res else &quot;#&quot;
+
+def Insert(self, char):
+    self.s+=char
+</code></pre><p>ps：这里使用了两个函数定义。初始化s字符串，用了filter过滤器和lambda匿名函数做判断</p>
+<pre><code>54.链表中环的入口结点
+</code></pre><p>题目描述：给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。</p>
+<pre><code>def EntryNodeOfLoop(self, pHead):
+    # write code here
+    #遍历链表，环的存在，遍历遇见的第一个重复的即为入口节点
+    tempList = []
+    p = pHead
+    while p:
+        if p in tempList:
+            return p
+        else:
+            tempList.append(p)
+        p = p.next
+</code></pre><p>ps：用中间列表，重复的节点为入口节点</p>
+<pre><code>55.删除链表中重复的结点
+</code></pre><p>题目描述：在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5</p>
+<p>思路：先把所有节点的值放到一个列表中，再筛选出值数量为1的值。再新建一个链表返回即可。</p>
+<pre><code>def deleteDuplication(self, pHead):
+    res = []
+    while pHead:
+        res.append(pHead.val)
+        pHead = pHead.next
+    res = list(filter(lambda c: res.count(c) == 1,res))
+    dummy = ListNode(0)
+    pre = dummy
+    for i in res:
+        node = ListNode(i)
+        pre.next = node
+        pre = pre.next
+    return dummy.next
+</code></pre><p>ps：可以多利用filter过滤器，返回新的列表</p>
+<pre><code>56.二叉树的下一个结点
+</code></pre><p>题目描述：给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
+<p>思路，如果这道题是求中序遍历，肯定很简单。所以我们先写一个中序遍历的算法。关键是从根节点开始遍历，所以第一步还是找到某个节点的根节点，方法是一直使用next判断即可。<br>再将从根节点中序遍历的结果保存到一个数组中，直接找pNode所在索引的下一个即可。当然要考虑这个节点是不是最后一个，如果是最后一个，直接返回None。</p>
+<pre><code>def GetNext(self, pNode):
+    # write code here
+    dummy = pNode
+    while dummy.next:
+        dummy = dummy.next
+    self.result = []
+    self.midTraversal(dummy)
+    return self.result[self.result.index(pNode) + 1] if self.result.index(pNode) != len(self.result) - 1 else None
+
+def midTraversal(self, root):
+    if not root: return
+    self.midTraversal(root.left)
+    self.result.append(root)
+    self.midTraversal(root.right)
+</code></pre><p>ps：先写出一个中序遍历的算法，再由next返回一个列表。返回值是判断是否是最后一个，即判断索引值是否为len-1</p>
+<pre><code>57.对称的二叉树
+</code></pre><p>题目描述：请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。  </p>
+<p>思路：递归方式处理</p>
+<pre><code>def isSymmetrical(self, pRoot):
+    # write code here
+    if pRoot is None:
+        return True
+    return self.sub(pRoot.left, pRoot.right)
+def sub(self,left,right):
+    if left is None and right is None:
+        return True
+    if left is None or right is None:
+        return False
+    if left.val == right.val:
+        outPair = self.sub(left.left, right.right)
+        inPair = self.sub(left.right, right.left)
+        return outPair and inPair
+    else:
+        return False
+</code></pre><p>另一个解法：</p>
+<pre><code>def __init__(self, x):
+    self.val = x
+    self.left = None
+    self.right = None
+
+def isSymmetrical(self, pRoot):
+    if pRoot is None:
+        return True
+    return self.isSymmetricalCore(pRoot,pRoot)
+
+def isSymmetricalCore(self, pRoot, pRoot1):
+    if pRoot is None and pRoot1 is None:
+        return True
+    if pRoot is None or pRoot1 is None:
+        return False
+    if pRoot.val != pRoot1.val :
+        return False
+    return self.isSymmetricalCore(pRoot.left,pRoot1.right) and self.isSymmetricalCore(pRoot.right,pRoot1.left)
+</code></pre><p>ps：也可以使用定义两个函数，分别是中左右 和中右左遍历，并在遍历时候比较结点。</p>
+<pre><code>58.按之字形顺序打印二叉树
+</code></pre><p>题目描述：请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二行按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。</p>
+<p>思路：打印二叉树，首先是根据层次遍历，同一层的先打印进列表，之后再做一个层数的判断。</p>
+<pre><code>def Print(self, pRoot):
+    if not pRoot:
+        return []
+    nodeStack=[pRoot]
+    result=[]
+    while nodeStack:
+        res = []
+        nextStack=[]
+        for i in nodeStack:
+            res.append(i.val)
+            if i.left:
+                nextStack.append(i.left)
+            if i.right:
+                nextStack.append(i.right)
+        nodeStack=nextStack
+        result.append(res)
+    returnResult=[]
+    for i,v in enumerate(result):
+        if i%2==0:
+            returnResult.append(v)
+        else:
+            returnResult.append(v[::-1])
+    return returnResult
+</code></pre><p>ps：这里的层数判断，使用enumerate函数。不同层数，放进次序不一样，在对本层做判断放进时，也对一下层做判断。这个做法思路特别顾大局。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/21/practice-8/" rel="next" title="Python编程--practice_8">
+                <i class="fa fa-chevron-left"></i> Python编程--practice_8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_photo.jpg"
+                alt="烟华。" />
+            
+              <p class="site-author-name" itemprop="name">烟华。</p>
+              <p class="site-description motion-element" itemprop="description">我的偶像万丈光芒，我不能一身戾气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wenxn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烟华。</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
