@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="zabbix," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="笔者的操作环境（centos6.9），确认机器已有Python和pip1.pip安装yum install python-pip python-devel   yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y   pip3 install –upgrade pip pip3 install ansible –upgr">
-<meta name="keywords" content="zabbix">
+<meta name="description" content="59.把二叉树打印成多行 题目描述：从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。 # 返回二维列表[[1,2],[4,5]] def Print(self, pRoot):     if not pRoot:         return []     nodeStack = [pRoot]     result = []     while nodeStack:">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ansible">
-<meta property="og:url" content="http://yoursite.com/2018/08/01/ansible安装以及配置高可用架构/index.html">
+<meta property="og:title" content="Python编程--practice_10">
+<meta property="og:url" content="http://yoursite.com/2018/08/24/practice-10/index.html">
 <meta property="og:site_name" content="wen">
-<meta property="og:description" content="笔者的操作环境（centos6.9），确认机器已有Python和pip1.pip安装yum install python-pip python-devel   yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y   pip3 install –upgrade pip pip3 install ansible –upgr">
+<meta property="og:description" content="59.把二叉树打印成多行 题目描述：从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。 # 返回二维列表[[1,2],[4,5]] def Print(self, pRoot):     if not pRoot:         return []     nodeStack = [pRoot]     result = []     while nodeStack:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-13T11:56:34.344Z">
+<meta property="og:updated_time" content="2018-08-25T09:38:08.934Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ansible">
-<meta name="twitter:description" content="笔者的操作环境（centos6.9），确认机器已有Python和pip1.pip安装yum install python-pip python-devel   yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y   pip3 install –upgrade pip pip3 install ansible –upgr">
+<meta name="twitter:title" content="Python编程--practice_10">
+<meta name="twitter:description" content="59.把二叉树打印成多行 题目描述：从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。 # 返回二维列表[[1,2],[4,5]] def Print(self, pRoot):     if not pRoot:         return []     nodeStack = [pRoot]     result = []     while nodeStack:">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/01/ansible安装以及配置高可用架构/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/24/practice-10/"/>
 
 
 
 
 
-  <title>ansible | wen</title>
+  <title>Python编程--practice_10 | wen</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/ansible安装以及配置高可用架构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/24/practice-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="烟华。">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ansible</h1>
+          <h1 class="post-title" itemprop="name headline">Python编程--practice_10</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T00:00:00+08:00">
-                2018-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T00:00:00+08:00">
+                2018-08-24
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux，zabbix/" itemprop="url" rel="index">
-                    <span itemprop="name">linux，zabbix</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -342,34 +342,191 @@
       
 
       
-        <p>笔者的操作环境（centos6.9），确认机器已有Python和pip<br>1.pip安装<br>yum install python-pip python-devel  </p>
-<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y  </p>
-<p>pip3 install –upgrade pip</p>
-<p>pip3 install ansible –upgrade  </p>
-<p>（这样安装没有出现/etc/ansible/hosts,所以我选择了源码安装，很疑惑，欢迎解答我的问题）</p>
-<p>2.源码安装（使用git，先把需要的依赖都yum）<br>yum install git -y    </p>
-<p>yum install python-pip python-devel  </p>
-<p>yum install gcc glibc-devel zlib-devel rpm-build openssl-devel -y<br> python-jinja2 python-yaml </p>
-<pre><code>如果出现报错Loaded plugins: fastestmirror：
+        <pre><code>59.把二叉树打印成多行
+</code></pre><p>题目描述：从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。</p>
+<pre><code># 返回二维列表[[1,2],[4,5]]
+def Print(self, pRoot):
+    if not pRoot:
+        return []
+    nodeStack = [pRoot]
+    result = []
+    while nodeStack:
+        res = []
+        nextStack = []
+        for i in nodeStack:
+            res.append(i.val)
+            if i.left:
+                nextStack.append(i.left)
+            if i.right:
+                nextStack.append(i.right)
+        nodeStack = nextStack
+        result.append(res)
+    return result
+</code></pre><p>ps：按层数打印，nextStack存放下一层，res存放该层。result存放多层数据。</p>
+<pre><code>60.序列化二叉树
+</code></pre><p>题目描述：请实现两个函数，分别用来序列化和反序列化二叉树</p>
+<pre><code>def Serialize(self, root):
+    &quot;&quot;&quot;前序递归&quot;&quot;&quot;
+    ret = []
+    if not root:
+        return &apos;#&apos;
+    ret.append(str(root.val))
+    l = self.Serialize(root.left)
+    ret.append(l)
+    r = self.Serialize(root.right)
+    ret.append(r)
+    return &apos;,&apos;.join(ret)
 
-vim  /etc/yum/pluginconf.d/fastestmirror.conf 
+def Serialize_no_rec(self, root):
+    &quot;&quot;&quot;前序非递归&quot;&quot;&quot;
+    serialize_str = []
+    if not root:
+        return &apos;#&apos;
+    s = []
+    while root or s:
+        while root:
+            # serialize_str += (str(root.val)+&apos;,&apos;)
+            serialize_str.append(str(root.val))
+            s.append(root.right)  # 栈中存放右结点，便于左子树访问完之后回溯
+            root = root.left
+        # serialize_str += &quot;#,&quot;
+        serialize_str.append(&apos;#&apos;)  # 左结点访问完，用＃来标识该结点的空指针
+        root = s.pop()  # 依次访问栈中的右子树  # print serialize_str
+    return &apos;,&apos;.join(serialize_str)
 
-enabled = 0
 
-vim /etc/yum.conf
 
-plugins=0
+# write code here
 
-yum clean dbcache
-</code></pre><p>git clone git://github.com/ansible/ansible.git –recursive<br>cd ./ansible/<br> source ./hacking/env-setup<br>ansible –version  </p>
-<p>我们就完成了ansible的源码安装，接下来，为新系统（192.168.211.25）添加安全认证，ansible主机为（192.168.211.23）</p>
-<p>免密SSH密钥<br>1、在Ansible服务端生成密钥，并且复制公钥到节点中。<br>ssh-keygen</p>
-<p>2、使用ssh-copy-id命令来复制Ansible公钥到节点中。</p>
-<p>ssh-copy-id -i /root/.ssh/id_rsa.pub <a href="mailto:root@192.168.211.25" target="_blank" rel="noopener">root@192.168.211.25</a></p>
-<p>测试免密登录<br>ssh 192.168.211.25<br>（测试成功）</p>
-<p>为Ansible定义节点的清单<br> vi /etc/ansible/hosts<br>[web]<br>192.168.211.25</p>
-<p>下载virtualenv，进入虚拟环境<br> pip install ansible==1.9.4 Django==1.8 django-filter djangorestframework==3.2.3  MySQL-python</p>
-<p>pip安装的模块大致就是这样了</p>
+def Deserialize(self, s):
+    serialize = s.split(&apos;,&apos;)
+    tree, sp = self.deserialize(serialize, 0)
+    return tree
+
+def deserialize(self, s, sp):
+    if sp &gt;= len(s) or s[sp] == &quot;#&quot;:
+        return None, sp + 1
+    node = TreeNode(int(s[sp]))
+    sp += 1
+    node.left, sp = self.deserialize(s, sp)
+    node.right, sp = self.deserialize(s, sp)
+    return node, sp
+
+# write code here
+</code></pre><p>ps：这里使用递归，代码看得不是很懂。</p>
+<pre><code>61.二叉搜索树的第k个结点
+</code></pre><p>题目描述：给定一棵二叉搜索树，请找出其中的第k小的结点。例如， （5，3，7，2，4，6，8）中，按结点数值大小顺序第三小结点的值为4。</p>
+<p>思路：按中序遍历打印出来就是以上结果。</p>
+<pre><code># 返回对应节点TreeNode
+def KthNode(self, pRoot, k):
+    # write code here
+    #第三个节点是4
+    #前序遍历5324768
+    #中序遍历2345678
+    #后序遍历2436875
+    #所以是中序遍历，左根右
+    global result
+    result=[]
+    self.midnode(pRoot)
+    if  k&lt;=0 or len(result)&lt;k:
+        return None
+    else:
+        return result[k-1]
+
+def midnode(self,root):
+    if not root:
+        return None
+    self.midnode(root.left)
+    result.append(root)
+    self.midnode(root.right)
+</code></pre><p>ps：中序遍历使用递归的方法。</p>
+<pre><code>62.数据流中的中位数
+</code></pre><p>题目描述：如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。我们使用Insert()方法读取数据流，使用GetMedian()方法获取当前读取数据的中位数。</p>
+<p>思路：sort排序，判断奇偶性</p>
+<pre><code>def __init__(self):
+    self.arr=[]
+def Insert(self, num):
+    self.arr.append(num)
+    self.arr.sort()
+def GetMedian(self,fuck):
+    length=len(self.arr)
+    if length%2==1:
+        return self.arr[length//2]
+    return(self.arr[length//2]+self.arr[length//2-1])/2.0
+</code></pre><p>ps：getmedian需要传递两个参数</p>
+<pre><code>63.滑动窗口的最大值
+</code></pre><p>题目描述：给定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}； 针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个： {[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。</p>
+<p>思路：可以转换成通过判断滑动窗口的最大值</p>
+<pre><code>def maxInWindows(self, num, size):
+    # write code here
+    if size &lt;= 0:
+        return []
+    res = []
+    for i in xrange(0, len(num)-size+1):
+        res.append(max(num[i:i+size]))
+    return res
+</code></pre><p>ps：python2.x中可使用xrange</p>
+<pre><code>64.矩阵中的路径
+</code></pre><p>题目描述：请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。如果一条路径经过了矩阵中的某一个格子，则之后不能再次进入这个格子。 例如 a b c e s f c s a d e e 这样的3 X 4 矩阵中包含一条字符串”bcced”的路径，但是矩阵中不包含”abcb”路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。</p>
+<p>思路：回溯法<br>基本思想：<br>0.根据给定数组，初始化一个标志位数组，初始化为false，表示未走过，true表示已经走过，不能走第二次<br>1.根据行数和列数，遍历数组，先找到一个与str字符串的第一个元素相匹配的矩阵元素，进入judge<br>2.根据i和j先确定一维数组的位置，因为给定的matrix是一个一维数组<br>3.确定递归终止条件：越界，当前找到的矩阵值不等于数组对应位置的值，已经走过的，这三类情况，都直接false，说明这条路不通<br>4.若k，就是待判定的字符串str的索引已经判断到了最后一位，此时说明是匹配成功的<br>5.下面就是本题的精髓，递归不断地寻找周围四个格子是否符合条件，只要有一个格子符合条件，就继续再找这个符合条件的格子的四周是否存在符合条件的格子，直到k到达末尾或者不满足递归条件就停止。<br>6.走到这一步，说明本次是不成功的，我们要还原一下标志位数组index处的标志位，进入下一轮的判断  </p>
+<pre><code>#回溯法
+#遍历矩阵中的每一个位置
+
+def hasPath(self, matrix, rows, cols, path):
+    # write code here
+    if not matrix:
+        return False
+    if not path:
+        return True
+    # 找到与path第一个元素相等的元素的下标，然后分别从这些下标开始逐个判断
+    x = [list(matrix[cols*i:cols*i+cols]) for i in range(rows)]
+    for i in range(rows):
+        for j in range(cols):
+            if self.exist_helper(x, i, j, path):
+                return True
+    return False
+
+def exist_helper(self, matrix, i, j, p):
+    if matrix[i][j] == p[0]:
+        if not p[1:]:
+            return True
+        matrix[i][j] = &apos;&apos;
+        #判断方位            
+        if i &gt; 0 and self.exist_helper(matrix, i-1, j, p[1:]):
+            return True
+        if i &lt; len(matrix)-1 and self.exist_helper(matrix, i+1, j ,p[1:]):
+            return True
+        if j &gt; 0 and self.exist_helper(matrix, i, j-1, p[1:]):
+            return True
+        if j &lt; len(matrix[0])-1 and self.exist_helper(matrix, i, j+1, p[1:]):
+            return True
+        matrix[i][j] = p[0]
+        return False
+    else:
+        return False
+</code></pre><p>ps：回溯法，看的不太懂</p>
+<pre><code>65.机器人的运动范围
+</code></pre><p>题目描述：地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。 例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？</p>
+<pre><code>def movingCount(self, threshold, rows, cols):
+    self.row, self.col = rows, cols
+    self.dict = set()
+    self.search(threshold, 0, 0)
+    return len(self.dict)
+
+def judge(self, threshold, i, j):
+    #将i，j转化为整数相加
+    return sum(map(int, list(str(i)))) + sum(map(int, list(str(j)))) &lt;= threshold
+
+def search(self, threshold, i, j):
+    if not self.judge(threshold, i, j) or (i, j) in self.dict:
+        return
+    #条件判断成功，则加入
+    self.dict.add((i, j))
+    if i != self.row - 1:
+        self.search(threshold, i + 1, j)
+    if j != self.col - 1:
+        self.search(threshold, i, j + 1)
+</code></pre><p>ps：要注意去重:(i,j) in self.dict，如果不加这一句，时间复杂度不会满足</p>
 
       
     </div>
@@ -387,7 +544,7 @@ yum clean dbcache
       
         <div class="post-tags">
           
-            <a href="/tags/zabbix/" rel="tag"># zabbix</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
         </div>
       
@@ -400,8 +557,8 @@ yum clean dbcache
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/git/" rel="next" title="git笔记">
-                <i class="fa fa-chevron-left"></i> git笔记
+              <a href="/2018/08/23/practice-9/" rel="next" title="Python编程--practice_9">
+                <i class="fa fa-chevron-left"></i> Python编程--practice_9
               </a>
             
           </div>
@@ -409,10 +566,6 @@ yum clean dbcache
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/01/连接Oracle数据库访问数据/" rel="prev" title="Python访问Oracle">
-                Python访问Oracle <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
