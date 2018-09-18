@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="wen">
 <meta property="og:description" content="11.二进制1的个数  题目描述：输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。思路：（来自网友的看法，觉得很巧妙，可以学一学）如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。 举个例子：一个二进制数1100，从右边数起第三位是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-16T08:31:04.311Z">
+<meta property="og:updated_time" content="2018-09-05T09:26:37.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python编程--practice_3">
 <meta name="twitter:description" content="11.二进制1的个数  题目描述：输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。思路：（来自网友的看法，觉得很巧妙，可以学一学）如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。 举个例子：一个二进制数1100，从右边数起第三位是">
@@ -391,7 +391,7 @@ def reOrderArray(self, array):
 </code></pre><p>ps：这里用到if三分选择，当然也可以使用简单的if语句  </p>
 <p>14.链表中倒数第k个结点  </p>
 <p>题目描述：输入一个链表，输出该链表中倒数第k个结点。</p>
-<p>思路：建立空列表，写入结点（head），并非是结点值（head.val）。这一点注意一下，接着函数值return[-k]表示倒数第k个值</p>
+<p>思路：建立空列表，写入结点（head），并非是结点值（head.val）。这一点注意一下,写入结点列表和从头打印的逻辑一样，接着函数值return[-k]表示倒数第k个值</p>
 <pre><code>class Solution:
     def FindKthToTail(self, head, k):
         # write code here

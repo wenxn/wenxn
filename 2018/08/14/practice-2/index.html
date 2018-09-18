@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="wen">
 <meta property="og:description" content="6.旋转数组的最小数字 要求：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。思路：将一个元素与遍历数组其他元素比较 # -*- coding:utf-8 -*- clas">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-16T08:34:56.738Z">
+<meta property="og:updated_time" content="2018-09-05T09:11:53.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python编程--practice_2">
 <meta name="twitter:description" content="6.旋转数组的最小数字 要求：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。思路：将一个元素与遍历数组其他元素比较 # -*- coding:utf-8 -*- clas">
@@ -440,7 +440,7 @@ class Solution:
         return val
 </code></pre><p>ps：觉得return的位置有点迷茫，这些代码是只有返回一个值，就是val，所以应该是和函数对应的。</p>
 <p>10.矩形覆盖</p>
-<p>题目描述：<br>我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2<em>1的小矩形无重叠地覆盖一个2\</em>n的大矩形，总共有多少种方法？</p>
+<p>题目描述：<br>我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？</p>
 <p>思路：仍是斐波那契数列。<br>网友讨论如下：  </p>
 <p>（1）当 n &lt; 1时，显然不需要用2*1块覆盖，按照题目提示应该返回 0。<br>（2）当 n = 1时，只存在一种情况。<br>（3）当 n = 2时，存在两种情况。<br>自然而然可以得出规律： f(n) = f(n-1) + f(n-2)， (n &gt; 2)。<br>可以尝试将题目改成1*3方块覆盖3*n、1*4方块覆盖4*n。<br>相应的结论应该是：<br>（1）1 * 3方块 覆 盖3*n区域：f(n) = f(n-1) + f(n - 3)， (n &gt; 3)<br>（2） 1 *4 方块 覆 盖4*n区域：f(n) = f(n-1) + f(n - 4)，(n &gt; 4)  </p>
 <blockquote>
