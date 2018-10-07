@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.mysql主从复制（若是在一台机器上运行多台数据库，可使用mysqld_multi，这个不做拓展）–复制原理MySQL之间数据复制的基础是二进制日志文件（binary log file）。一台MySQL数据库一旦启用二进制日志后，其作为master，它的数据库中所有操作都会以“事件”的方式记录在二进制日志中，其他数据库作为slave通过一个I/O线程与主服务器保持通信，并监控master的二进">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="http://yoursite.com/2018/10/07/技术栈-mysql/index.html">
+<meta property="og:site_name" content="wen">
+<meta property="og:description" content="1.mysql主从复制（若是在一台机器上运行多台数据库，可使用mysqld_multi，这个不做拓展）–复制原理MySQL之间数据复制的基础是二进制日志文件（binary log file）。一台MySQL数据库一旦启用二进制日志后，其作为master，它的数据库中所有操作都会以“事件”的方式记录在二进制日志中，其他数据库作为slave通过一个I/O线程与主服务器保持通信，并监控master的二进">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-07T13:46:48.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql">
+<meta name="twitter:description" content="1.mysql主从复制（若是在一台机器上运行多台数据库，可使用mysqld_multi，这个不做拓展）–复制原理MySQL之间数据复制的基础是二进制日志文件（binary log file）。一台MySQL数据库一旦启用二进制日志后，其作为master，它的数据库中所有操作都会以“事件”的方式记录在二进制日志中，其他数据库作为slave通过一个I/O线程与主服务器保持通信，并监控master的二进">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/07/技术栈-mysql/"/>
+
+
+
+
+
+  <title>mysql | wen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/07/技术栈-mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-07T00:00:00+08:00">
+                2018-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.mysql主从复制<br>（若是在一台机器上运行多台数据库，可使用mysqld_multi，这个不做拓展）<br>–复制原理<br>MySQL之间数据复制的基础是二进制日志文件（binary log file）。一台MySQL数据库一旦启用二进制日志后，其作为master，它的数据库中所有操作都会以“事件”的方式记录在二进制日志中，其他数据库作为slave通过一个I/O线程与主服务器保持通信，并监控master的二进制日志文件的变化，如果发现master二进制日志文件发生变化，则会把变化复制到自己的中继日志中，然后slave的一个SQL线程会把相关的“事件”执行到自己的数据库中，以此实现从数据库和主数据库的一致性，也就实现了主从复制。  </p>
+<p>–复制过程：<br>1.主节点必须启用二进制日志，记录任何修改数据库数据的事件。<br>2.从节点开启一个线程（I/O Thread)把自己扮演成mysql的客户端，通过mysql协议，请求主节点的二进制日志文件中的事件<br>3.主节点启动一个线程（dump Thread），检查自己二进制日志中的事件，跟对方请求的位置对比，如果不带请求位置参数，则主节点就会从第一个日志文件中的第一个事件一个一个发送给从节点。<br>4.从节点接收到主节点发送过来的数据把它放置到中继日志（Relay log）文件中。并记录该次请求到主节点的具哪个二进制日志文件的哪个位置。<br>5.从节点启动另外一个线程（sql Thread ），把replaylog中的事件读取出来，并在本地再执行一次。  </p>
+<p>–复制中线程的作用：<br>从节点：<br> I/O Thread:从Master请求二进制日志事件，并保存于中继日志中。<br>Sql Thread:从中继日志中读取日志事件，在本地完成重放。<br>主节点：<br>Dump Thread:为每个Slave的I/O Thread启动一个dump线程，用于向从节点发送二进制事件。  </p>
+<p>–主从复制配置过程：<br>主节点：<br>1.启用二进制日志。<br>2.为当前节点设置一个全局唯一的server_id。<br>3.创建有复制权限的用户账号<br>mysql&gt; CREATE USER ‘repl‘@’xxx’ IDENTIFIED BY ‘xxx’;#创建用户，设密码<br>mysql&gt; GRANT REPLICATION SLAVE ON <em>.</em> TO ‘repl‘@’xxx’;#授予用户主从复制权限<br>mysql&gt; flush privileges;   #刷新权限  </p>
+<p>从节点（设为只读）：<br>1.启动中继日志。<br>2.为当前节点设置一个全局唯一的server_id。<br>3.使用有复制权限的用户账号连接至主节点，并启动复制线程。<br>mysql&gt; CHANGE MASTER TO<br>    -&gt;     MASTER_HOST=’xxx’,<br>    -&gt;     MASTER_USER=’rep1’,<br>    -&gt;     MASTER_PASSWORD=’xxx’,<br>    -&gt;     MASTER_LOG_FILE=’mysql-binxxx’,<br>    -&gt;     MASTER_LOG_POS=xx;  </p>
+<p>–相关命令<br>1.查看master状态，记录二进制文件名和位置：<br>mysql &gt; SHOW MASTER STATUS;<br>2.启动复制线程<br>START SLAVE<br>3.查看从节点状态信息<br>       show slave status\G;  </p>
+<p>–mysql数据库的配置文件详解：<br>主数据库：<br>[mysqld]<br>log-bin=mysql-bin #开启二进制日志<br>server-id=1 #设置server-id  </p>
+<p>*# 不同步哪些数据库<br>binlog-ignore-db = mysql<br>binlog-ignore-db = test<br>binlog-ignore-db = information_schema</p>
+<p>从数据库<br>[mysqld]<br>server-id=2 #设置server-id，必须唯一<br>read_only = 1 #限制从服务器为只读  </p>
+<p>2.数据库事务<br>–四大特性（ACID）<br>⑴原子性（Atomicity）<br>原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚，这和前面两篇博客介绍事务的功能是一样的概念，因此事务的操作如果成功就必须要完全应用到数据库，如果操作失败则不能对数据库有任何影响。  </p>
+<p>⑵一致性（Consistency）<br>一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。<br>拿转账来说，假设用户A和用户B两者的钱加起来一共是5000，那么不管A和B之间如何转账，转几次账，事务结束后两个用户的钱相加起来应该还得是5000，这就是事务的一致性。  </p>
+<p>⑶隔离性（Isolation）<br>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。<br>即要达到这么一种效果：对于任意两个并发的事务T1和T2，在事务T1看来，T2要么在T1开始之前就已经结束，要么在T1结束之后才开始，这样每个事务都感觉不到有其他事务在并发地执行。<br>关于事务的隔离性数据库提供了多种隔离级别，稍后会介绍到。  </p>
+<p>⑷持久性（Durability）<br>持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。<br>例如我们在使用JDBC操作数据库时，在提交事务方法后，提示用户事务操作完成，当我们程序执行完成直到看到提示后，就可以认定事务以及正确提交，即使这时候数据库出现了问题，也必须要将我们的事务完全执行完成，否则就会造成我们看到提示事务处理完毕，但是数据库因为故障而没有执行事务的重大错误。  </p>
+<p>–事务的隔离性<br>1，脏读<br>脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据。<br>当一个事务正在多次修改某个数据，而在这个事务中这多次的修改都还未提交，这时一个并发的事务来访问该数据，就会造成两个事务得到的数据不一致。<br>例如：用户A向用户B转账100元，对应SQL命令如下<br>update account set money=money+100 where name=’B’; (此时A通知B)<br>update account set money=money -100 where name=’A’;<br>当只执行第一条SQL时，A通知B查看账户，B发现确实钱已到账（此时即发生了脏读），而之后无论第二条SQL是否执行，只要该事务不提交，则所有操作都将回滚，那么当B以后再次查看账户时就会发现钱其实并没有转。  </p>
+<p>2，不可重复读<br>不可重复读是指在对于数据库中的某个数据，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，被另一个事务修改并提交了。<br>例如事务T1在读取某一数据，而事务T2立马修改了这个数据并且提交事务给数据库，事务T1再次读取该数据就得到了不同的结果，发送了不可重复读。<br>不可重复读和脏读的区别是，脏读是某一事务读取了另一个事务未提交的脏数据，而不可重复读则是读取了前一事务提交的数据。<br>在某些情况下，不可重复读并不是问题，比如我们多次查询某个数据当然以最后查询得到的结果为主。但在另一些情况下就有可能发生问题，例如对于同一个数据A和B依次查询就可能不同，A和B就可能打起来了……  </p>
+<p>3，虚读(幻读)<br>幻读是事务非独立执行时发生的一种现象。例如事务T1对一个表中所有的行的某个数据项做了从“1”修改为“2”的操作，这时事务T2又对这个表中插入了一行数据项，而这个数据项的数值还是为“1”并且提交给数据库。而操作事务T1的用户如果再查看刚刚修改的数据，会发现还有一行没有修改，其实这行是从事务T2中添加的，就好像产生幻觉一样，这就是发生了幻读。<br>幻读和不可重复读都是读取了另一条已经提交的事务（这点就脏读不同），所不同的是不可重复读查询的都是同一个数据项，而幻读针对的是一批数据整体（比如数据的个数）。  </p>
+<p>–四种隔离级别：<br>①Serializable (串行化)：可避免脏读、不可重复读、幻读的发生。<br>②Repeatable read (可重复读)：可避免脏读、不可重复读的发生。<br>③Read committed (读已提交)：可避免脏读的发生。<br>④Read uncommitted (读未提交)：最低级别，任何情况都无法保证。<br>以上四种隔离级别最高的是Serializable级别，最低的是Read uncommitted级别，当然级别越高，执行效率就越低。像Serializable这样的级别，就是以锁表的方式(类似于Java多线程中的锁)使得其他的线程只能在锁外等待，  </p>
+<p>serializable无非是最严格的，不官你是读还是写，必须排队一个个来，所以这个隔离级别不会出现脏读幻读之类的问题，每个事务操作的都是完完全全属于自己的数据，不会有其他事务和你挣。但是可想而知这种级别也是效率最低的，很少场景会使用这种隔离级别。<br>read uncommited可读取未提交的数据，就是我在写的时候你顺便读，我在数据库写你读到的就是什么，但这时候写的事务并没有提交，所以读到的是脏数据。一般数据库默认都是使用这个事务隔离级别。<br>read commited 比read uncommit级别更高一点，我写的时候，你是不能读的，只有我提交了你才能读，这种级别偏向于写，可以理解成写的地位更高，读的都的往后排。这样避免了脏读的问题，但是会有这样一种情况，假设我需要读两遍数据库，我第一次读到数据，好，这个时候你开始写的事务，因为你地位高我就等你写完再读，这下可想而知数据被改了，在读的时候与第一次读到的数据就不一样了，这个就叫幻读。<br>幻读是两次读到的数据不一致，与脏读表象是一样的。但是区别于脏读，脏读读到的数据是写事务还未提交的数据，而幻读是写事务已提交了数据。只是前后两次读到的不一致，感觉像产生幻觉一样。那怎么解决幻读这个问题呢，很明显我们会想到把读的地位提高，我要读两次你就得等我两次读完你才能写，这就是repeatable read 可重复读，读的事务开始了，爱怎么读怎么读，写给我靠边站，这样就不会出现幻读，这种级别比read commited又高了一级。  </p>
+<p>在MySQL数据库中，支持上面四种隔离级别，默认的为Repeatable read (可重复读)；而在Oracle数据库中，只支持Serializable (串行化)级别和Read committed (读已提交)这两种级别，其中默认的为Read committed级别。  </p>
+<p>–相关命令：<br>在MySQL数据库中查看当前事务的隔离级别：<br>select @@tx_isolation;<br>在MySQL数据库中设置事务的隔离级别：（设置数据库的隔离级别一定要是在开启事务之前！）<br>set [glogal | session] transaction isolation level 隔离级别名称;  </p>
+<p>3.数据库表操作<br>–drop,delete与truncate的区别<br>drop直接删掉表<br>truncate删除表中数据，再插入时自增长id又从1开始<br>delete删除表中数据，可以加where字句  </p>
+<p>–如何诊断数据库健康状态<br>(按照严重程度，分为无法提供查询、可以查询但延迟大、可以查询但返回结果错误，处理方法先重现故障，然后查看系统日志，再不行debug代码)<br>1.MySQL是否可用？<br>　　这当然是首先要做的，如果你的MySQL服务都没在跑了，其它监控从何谈起？我们可以使用如下几条命令来查看当前MySQL服务是否处于运行状态（相应主机上的相应用户应具有相应的权限）：<br>　　mysqladmin -hhost_name /IP-uuser_name-pping<br>　　mysqladmin-hhost_name /IP-uuser_name-pstatus<br>　　或者<br>　　service mysqld status<br>　　/etc/init.d/mysqld status<br>　　netstat  -tnlp|grep   3306      #MySQL默认使用的端口<br>　　ps   aux|grep  mysqld 　<br>2.数据库用户及数据库足够安全？<br>　　是否存在很多“host”为“%”的用户？莫非你是想要这些用户能从世界任何一个地方登录你的MySQLserver？<br>　　是否grantallon<em>.</em>给了用户？这些用户有必要拥有这些权限么？<br>　　记不记得MySQL还有个默认没有密码的root用户？这可是件很恐怖的是，当然也可能成为一件令人振奋的事！<br>　　什么样的用户该赋予哪些权限能从哪些地方接入都是要慎重考虑的，不要为了一时方便而给别有用心之人留下可乘之机！<br>　　我们可以通过如下命令来创建用户及管理权限<br>　　CREAT EUSER ‘user_nane’  IDENTIFIED   BY    ‘your_password’;<br>　　GRANT   privileges_to_user  TO ‘user_name‘@’host_name   /ip     ‘[WITHGRANTOPTION];<br>　　FLUSHPRIVILEGS;<br>　　或者简单一点<br>　　GRANT   privileges_to_user  TO  ‘user_name‘@’host_name    /ip   ‘IDENTIFIEDBY’your_password’  [WITHGRANTOPTION];<br>　　FLUSHPRIVILEGS;<br>　　<br>　　3连接数正常否？<br>　　连接数正常么？有多少由于客户没有正确关闭连接而死掉的连接？有多少失败的连接？<br>　　是不是有恶意连接？还是连接数不够用了？<br>　　我们可以用<br>　　SHOW   full    processlist ;<br>　　mysqladmin   -hhost_name   /IP-uuser_name-pprocesslist<br>　　来查看连接数，如果是root用户将会看到所有的连接而其它用户只能看到自己占用的连接<br>　　可以用<br>　　SHOW GLOBAL  STATUS   LIKE   ‘aborted_connects’<br>　　查看当前失败连接数<br>　　可以用<br>　　SHOW GLOBAL  STATUS   LIKE   ‘aborted_clients’<br>　　查看有多少由于客户没有正确关闭连接而死掉的连接数<br>　　可以用<br>　　SHOW  CLOBAL   VARIABLES   LIKE   ‘max_connections’<br>　　SHOW  GLOBAL   STATUS   LIKE      ‘max_connections’<br>　　查看最大连接数<br>　　 　<br>　　4.错误日志！<br>　　错误日志不止包含了MySQL服务在启动和停止过程中的相关信息，它还包括服务运行过程中一些重要（危险）的信息。特别是日志中带有[error]的信息应得到特殊的照顾！<br>　　<br>　　5.Innodb死锁<br>　　当遇到死锁时Innodb会回滚事务。了解死锁何时发生对于追溯其发生的根本原因非常重要。我们必须知道产生了什么样的死锁，相关应用是否正确处理或已采取了相关措施。<br>　　可以通过<br>　　SHOW   ENGINE   INNODB    STATUS<br>　　查看死锁相关状况<br>　　<br>　　6.服务配置文件最近有更改否？<br>　　是不是觉得最近MySQL服务跑着有点不对劲？最近更改了配置文件么？<br>　　配置文件对MySQL服务来说是至关重要的，一般不要轻易更改！在改之前最好先备份一份，改动的地方要做好注释（顺便提一句，在备份数据库的时候别忘记备份配置文件！）。<br>　　<br>　　7.慢查询日志<br>　　慢查询日志对SQL调优来说是非常重要的，它记录了超过指定时间（long_query_time）的查询语句；一般只在需要时开启。<br>　　<br>　　8从服务器落后了多少？<br>　　MySQL的主从复制在生产环境中经常用到，从服务器能跟上主服务器的步伐么？落后的时间（seconds_behind_master）是否在安全范围内？<br>　可以通过<br>　　SHOW  SLAVE    STATUS<br>　　查看从服务器当前状态<br>　　<br>　　9全表扫描比例<br>可以通过SHOW GLOBAL STATUS LIKE ‘Handler_read%’<br>应该知道为什么会产生全表扫描及是否有必要做出相应的调整。  </p>
+<p>–MyISAM与InnoDB区别（虎牙问过）<br>表锁差异<br>1、MyISAM：默认表类型，它是基于传统的ISAM类型，有索引的顺序访问方法，它是存储记录和文件的标准方法。不是事务安全的，而且不支持外键，如果执行大量的select，insert。MyISAM比较适合。<br>2、InnoDB：支持事务安全的引擎，支持外键、行锁、事务是他的最大特点。如果有大量的update和insert，建议使用InnoDB，特别是针对多个并发和QPS较高的情况。  </p>
+<p>数据库文件差异<br>1.myisam属于堆表，磁盘存储上有三个文件，每个文件名以表名开头，扩展名指出文件类型<br>2.innodb属于索引组织表，有两种存储方式，共享表空间存储和多表空间存储  </p>
+<p>索引差异<br>1、关于自动增长<br>myisam引擎的自动增长列必须是索引，如果是组合索引，自动增长可以不是第一列，他可以根据前面几列进行排序后递增。<br>innodb引擎的自动增长咧必须是索引，如果是组合索引也必须是组合索引的第一列。<br>2、关于主键<br>myisam允许没有任何索引和主键的表存在，<br>myisam的索引都是保存行的地址。<br>innodb引擎如果没有设定主键或者非空唯一索引，就会自动生成一个6字节的主键(用户不可见)<br>innodb的数据是主索引的一部分，附加索引保存的是主索引的值。<br>3、关于count()函数<br>myisam保存有表的总行数，如果select count(<em>) from table;会直接取出出该值<br>innodb没有保存表的总行数，如果使用select count(</em>) from table；就会遍历整个表，消耗相当大，但是在加了where条件后，myisam和innodb处理的方式都一样。<br>4、全文索引<br>myisam支持 FULLTEXT类型的全文索引<br>innodb不支持FULLTEXT类型的全文索引  </p>
+<p>–两个表的联接方式 table-a xxx(type) join table-b on where xxx=xxx<br>连接查询主要分为三种：内连接、外连接、交叉连接。<br>内连接<br>只返回满足连接条件的数据行<br>关键字  a INNER JOIN  b  </p>
+<p>外连接<br>不只列出与连接条件相匹配的行，而是列出左表（左外连接时）、右表（右外连接时）或两个表（全外连接时）中所有符合搜索条件的数据行。外连接分为左外连接、右外链接、全外连接三种。<br>左外连接返回左表中的所有行，如果左表中行在右表中没有匹配行，则在相关联的结果集中右表的所选择字段均为NULL。<br>关键字 a  LEFT [OUTER] JOIN b<br>右外链接返回右表中的所有行，如果右表中行在左表中没有匹配行，则在左表中相关字段返回NULL值。<br>关键字    RIGHT [OUTER] JOIN<br>全外连接返回两个连接中所有的记录数据，是左外连接和右外连接的并集。<br>关键字     FULL [OUTER] JOIN   </p>
+<p>交叉连接<br>两个表做笛卡尔积，得到的结果集的行数是两个表的行数的乘积<br>关键字      CROSS JOIN  </p>
+<p>–数据库表关联的内部算法<br>合并联接（Merge join），哈希联接（Hash Join）和嵌套循环联接（Nested Loop Join）。   </p>
+<p>哈希联接的道理是：<br>1) 读取内关系的所有元素<br>2) 在内存里建一个哈希表<br>3) 逐条读取外关系的所有元素<br>4) （用哈希表的哈希函数）计算每个元素的哈希值，来查找内关系里相关的哈希桶内<br>5) 是否与外关系的元素匹配。   </p>
+<p>合并联接是唯一产生排序的联接算法。<br>道理如下：<br>1) 在两个关系中，比较当前元素（当前=头一次出现的第一个）<br>2) 如果相同，就把两个元素都放入结果，再比较两个关系里的下一个元素<br>3) 如果不同，就去带有最小元素的关系里找下一个元素（因为下一个元素可能会匹配）<br>4) 重复 1、2、3步骤直到其中一个关系的最后一个元素  </p>
+<p>优缺点分析：<br>nested loop join在磁盘 I/O 方面，最好的，是每个关系只读取一次。<br>hash join对内存有利但是对磁盘 I/O 不够有利   </p>
+<p>–&gt;数据库表里有100万条数据，想要删除80万条数据，但是因为锁的原因，删除很慢，现在想要快速删除怎么办<br>(看按照什么条件删除了，如果where条件走索引的话删除1w条记录完全没问题，如果数据量实在太大，尤其是占用表的数据超过剩余数据的话，比如这里只保留20万数据，建议先把要保留的数据用insert into … select * from … where …移到另外的表中，然后truncate，然后在用上面的语句把数据copy过来，或者直接drop表，重新建表，再copy数据.)  </p>
+<p>4.数据库优化的方法<br>1.调整配置<br>优化mysql之前，首先要开启慢查询日志，在分析慢查询日志<br>[mysqld]<br>slow-query-log = on # 开启慢查询功能<br>slow_query_log_file = /usr/local/mysql/data/slow-query.log # 慢查询日志存放路径与名称 long_query_time = 5 # 查询时间超过5s的查询语句<br>log-queries-not-using-indexes = on # 列出没有使用索引的查询语句  </p>
+<p>2.优化查询语句<br>–1、选取最适用的字段属性<br>MySQL可以很好的支持大数据量的存取，但是一般说来，数据库中的表越小，在它上面执行的查询也就会越快。因此，在创建表的时候，为了获得更好的性能，我们可以将表中字段的宽度设得尽可能小。<br>例如，在定义邮政编码这个字段时，如果将其设置为CHAR(255),显然给数据库增加了不必要的空间，甚至使用VARCHAR这种类型也是多余的，因为CHAR(6)就可以很好的完成任务了。同样的，如果可以的话，我们应该使用MEDIUMINT而不是BIGIN来定义整型字段。<br>另外一个提高效率的方法是在可能的情况下，应该尽量把字段设置为NOTNULL，这样在将来执行查询的时候，数据库不用去比较NULL值。<br>对于某些文本字段，例如“省份”或者“性别”，我们可以将它们定义为ENUM类型。因为在MySQL中，ENUM类型被当作数值型数据来处理，而数值型数据被处理起来的速度要比文本类型快得多。这样，我们又可以提高数据库的性能。  </p>
+<p>–2、使用连接（JOIN）来代替子查询(Sub-Queries)<br>MySQL从4.1开始支持SQL的子查询。这个技术可以使用SELECT语句来创建一个单列的查询结果，然后把这个结果作为过滤条件用在另一个查询中。使用子查询可以一次性的完成很多逻辑上需要多个步骤才能完成的SQL操作，同时也可以避免事务或者表锁死，并且写起来也很容易。但是，有些情况下，子查询可以被更有效率的连接（JOIN）..替代。例如，假设我们要将所有没有订单记录的用户取出来，可以用下面这个查询完成：<br>SELECT <em> FROM customerinfo<br>WHERE CustomerID NOT IN (SELECTC ustomerID FROM salesinfo)<br>如果使用连接（JOIN）..来完成这个查询工作，速度将会快很多。尤其是当salesinfo表中对CustomerID建有索引的话，性能将会更好，查询如下：<br>SELECT </em> FROM customerinfo<br>LEFT JOIN salesinfo ON   customerinfo.CustomerID=salesinfo.CustomerID<br>WHERE salesinfo.CustomerID ISNULL<br>连接（JOIN）..之所以更有效率一些，是因为MySQL不需要在内存中创建临时表来完成这个逻辑上的需要两个步骤的查询工作。</p>
+<p>–3、使用联合(UNION)来代替手动创建的临时表<br>MySQL从4.0的版本开始支持union查询，它可以把需要使用临时表的两条或更多的select查询合并的一个查询中。在客户端的查询会话结束的时候，临时表会被自动删除，从而保证数据库整齐、高效。使用union来创建查询的时候，我们只需要用UNION作为关键字把多个select语句连接起来就可以了，要注意的是所有select语句中的字段数目要想同。下面的例子就演示了一个使用UNION的查询。<br>SELECT Name,Phone FROM client UNION<br>SELECT Name,BirthDate FROM author UNION<br>SELECT Name,Supplier FROM product  </p>
+<p>–4、事务<br>尽管我们可以使用子查询（Sub-Queries）、连接（JOIN）和联合（UNION）来创建各种各样的查询，但不是所有的数据库操作都可以只用一条或少数几条SQL语句就可以完成的。更多的时候是需要用到一系列的语句来完成某种工作。但是在这种情况下，当这个语句块中的某一条语句运行出错的时候，整个语句块的操作就会变得不确定起来。设想一下，要把某个数据同时插入两个相关联的表中，可能会出现这样的情况：第一个表中成功更新后，数据库突然出现意外状况，造成第二个表中的操作没有完成，这样，就会造成数据的不完整，甚至会破坏数据库中的数据。要避免这种情况，就应该使用事务，它的作用是：要么语句块中每条语句都操作成功，要么都失败。换句话说，就是可以保持数据库中数据的一致性和完整性。事物以BEGIN关键字开始，COMMIT关键字结束。在这之间的一条SQL操作失败，那么，ROLLBACK命令就可以把数据库恢复到BEGIN开始之前的状态。<br>BEGIN; INSERT INTO salesinfo SET CustomerID=14; UPDATE inventory SET Quantity=11 WHERE item=’book’; COMMIT;<br>事务的另一个重要作用是当多个用户同时使用相同的数据源时，它可以利用锁定数据库的方法来为用户提供一种安全的访问方式，这样可以保证用户的操作不被其它的用户所干扰。  </p>
+<p>–5、锁定表<br>尽管事务是维护数据库完整性的一个非常好的方法，但却因为它的独占性，有时会影响数据库的性能，尤其是在很大的应用系统中。由于在事务执行的过程中，数据库将会被锁定，因此其它的用户请求只能暂时等待直到该事务结束。如果一个数据库系统只有少数几个用户来使用，事务造成的影响不会成为一个太大的问题；但假设有成千上万的用户同时访问一个数据库系统，例如访问一个电子商务网站，就会产生比较严重的响应延迟。<br>其实，有些情况下我们可以通过锁定表的方法来获得更好的性能。下面的例子就用锁定表的方法来完成前面一个例子中事务的功能。<br>LOCK TABLE inventory WRITE SELECT Quantity FROM inventory WHERE Item=’book’;<br>UPDATE inventory SET Quantity=11 WHERE Item=’book’;   UNLOCKTABLES<br>这里，我们用一个select语句取出初始数据，通过一些计算，用update语句将新值更新到表中。包含有WRITE关键字的LOCKTABLE语句可以保证在UNLOCKTABLES命令被执行之前，不会有其它的访问来对inventory进行插入、更新或者删除的操作。 </p>
+<p>–6、使用外键<br>锁定表的方法可以维护数据的完整性，但是它却不能保证数据的关联性。这个时候我们就可以使用外键。<br>例如，外键可以保证每一条销售记录都指向某一个存在的客户。在这里，外键可以把customerinfo表中的CustomerID映射到salesinfo表中CustomerID，任何一条没有合法CustomerID的记录都不会被更新或插入到salesinfo中。<br>CREATE    TABLE    customerinfo( CustomerIDINT    NOT    NULL,PRIMARYKEY(CustomerID))TYPE=INNODB;<br>CREATE    TABLE    salesinfo( SalesIDNT    NOT    NULL,CustomerIDINT    NOT    NULL,<br>PRIMARYKEY(CustomerID,SalesID),<br>FOREIGNKEY(CustomerID)    REFERENCES    customerinfo(CustomerID)    ON    DELETE    CASCADE)TYPE=INNODB;  </p>
+<p>注意例子中的参数“ON DELETE CASCADE”。该参数保证当customerinfo表中的一条客户记录被删除的时候，salesinfo表中所有与该客户相关的记录也会被自动删除。如果要在MySQL中使用外键，一定要记住在创建表的时候将表的类型定义为事务安全表InnoDB类型。该类型不是MySQL表的默认类型。定义的方法是在CREATETABLE语句中加上TYPE=INNODB。如例中所示。 </p>
+<p>–7、使用索引<br>索引是提高数据库性能的常用方法，它可以令数据库服务器以比没有索引快得多的速度检索特定的行，尤其是在查询语句当中包含有MAX(),MIN()和ORDERBY这些命令的时候，性能提高更为明显。<br>那该对哪些字段建立索引呢？<br>一般说来，索引应建立在那些将用于JOIN,WHERE判断和ORDERBY排序的字段上。尽量不要对数据库中某个含有大量重复的值的字段建立索引。对于一个ENUM类型的字段来说，出现大量重复值是很有可能的情况<br>例如customerinfo中的“province”..字段，在这样的字段上建立索引将不会有什么帮助；相反，还有可能降低数据库的性能。我们在创建表的时候可以同时创建合适的索引，也可以使用ALTERTABLE或CREATEINDEX在以后创建索引。此外，MySQL从版本3.23.23开始支持全文索引和搜索。全文索引在MySQL中是一个FULLTEXT类型索引，但仅能用于MyISAM类型的表。对于一个大的数据库，将数据装载到一个没有FULLTEXT索引的表中，然后再使用ALTERTABLE或CREATEINDEX创建索引，将是非常快的。但如果将数据装载到一个已经有FULLTEXT索引的表中，执行过程将会非常慢。<br>–&gt;索引的工作原理及其种类<br>数据库索引，是数据库管理系统中一个排序的数据结构，以协助快速查询、更新数据库表中数据。索引的实现通常使用B树及其变种B+树。  </p>
+<p>B树   每个节点都存储key和data，所有节点组成这棵树，并且叶子节点指针为null。  </p>
+<p>B+树   只有叶子节点存储data，叶子节点包含了这棵树的所有键值，叶子节点不存储指针  </p>
+<p>在B+树上增加了顺序访问指针，也就是每个叶子节点增加一个指向相邻叶子节点的指针，这样一棵树成了数据库系统实现索引的首选数据结构。   </p>
+<p>–8、优化的查询语句<br>绝大多数情况下，使用索引可以提高查询的速度，但如果SQL语句使用不恰当的话，索引将无法发挥它应有的作用。<br>1）应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。<br>2）应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如： select id from t where num is null 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询： select id from t where num=0<br>3）很多时候用 exists 代替 in 是一个好的选择<br>4）用Where子句替换HAVING 子句 因为HAVING 只会在检索出所有记录之后才对结果集进行过滤<br>5）选择最有效率的表名顺序，数据库的解析器按照从右到左的顺序处理FROM子句中的表名。FROM子句中写在最后的表将被最先处理，在FROM子句中包含多个表的情况下,你必须选择记录条数最少的表放在最后，如果有3个以上的表连接查询,那就需要选择那个被其他表所引用的表放在最后。<br>(1)如果三个表是完全无关系的话，将记录和列名最少的表，写在最后，然后依次类推<br>(2)如果三个表是有关系的话，将引用最多的表，放在最后，然后依次类推<br>6）WHERE子句中的连接顺序。数据库采用自右而左的顺序解析WHERE子句,根据这个原理，表之间的连接必须写在其他WHERE条件之左, 那些可以过滤掉最大数量记录的条件必须写在WHERE子句的之右。<br>7）SELECT子句中避免使用*号<br>数据库在解析的过程中,会将*依次转换成所有的列名，这个工作是通过查询数据字典完成的，这意味着将耗费更多的时间<br>8）用TRUNCATE替代DELETE<br>9）多使用内部函数提高SQL效率<br>如explain（查询sql的执行计划）<br>10）使用表，列的别名  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/06/linux/" rel="next" title="linux">
+                <i class="fa fa-chevron-left"></i> linux
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_photo.jpg"
+                alt="烟华。" />
+            
+              <p class="site-author-name" itemprop="name">烟华。</p>
+              <p class="site-description motion-element" itemprop="description">我的偶像万丈光芒，我不能一身戾气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wenxn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烟华。</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
