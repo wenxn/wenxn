@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.了解cpu，内存，硬盘等硬件设施 cpu的信息通过 cat /proc/cpuinfo可进行查看grep “physical id” | sort | uniq | wc -l 查看物理cpu个数grep “processor” | wc -l 查看逻辑cpu个数grep “cpu cores “ | uniq 查看cpu核数 一般：逻辑cpu的个数=核心数的两倍超线程：逻辑数=核心数的两倍（">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql学习-1">
+<meta property="og:url" content="http://yoursite.com/2018/11/24/2018.08/index.html">
+<meta property="og:site_name" content="wen">
+<meta property="og:description" content="1.了解cpu，内存，硬盘等硬件设施 cpu的信息通过 cat /proc/cpuinfo可进行查看grep “physical id” | sort | uniq | wc -l 查看物理cpu个数grep “processor” | wc -l 查看逻辑cpu个数grep “cpu cores “ | uniq 查看cpu核数 一般：逻辑cpu的个数=核心数的两倍超线程：逻辑数=核心数的两倍（">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-18T08:56:16.505Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql学习-1">
+<meta name="twitter:description" content="1.了解cpu，内存，硬盘等硬件设施 cpu的信息通过 cat /proc/cpuinfo可进行查看grep “physical id” | sort | uniq | wc -l 查看物理cpu个数grep “processor” | wc -l 查看逻辑cpu个数grep “cpu cores “ | uniq 查看cpu核数 一般：逻辑cpu的个数=核心数的两倍超线程：逻辑数=核心数的两倍（">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/24/2018.08/"/>
+
+
+
+
+
+  <title>mysql学习-1 | wen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/2018.08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql学习-1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T00:00:00+08:00">
+                2018-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h6 id="1-了解cpu，内存，硬盘等硬件设施"><a href="#1-了解cpu，内存，硬盘等硬件设施" class="headerlink" title="1.了解cpu，内存，硬盘等硬件设施"></a>1.了解cpu，内存，硬盘等硬件设施</h6><blockquote>
+<p>cpu的信息通过 cat /proc/cpuinfo可进行查看<br>grep “physical id” | sort | uniq | wc -l 查看物理cpu个数<br>grep “processor” | wc -l 查看逻辑cpu个数<br>grep “cpu cores “ | uniq 查看cpu核数</p>
+<p>一般：逻辑cpu的个数=核心数的两倍<br>超线程：逻辑数=核心数的两倍（x86）  </p>
+</blockquote>
+<blockquote>
+<p>cache和buffet区别：<br>1.cache属于高速缓存，cpu从内存中直接读取数据，减少cpu等待（文件系统的内存）<br>2.buffet缓冲区，存储速度不同步的设备之间的传输，进程之间等待少（块设备的读写缓冲区）<br>监控内存使用较高的前五位进程<br>ps -aux | sort -r -k 4 | head -6</p>
+</blockquote>
+<blockquote>
+<p>硬盘的文件系统（Linux主要以ext系列为主）<br>硬盘区别：<br>1.SSD固态硬盘，日常读写储存快，成本高<br>2.HHD机械硬盘，成本低，适合做大容量存储  </p>
+<p>fdisk -l 查看物理硬盘列表  </p>
+<p>网络：<br>ifstat，iftop 进行网络接口监测，实时流量监控</p>
+</blockquote>
+<h6 id="2-熟悉ubuntu操作系统"><a href="#2-熟悉ubuntu操作系统" class="headerlink" title="2.熟悉ubuntu操作系统"></a>2.熟悉ubuntu操作系统</h6><p>安装软件时如果提示依赖没有安装，可用sudo apt-get install -f 自动安装依赖包   </p>
+<p>ubuntu下查看已安装的程序<br>dpkg -l | grep mysql</p>
+<p>spf13是vim插件的集合包，（预先有git1.7和vim7.4）</p>
+<blockquote>
+<p>下载安装 curl <a href="https://j.mp/spf13-vim-L" target="_blank" rel="noopener">https://j.mp/spf13-vim-L</a> &gt; spf13-vim.sh &amp;&amp; sh spf13-vim.sh  </p>
+</blockquote>
+<h6 id="3-进行socket通信实践–python的多人聊天室"><a href="#3-进行socket通信实践–python的多人聊天室" class="headerlink" title="3.进行socket通信实践–python的多人聊天室"></a>3.进行socket通信实践–python的多人聊天室</h6><p>了解模块<br>socket模块是针对服务端和客户端socket进行通信   、</p>
+<p>服务器端：</p>
+<blockquote>
+<p>1.创建socket对象，如socket.AF_INET,SOCK_STREAM)<br>2.绑定ip地址和端口号，bind(adress,port)<br>3.接受请求，接受指定的用户数listen(num)<br>4.等待用户请求连接 accept() = con,addr，返回socket对象及对应地址<br>5.处理阶段，传输字节数，recv(num)，send(num)<br>6.关闭连接，close()</p>
+</blockquote>
+<p>客户端：  </p>
+<blockquote>
+<p>1.创建socket对象，如socket.AF_INET,SOCK_STREAM)<br>2.连接服务器，connect()方法<br>3.处理阶段，传输字节数，recv(num)，send(num)<br>4.关闭连接，close()</p>
+</blockquote>
+<p>线程中最简单的同步就是锁机制–threading模块为低级线程控制。</p>
+<p>多线程使用threading模块，condition实现复杂同步。为生产者与消费者模型，但在python中只能交替进行，并不能做到真正的并发执行    </p>
+<blockquote>
+<p>conn=threading.Condition()创建一个对象，使用对象可以在某些事件触发或者达到特定条件后才处理数据<br>wait()：线程挂起，直到收到一个notify通知才会被唤醒继续进行<br>notify()：通知其他线程，那些被挂起的线程接到这个通知后会执行<br>notifyAll()：wait状态线程多，通知所有线程<br>acquire()：获取锁<br>release():释放锁  </p>
+</blockquote>
+<p>多线程缺点：很难保证线程间资源共享工作正常，效率低下</p>
+<p>python管理异步socket的API有三种：select，poll，epoll<br>select函数是对底层操作系统直接访问的接口，可用来监控sockets，files，pipes，等待io完成  </p>
+<p>select模块<br>select.select(rlist,wlist,xlist[timeout])<br>传递三个参数，<br>一个为输入而观察的文件对象列表可用来监听多个socket连接的可读事件，分为两部分，server socket监听客户端请求，accept（）方法加入rlist，client socket为客户端发送数据，调用recv（）方法获取，检查用户的输入<br>一个为输出<br>一个为错误，结果返回三个tuple  </p>
+<blockquote>
+<p>select模块中，默认为阻塞模式，如果设置为非阻塞conn.setblocking(0)  </p>
+<p>epoll有两种模式<br>1.边沿触发：在读取/写入事件发生时只返回一次，后续再处理所有<br>2.状态触发：重复调用只返回重复事件  </p>
+</blockquote>
+<h6 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h6><blockquote>
+<p>1.git init 初始化git代码仓库<br>2.git add file 将本地文件放在存储区<br>3.git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:xxx/xxx 添加远程仓库<br>4.git push -u origin 推送到远程仓库  </p>
+</blockquote>
+<h6 id="8月遇到的问题，原因以及对应的解决方法"><a href="#8月遇到的问题，原因以及对应的解决方法" class="headerlink" title="8月遇到的问题，原因以及对应的解决方法"></a>8月遇到的问题，原因以及对应的解决方法</h6><p>1.python2运行时，出现“Non-ASCII character ‘xe5’ in file”的报错问题。  </p>
+<blockquote>
+<p>原因：python使用默认的ASCII作为编码方式<br>解决方法:<br>只需在开头加上  </p>
+<p>#-*-coding：UTF-8 -*-</p>
+</blockquote>
+<p>2.global name is not define  </p>
+<blockquote>
+<p>原因：全局变量未设定好<br>解决方法：查看函数引用时是否传入self  </p>
+</blockquote>
+<p>3.git更新被拒绝，因为远程仓库包含本地尚不存在的提交  </p>
+<blockquote>
+<p>解决方法：git push -u origin+master  </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/2018.10--aws/" rel="next" title="mysql学习-3">
+                <i class="fa fa-chevron-left"></i> mysql学习-3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/18/【作业】ansible实现自动化架构/" rel="prev" title="ansible实现自动化lnmp架构">
+                ansible实现自动化lnmp架构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_photo.jpg"
+                alt="烟华。" />
+            
+              <p class="site-author-name" itemprop="name">烟华。</p>
+              <p class="site-description motion-element" itemprop="description">我的偶像万丈光芒，我不能一身戾气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wenxn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-了解cpu，内存，硬盘等硬件设施"><span class="nav-number">1.</span> <span class="nav-text">1.了解cpu，内存，硬盘等硬件设施</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-熟悉ubuntu操作系统"><span class="nav-number">2.</span> <span class="nav-text">2.熟悉ubuntu操作系统</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-进行socket通信实践–python的多人聊天室"><span class="nav-number">3.</span> <span class="nav-text">3.进行socket通信实践–python的多人聊天室</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#git操作"><span class="nav-number">4.</span> <span class="nav-text">git操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8月遇到的问题，原因以及对应的解决方法"><span class="nav-number">5.</span> <span class="nav-text">8月遇到的问题，原因以及对应的解决方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烟华。</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

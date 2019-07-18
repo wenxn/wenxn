@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ansible," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="要求实现功能1.lvs+keepalive2.七层负载3.web页面 拓扑图 其他lvs –(vip)haproxy(upstrem)–web(fastcgi)–php(解析代码)–mysql/redis 文件结构.├── ansible.cfg├── hosts├── playbook│   ├── lnmp_1.yaml （实现一键搭建lnmp）│   ├── lnmp_2.yaml （实现一">
+<meta name="keywords" content="ansible">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible实现自动化lnmp架构">
+<meta property="og:url" content="http://yoursite.com/2019/07/18/【作业】ansible实现自动化架构/index.html">
+<meta property="og:site_name" content="wen">
+<meta property="og:description" content="要求实现功能1.lvs+keepalive2.七层负载3.web页面 拓扑图 其他lvs –(vip)haproxy(upstrem)–web(fastcgi)–php(解析代码)–mysql/redis 文件结构.├── ansible.cfg├── hosts├── playbook│   ├── lnmp_1.yaml （实现一键搭建lnmp）│   ├── lnmp_2.yaml （实现一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/07/18/【作业】ansible实现自动化架构/media/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-07-12%20%E4%B8%8B%E5%8D%883.37.26.png">
+<meta property="og:updated_time" content="2019-07-18T08:53:24.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ansible实现自动化lnmp架构">
+<meta name="twitter:description" content="要求实现功能1.lvs+keepalive2.七层负载3.web页面 拓扑图 其他lvs –(vip)haproxy(upstrem)–web(fastcgi)–php(解析代码)–mysql/redis 文件结构.├── ansible.cfg├── hosts├── playbook│   ├── lnmp_1.yaml （实现一键搭建lnmp）│   ├── lnmp_2.yaml （实现一">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/18/【作业】ansible实现自动化架构/media/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-07-12%20%E4%B8%8B%E5%8D%883.37.26.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/18/【作业】ansible实现自动化架构/"/>
+
+
+
+
+
+  <title>ansible实现自动化lnmp架构 | wen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/【作业】ansible实现自动化架构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ansible实现自动化lnmp架构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T00:00:00+08:00">
+                2019-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/" itemprop="url" rel="index">
+                    <span itemprop="name">ansible</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="要求实现功能"><a href="#要求实现功能" class="headerlink" title="要求实现功能"></a>要求实现功能</h1><p>1.lvs+keepalive<br>2.七层负载<br>3.web页面</p>
+<h1 id="拓扑图"><a href="#拓扑图" class="headerlink" title="拓扑图"></a>拓扑图</h1><p><img src="media/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-07-12%20%E4%B8%8B%E5%8D%883.37.26.png" alt="屏幕快照 2019-07-12 下午3.37.26"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>lvs –(vip)haproxy(upstrem)–web(fastcgi)–php(解析代码)–mysql/redis</p>
+<h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><p>.<br>├── ansible.cfg<br>├── hosts<br>├── playbook<br>│   ├── lnmp_1.yaml （实现一键搭建lnmp）<br>│   ├── lnmp_2.yaml （实现一键搭建架构）<br>│   └── mysql_db.yaml （实现创建数据库和用户）<br>└── roles<br>    ├── lvs<br>    │   ├── files<br>    │   │   └── keepalived.conf.j2<br>    │   ├── handlers<br>    │   │   └── main.yaml<br>    │   └── tasks<br>    │       ├── deploy_lvs.yaml<br>    │       └── install_lvs.yaml<br>    ├── mysql<br>    │   ├── files<br>    │   │   └── my.cnf.j2<br>    │   ├── handlers<br>    │   └── tasks<br>    │       ├── create_mysqldb.yaml<br>    │       └── install_mysql.yaml<br>    ├── nginx<br>    │   ├── files<br>    │   │   ├── nginx.conf<br>    │   │   └── realserver.sh<br>    │   ├── handlers<br>    │   └── tasks<br>    │       └── install_nginx.yaml<br>    └── web<br>        ├── files<br>        │   └── nginx.conf<br>        ├── handlers<br>        │   └── main.yaml<br>        └── tasks<br>            ├── copy_conf.yaml<br>            ├── install_nginx.yaml<br>            ├── install_php-fpm.yaml<br>            └── install_wordpress.yaml</p>
+<h1 id="部署lvs1与lvs2"><a href="#部署lvs1与lvs2" class="headerlink" title="部署lvs1与lvs2"></a>部署lvs1与lvs2</h1><p>1.安装软件和依赖<br>yum install ipvsadm keepalived gcc openssl openssl-devel</p>
+<p>2.配置虚拟网卡设备（vip）<br>ifconfig ens33:0 172.16.13.8 broadcast 172.16.13.8 netmask 255.255.255.0 up</p>
+<p>3.开启路由转发功能<br>echo 1 &gt; /proc/sys/net/ipv4/ip_forward<br>其实在DR模式中，开启系统的包转发功能不是必须的，而在NAT模式下此操作是必须的。</p>
+<p>4.开始配置ipvs<br>ipvsadm -C<br>ipvsadm -A -t 172.16.13.8:80 -s rr -p 600<br>ipvsadm -a -t 172.16.13.8:80 -r 172.16.13.6:80 -g<br>ipvsadm -a -t 172.16.13.8:80 -r 172.16.13.7:80 -g</p>
+<p>第一行是清除内核虚拟服务器列表中的所有记录<br>第二行是添加一条新的虚拟IP记录，虚拟IP是172.16.13.8，同时指定持续服务时间为600秒。三四行是在新加虚拟IP记录中添加两条新的RS记录，并且指定LVS 的工作模式为直接路由模式。</p>
+<p>5.配置keepalived.conf<br>其中在keepalive配置文件中，nopreempt  设置为不抢夺VIP</p>
+<p>6.启动lvs和keepalive服务，开启自启动</p>
+<h1 id="部署nginx1和nginx2（实现七层负载"><a href="#部署nginx1和nginx2（实现七层负载" class="headerlink" title="部署nginx1和nginx2（实现七层负载"></a>部署nginx1和nginx2（实现七层负载</h1><p>1.安装镜像源和软件<br><a href="http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm" target="_blank" rel="noopener">http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</a><br>yum install -y nginx</p>
+<p>2.配置upsteam模块到nginx，添加proxy_pass<br>upstream backend {<br>    server 172.16.13.10    weight=5;<br>}</p>
+<p>server {<br>    location / {<br>        proxy_pass <a href="http://172.16.13.10" target="_blank" rel="noopener">http://172.16.13.10</a>;<br>    }<br>}</p>
+<p>3.配置lo虚拟端口（这里写了个shell文件实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#description: Config realserver</span><br><span class="line"></span><br><span class="line">VIP=172.16.13.8</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">start)</span><br><span class="line">       /sbin/ifconfig lo:0 $VIP netmask 255.255.255.255 broadcast $VIP</span><br><span class="line">       /sbin/route add -host $VIP dev lo:0</span><br><span class="line">       echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line">       echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line">       echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line">       echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br><span class="line">       sysctl -p &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">       echo &quot;RealServer Start OK&quot;</span><br><span class="line">       ;;</span><br><span class="line">stop)</span><br><span class="line">       /sbin/ifconfig lo:0 down</span><br><span class="line">       /sbin/route del $VIP &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">       echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line">       echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line">       echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line">       echo &quot;0&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br><span class="line">       echo &quot;RealServer Stoped&quot;</span><br><span class="line">       ;;</span><br><span class="line">*)</span><br><span class="line">       echo &quot;Usage: $0 &#123;start|stop&#125;&quot;</span><br><span class="line">       exit 1</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure></p>
+<h1 id="部署web服务器-nginx-php-web"><a href="#部署web服务器-nginx-php-web" class="headerlink" title="部署web服务器(nginx+php+web)"></a>部署web服务器(nginx+php+web)</h1><p>1.安装nginx<br>yum -y install nginx<br>2.配置nginx.conf<br>server{<br>    listen 80 default;<br>    server_name yanhua.com;<br>    index index.html index.htm index.php;<br>    root /data/www;<br>    location ~ .*.(php|php5)?$<br>    {<br>      fastcgi_pass  127.0.0.1:9000;<br>      fastcgi_index index.php;<br>      include fastcgi_params;<br>      fastcgi_param SCRIPT_FILENAME /data/www$fastcgi_script_name;<br>    }<br>  }</p>
+<p>3.创建根目录文件以及加权限<br>mkdir -p /data/www/<br>chmod 755 /data/www/<br>chown -R nginx.nginx /data/www/</p>
+<p>4.安装php<br>更新yum源  <a href="http://rpms.remirepo.net/enterprise/remi-release-7.rpm" target="_blank" rel="noopener">http://rpms.remirepo.net/enterprise/remi-release-7.rpm</a><br>下载软件 php php72-php-fpm php72-php-gd php72-php-json php72-php-mbstring php72-php-mysqlnd php72-php-xml php72-php-xmlrpc php72-php-opcache</p>
+<p>5.启动服务<br>systemctl start nginx<br>systemctl start php72-php-fpm</p>
+<p>6.安装wordpress<br>下载 wget <a href="http://wordpress.org/latest.tar.gz" target="_blank" rel="noopener">http://wordpress.org/latest.tar.gz</a><br>解压 tar -xzvf  latest.tar.gz</p>
+<p>7.将wordpress内容拷贝到nginx的root路径上<br>cp -r /root/wordpress/*  /data/www/</p>
+<p>8.重启nginx： systemctl restart nginx</p>
+<p>9.配置连接数据库<br>mv /root/wordpress/wp-config-sample.php /root/wordpress/wp-config.php<br>（将config文件加上数据库配置，或者在网页版上再进行数据库配置）</p>
+<h1 id="配置mysql"><a href="#配置mysql" class="headerlink" title="配置mysql"></a>配置mysql</h1><p>1.配置镜像源<br><a href="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm" target="_blank" rel="noopener">https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</a></p>
+<p>2.将mysql5.7镜像加入源，安装<br>yum install -y mysql-community-server mysql-community-devel</p>
+<p>3.添加wordpress数据库和数据库用户<br>创建数据库： CREATE DATABASE wordpress;<br>创建用户：<br>create user ‘wordpress‘@’localhost’ identified by ‘your password’;<br>配置权限：<br>GRANT ALL PRIVILEGES ON wordpress.* TO wordpress@localhost IDENTIFIED BY ‘your password’;<br>刷新权限配置： FLUSH PRIVILEGES;<br>退出MySQL： QUIT;</p>
+<h1 id="踩的坑"><a href="#踩的坑" class="headerlink" title="踩的坑"></a>踩的坑</h1><p>1.安装上不懂镜像源，网上copy，要合适的软件找合适的镜像源<br>总结：#阿里巴巴镜像源 #163镜像源 #清华大学镜像源 #epel镜像源 #remi镜像源</p>
+<p>2.配置lvs时候，没有出现虚拟vip<br>总结：<br>使用的是dr模式。vip地址是要取不存在的ip地址，如果是配置两台lvs+keepalived结构，虚拟vip会在两台机器上飘，需要调度器和下一层结构配置相应虚拟ip和虚拟lo接口</p>
+<p>3.防火墙和selinux没有配置好<br>总结：<br>应该进行初始化机器，通过虚拟机的完整克隆。<br>在centos7上，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld </span><br><span class="line">cp /etc/selinux/config /etc/selinux/config.bak</span><br><span class="line">sed &apos;s#SELINUX=enforcing#SELINUX=disabled#g&apos; /etc/selinux/config.bak &gt;/etc/selinux/config</span><br></pre></td></tr></table></figure></p>
+<p>4.学习ansible的role形式，和文本架构（tasks，files，handles<br>总结：<br>在执行ansible任务的时候，可以在playbook上形如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">include_role:</span><br><span class="line">      name: lvs</span><br><span class="line">      tasks_from: deploy_lvs</span><br></pre></td></tr></table></figure></p>
+<p>5.启动服务时候，centos6和centos7的模块不同<br>总结：<br>systemd模块 centos7<br>service模块 centos6</p>
+<p>6.搭建lnmp的时候，html没有问题，php解析出现，file is not found<br>总结：原因有二<br>第一：主要参数fastcgi_param SCRIPT_FILENAME /data/www$fastcgi_script_name;<br>第二：Firewalls和selinux已关闭</p>
+<p>7.ansible通过ssh连接某台机器，未连接上<br>总结：排查步骤<br>第一：ss -luntp 命令可以查看sshd服务占用端口<br>第二：端口已经改变，在ansible的hosts文件中加入参数<br>如：172.16.13.6 ansible_ssh_port=52113<br>第三：ssh-copy-id -i ~/.ssh/id_rsa.pub  -p 端口号 <a href="mailto:root@172.16.13.6" target="_blank" rel="noopener">root@172.16.13.6</a><br>第四：在/etc/ssh/sshd_config文件上，允许root登录 PermitRootLogin yes<br>第五：重启sshd服务</p>
+<p>8.重启lvs失败<br>总结：排查步骤<br>第一：查看服务状态status<br>显示 Failed to start Initialise the Linux Virtual Server.<br>第二：分析原因，/etc/sysconfig/ipvsadm: 没有那个文件或目录，添加的lvs路线，没有保存到改文件下，导致重启不了。<br>第三：手动添加ipvsadm –save &gt; /etc/sysconfig/ipvsadm</p>
+<p>9.lnmp搭建时显示403<br>总结：<br>第一：403是权限拒绝的意思，应查看网页主目录权限<br>第二：权限分为<code>chown -R nginx.nginx</code>和 <code>chmod 755 /dir</code></p>
+<p>10.lnmp搭建显示502<br>总结：<br>第一：502表示服务器上的一个错误网关 ，因此说它是无效的，我们在出现了服务器502错误问题的时候，最好是先清除下缓存或者是在服务器上进行刷新试试的。<br>第二：重启服务，例如php-fpm等</p>
+<p>11.出现网络不通，可以ping通网关，但dns解析有问题的现象<br>总结：排查思路</p>
+<p>第一：ping网关，可通<br>第二：查看ifcfg文件，ping文件中的dns，不通<br>第三：查看路由表，有无默认路由到网关，或者多几条路由。</p>
+<p>存在问题，出错机器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip route</span><br><span class="line">169.254.0.0/16 dev ens33 scope link metric 1002 </span><br><span class="line">172.16.0.0/16 dev ens33 proto kernel scope link src 172.16.13.10</span><br></pre></td></tr></table></figure></p>
+<p>解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">删除多余路由，以及添加另一条默认路由</span><br><span class="line">ip route add default via 172.16.13.2 dev ens33 </span><br><span class="line">ip route del 169.254.0.0/16</span><br></pre></td></tr></table></figure></p>
+<p>12.mysql安装过后，进行初始化配置，无法进行远程登录<br>总结：<br>原因：远程登录时候需要root的原始密码，不能免密登录</p>
+<p>解决方法：<br>第一：抓取mysql的root初始密码信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep &apos;temporary password&apos; /var/log/mysqld.log </span><br><span class="line">|tail -n 1 | awk &apos;END &#123;print $11&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<p>第二：在ansible上，注册register参数<br>第三：将下方写入my.cnf.j2文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">host=localhost</span><br><span class="line">user=root</span><br><span class="line">password=&#123;&#123;outer_item&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第四：template到远程。实现mysql直接登录。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ansible/" rel="tag"># ansible</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/2018.08/" rel="next" title="mysql学习-1">
+                <i class="fa fa-chevron-left"></i> mysql学习-1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_photo.jpg"
+                alt="烟华。" />
+            
+              <p class="site-author-name" itemprop="name">烟华。</p>
+              <p class="site-description motion-element" itemprop="description">我的偶像万丈光芒，我不能一身戾气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wenxn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#要求实现功能"><span class="nav-number">1.</span> <span class="nav-text">要求实现功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拓扑图"><span class="nav-number">2.</span> <span class="nav-text">拓扑图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.1.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件结构"><span class="nav-number">3.</span> <span class="nav-text">文件结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署lvs1与lvs2"><span class="nav-number">4.</span> <span class="nav-text">部署lvs1与lvs2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署nginx1和nginx2（实现七层负载"><span class="nav-number">5.</span> <span class="nav-text">部署nginx1和nginx2（实现七层负载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署web服务器-nginx-php-web"><span class="nav-number">6.</span> <span class="nav-text">部署web服务器(nginx+php+web)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置mysql"><span class="nav-number">7.</span> <span class="nav-text">配置mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#踩的坑"><span class="nav-number">8.</span> <span class="nav-text">踩的坑</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烟华。</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

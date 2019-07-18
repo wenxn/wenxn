@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="项目描述：结合备份计划，用ansible做git pull到生产环境，添加crontab任务结合aws的api，自动创建aws的服务器，将备份下载，恢复，检查后关机   git模块，用于checkout远程git仓库中的文件，应在git仓库添加密钥认证，再进行克隆，如下为ymal文件：    -–- name:module git testhost:vars:repo_url:git@dest：（">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql学习-3">
+<meta property="og:url" content="http://yoursite.com/2018/11/24/2018.10--aws/index.html">
+<meta property="og:site_name" content="wen">
+<meta property="og:description" content="项目描述：结合备份计划，用ansible做git pull到生产环境，添加crontab任务结合aws的api，自动创建aws的服务器，将备份下载，恢复，检查后关机   git模块，用于checkout远程git仓库中的文件，应在git仓库添加密钥认证，再进行克隆，如下为ymal文件：    -–- name:module git testhost:vars:repo_url:git@dest：（">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-18T08:56:05.176Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql学习-3">
+<meta name="twitter:description" content="项目描述：结合备份计划，用ansible做git pull到生产环境，添加crontab任务结合aws的api，自动创建aws的服务器，将备份下载，恢复，检查后关机   git模块，用于checkout远程git仓库中的文件，应在git仓库添加密钥认证，再进行克隆，如下为ymal文件：    -–- name:module git testhost:vars:repo_url:git@dest：（">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/24/2018.10--aws/"/>
+
+
+
+
+
+  <title>mysql学习-3 | wen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/2018.10--aws/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烟华。">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/my_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql学习-3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T00:00:00+08:00">
+                2018-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h6 id="项目描述："><a href="#项目描述：" class="headerlink" title="项目描述："></a>项目描述：</h6><p>结合备份计划，用ansible做git pull到生产环境，添加crontab任务结合aws的api，自动创建aws的服务器，将备份下载，恢复，检查后关机  </p>
+<p>git模块，用于checkout远程git仓库中的文件，应在git仓库添加密钥认证，再进行克隆，如下为ymal文件：  </p>
+<blockquote>
+<p>-–<br>- name:module git test<br>host:<br>vars:repo_url:git@<br>dest：（存放本机地址）<br>task:<br>-name:checkout<br>git:repo=,dest=,accept_hostkey，version=（拉取分支）</p>
+</blockquote>
+<ul>
+<li style="list-style: none"><input type="checkbox"> git pull 将下载远程内容并立即尝试更改本地状态以匹配  </li>
+<li style="list-style: none"><input type="checkbox"> git fetch 将下载远程内容而不是更改本地存储库的状态  </li>
+</ul>
+<p>crontab模块  </p>
+<blockquote>
+<p>name =<br>minute/weekday/hour/day/month<br>state = absent/present<br>job =<br>cron-file =(替换客户端用户的任务文件计划)  </p>
+</blockquote>
+<p>ssh登录：<br>1.公钥登录<br>2.密码登录<br>ssh-keygen是linux下认证密钥管理工具  </p>
+<blockquote>
+<p>ssh-keygen -t rsa 创建密钥<br>ssh-copy-id  复制密钥  </p>
+</blockquote>
+<p>加入Google二步验证（自定义）  </p>
+<blockquote>
+<p>–cat /etc/pam.d/sshd<br>auth required /path/your.so  </p>
+</blockquote>
+<p>ansible的主机文件：/etc/ansible/hosts<br>节点设置文件： inventory file  </p>
+<p>ansible-pull是从git服务器抓取playbook在本地上运行的一个命令行工具<br>ansible-pull -U <respository> <options> &lt;playbook.yml&gt;</options></respository></p>
+<p>ansible与aws的通讯代理，通过boto连接IAM组件<br>boto是python的aws开发工具包，配置文件：  </p>
+<blockquote>
+<p>1.~/.boto   只对该用户有效<br>2/etc/boto.cfg  对所有用户有效<br>安装：pip install boto</p>
+</blockquote>
+<p>aws的命令行工具awscli，提供对AWS服务的公共API的直接访问  </p>
+<blockquote>
+<p>安装：pip install awscli<br>进行设置aws s3 configure<br>获取帮助 aws help<br>将文件上传 aws s3 cp<br>列出aws中存储桶s3的文件</p>
+</blockquote>
+<h6 id="aws-bill项目"><a href="#aws-bill项目" class="headerlink" title="aws-bill项目"></a>aws-bill项目</h6><p>datetime.timedelta:表达两者之间的差异持续时间<br>__file__是用来获取模块所在路径，可能是相对路径</p>
+<p>关于s3操作的文档:<br><a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html" target="_blank" rel="noopener">https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html</a></p>
+<p>需求：  </p>
+<ol>
+<li>将敏捷云的历史账单(我们能看到的账单全部都是属于我们的)，全部拉取下来，存放到我们aws账号下的s3 bucket中</li>
+<li>每天定时从敏捷云下载最新的账单，保存在我们账号的s3 bucket中 csv账单，csv格式，字段要打开csv文件看。</li>
+<li>账单按需求统计分析，账单分析后的数据存到mysql中 </li>
+<li>提供api接口给业务开发那边查询，需要可以查询账单中的总费用。 支持查询的维度: 日期（支持指定时间范围）、部门、服务器角色、aws服务类型。 api接口不允许匿名访问。</li>
+</ol>
+<h5 id="django与数据库的连接操作"><a href="#django与数据库的连接操作" class="headerlink" title="django与数据库的连接操作"></a>django与数据库的连接操作</h5><blockquote>
+<p>Django 对各种数据库提供了很好的支持，包括：PostgreSQL、MySQL、SQLite、Oracle。Django 为这些数据库提供了统一的调用API。我们可以根据自己业务需求选择不同的数据库。</p>
+</blockquote>
+<p>1.修改settings.py，mysql数据库配置等。</p>
+<p>2.针对已有数据库自动生成新的models，python manage.py inspectdb</p>
+<p>3.导出模型并代替models.py。。python manage.py inspectdb &gt; models.py，然后移动 models.py到项目目录下</p>
+<p>4.默认配置下生成不可修改/删除的models，修改meta class中的managed＝True则告诉django可以对数据库进行操作，然后进行创建表结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+<p>原理：The inspectdb工具内省检查你的配置文件(setting file)指向的数据库，针对你的每一个表生成一个Django model的表现，然后将这些Python model的代码显示在系统的标准输出里面。</p>
+<p>数据库的每一个表都会被转化为一个model类 (也就是说，数据库的表和model的类之间做一对一的映射)。这意味着你需要为多对多连接的表，重构其models为ManyToManyField的对象。</p>
+<p>所生成的每一个model中的每个字段都拥有自己的属性，包括id主键字段。</p>
+<h5 id="数据库的基本操作"><a href="#数据库的基本操作" class="headerlink" title="数据库的基本操作"></a>数据库的基本操作</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"> 1 # 增</span><br><span class="line"> 2 </span><br><span class="line"> 3 models.Tb1.objects.create(c1=&apos;xx&apos;, c2=&apos;oo&apos;)  #增加一条数据，可以接受字典类型数据 **kwargs</span><br><span class="line"> 4 </span><br><span class="line"> 5 obj = models.Tb1(c1=&apos;xx&apos;, c2=&apos;oo&apos;)</span><br><span class="line"> 6 obj.save()</span><br><span class="line"> 7 </span><br><span class="line">　　dic = &#123;&apos;c1&apos;:&apos;xx&apos;,&apos;c2&apos;:&apos;oo&apos;&#125;</span><br><span class="line">　　models.Tb1.objects.create(**dic)  　　#Form的产出结果是一个字典，可以根据这个Form的字典和**直接在数据库创建数据</span><br><span class="line"> 8 # 查</span><br><span class="line"> 9 </span><br><span class="line">10 models.Tb1.objects.get(id=123)         # 获取单条数据，不存在则报错（不建议）</span><br><span class="line">11 models.Tb1.objects.all()               # 获取全部     .first()  取第一条数据</span><br><span class="line">只有通过取值操作才能得到结果集包含的对象.取值操作可以通过迭代,切片,或其它专门的函数来实现.</span><br><span class="line">一个结果集就是一个可迭代对象。可以通过一个循环来取出它的值:</span><br><span class="line">for p in Poll.objects.all(): </span><br><span class="line">  print p</span><br><span class="line">  </span><br><span class="line">为了从你的数据库中提取对象，通过在你模型类中的一个Manager来组成一个QuerySet。一个QuerySet展示了从你数据库中的对象的集合。它能有0个，1个或者多个filters。Filters根据给定的参数缩小查询结果。在SQL语义中，一个QuerySet等价于一个SELECT语句，并且一个filter是一个限制语句诸如WHERE 或 LIMIT。</span><br><span class="line"></span><br><span class="line">你通过使用模型的Manager得到一个QuerySet。每个模型都有至少一个Manager，并且它默认被称为objects。</span><br><span class="line"></span><br><span class="line">Managers仅仅通过模型类才能访问，而不是从模型实例，来执行一个“表级”操作和“记录级”操作的分离。</span><br><span class="line"></span><br><span class="line">12 models.Tb1.objects.filter(name=&apos;seven&apos;) # 获取指定条件的数据   也可以用**的方式传参数</span><br><span class="line">13 </span><br><span class="line">14 # 删</span><br><span class="line">15 </span><br><span class="line">16 models.Tb1.objects.filter(name=&apos;seven&apos;).delete() # 删除指定条件的数据</span><br><span class="line">17 </span><br><span class="line">18 # 改</span><br><span class="line">19 </span><br><span class="line">20 models.Tb1.objects.filter(name=&apos;seven&apos;).update(gender=&apos;0&apos;)  # 将指定条件的数据更新，均支持 **kwargs</span><br><span class="line">21 </span><br><span class="line">22 obj = models.Tb1.objects.get(id=1)</span><br><span class="line">23 obj.c1 = &apos;111&apos;</span><br><span class="line">24 obj.save()                                                 # 修改单条数据</span><br></pre></td></tr></table></figure>
+<p>利用双下划线将字段和对应的操作连接起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"> 1     # 获取个数</span><br><span class="line"> 2     #</span><br><span class="line"> 3     # models.Tb1.objects.filter(name=&apos;seven&apos;).count()</span><br><span class="line"> 4 </span><br><span class="line"> 5     # 大于，小于</span><br><span class="line"> 6     #</span><br><span class="line"> 7     # models.Tb1.objects.filter(id__gt=1)              # 获取id大于1的值</span><br><span class="line"> 8     # models.Tb1.objects.filter(id__lt=10)             # 获取id小于10的值</span><br><span class="line"> 9     # models.Tb1.objects.filter(id__lt=10, id__gt=1)   # 获取id大于1 且 小于10的值</span><br><span class="line">10 </span><br><span class="line">11     # in</span><br><span class="line">12     #</span><br><span class="line">13     # models.Tb1.objects.filter(id__in=[11, 22, 33])   # 获取id等于11、22、33的数据</span><br><span class="line">14     # models.Tb1.objects.exclude(id__in=[11, 22, 33])  # not in</span><br><span class="line">15 </span><br><span class="line">16     # contains</span><br><span class="line">17     #</span><br><span class="line">18     # models.Tb1.objects.filter(name__contains=&quot;ven&quot;)</span><br><span class="line">19     # models.Tb1.objects.filter(name__icontains=&quot;ven&quot;) # icontains大小写不敏感</span><br><span class="line">20     # models.Tb1.objects.exclude(name__icontains=&quot;ven&quot;)</span><br><span class="line">21 </span><br><span class="line">22     # range</span><br><span class="line">23     #</span><br><span class="line">24     # models.Tb1.objects.filter(id__range=[1, 2])   # 范围bettwen and</span><br><span class="line">25 </span><br><span class="line">26     # 其他类似</span><br><span class="line">27     #</span><br><span class="line">28     # startswith，istartswith, endswith, iendswith,</span><br><span class="line">29 </span><br><span class="line">30     # order by</span><br><span class="line">31     #</span><br><span class="line">32     # models.Tb1.objects.filter(name=&apos;seven&apos;).order_by(&apos;id&apos;)    # asc 从小到大</span><br><span class="line">33     # models.Tb1.objects.filter(name=&apos;seven&apos;).order_by(&apos;-id&apos;)   # desc 从大到小</span><br><span class="line">34 </span><br><span class="line">35     # limit 、offset</span><br><span class="line">36     #</span><br><span class="line">37     # models.Tb1.objects.all()[10:20]</span><br><span class="line">38 </span><br><span class="line">39     # group by</span><br><span class="line">40     from django.db.models import Count, Min, Max, Sum</span><br><span class="line">41     # models.Tb1.objects.filter(c1=1).values(&apos;id&apos;).annotate(c=Count(&apos;num&apos;))</span><br><span class="line">42     # SELECT &quot;app01_tb1&quot;.&quot;id&quot;, COUNT(&quot;app01_tb1&quot;.&quot;num&quot;) AS &quot;c&quot; FROM &quot;app01_tb1&quot; WHERE &quot;app01_tb1&quot;.&quot;c1&quot; = 1 GROUP BY &quot;app01_tb1&quot;.&quot;id&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查询允许多个条件参数, 逗号分隔的多个条件参数会被 &quot;AND&quot; 起来使用</span><br><span class="line"></span><br><span class="line">OR 查询</span><br><span class="line">关键字参数查询的各个条件都是 &quot;AND&quot; 关系. 如果你需要一个复杂的查询(举例来说,你需要一个 OR 语句), 你需要使用 Q 对象.</span><br><span class="line"></span><br><span class="line">Q 对象是 django.core.meta.Q 的实例, 用来装载一系列关键字参数. </span><br><span class="line"></span><br><span class="line">这些关键字参数就象指定给 get() 和 filter() 函数的关键字参数一样. 举例来说:</span><br><span class="line"></span><br><span class="line">Q(question__startswith=&apos;What&apos;)</span><br><span class="line">Q 对象可以使用 &amp; 和 | 运算符进行组合. 当两个Q对象进行 &amp; 或 | 运算时,会生成一个新的Q对象.</span><br><span class="line"></span><br><span class="line">举例来说语句:</span><br><span class="line"></span><br><span class="line">Q(question__startswith=&apos;Who&apos;) | Q(question__startswith=&apos;What&apos;)</span><br><span class="line">... 生成一个新的 Q 对象表示这两个 &quot;question__startswith&quot; 查询条件的 &quot;OR&quot; 关系. </span><br><span class="line"></span><br><span class="line">等同于下面的 SQL WHERE 子句:</span><br><span class="line"></span><br><span class="line">... WHERE question LIKE &apos;Who%&apos; OR question LIKE &apos;What%&apos;</span><br></pre></td></tr></table></figure>
+<h5 id="关于日期查询"><a href="#关于日期查询" class="headerlink" title="关于日期查询"></a>关于日期查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名 where to_days(时间字段名) = to_days(now());</span><br><span class="line"></span><br><span class="line">昨天</span><br><span class="line"></span><br><span class="line">SELECT * FROM 表名 WHERE TO_DAYS( NOW( ) ) - TO_DAYS( 时间字段名) &lt;= 1</span><br><span class="line"></span><br><span class="line">7天</span><br><span class="line"></span><br><span class="line">SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(时间字段名)</span><br><span class="line"></span><br><span class="line">查询一周内数据</span><br><span class="line"></span><br><span class="line">select * from Tabel名 where 时间字段名 between current_date()-7  and  sysdate()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">近30天</span><br><span class="line"></span><br><span class="line">SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(时间字段名)</span><br><span class="line"></span><br><span class="line">本月</span><br><span class="line"></span><br><span class="line">SELECT * FROM 表名 WHERE DATE_FORMAT( 时间字段名, &apos;%Y%m&apos; ) = DATE_FORMAT( CURDATE( ) , &apos;%Y%m&apos; )</span><br><span class="line"></span><br><span class="line">上一月</span><br><span class="line"></span><br><span class="line">SELECT * FROM 表名 WHERE PERIOD_DIFF( date_format( now( ) , &apos;%Y%m&apos; ) , date_format( 时间字段名, &apos;%Y%m&apos; ) ) =1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">一周前 一月前 一年前的数据 这里主要用到了DATE_SUB</span><br><span class="line"></span><br><span class="line">SELECT * FROM yh_content</span><br><span class="line"></span><br><span class="line">where inputtime&gt;DATE_SUB(CURDATE(), INTERVAL 1 DAY)</span><br><span class="line"></span><br><span class="line">where inputtime&gt;DATE_SUB(CURDATE(), INTERVAL 1 WEEK)</span><br><span class="line"></span><br><span class="line">where inputtime&gt;DATE_SUB(CURDATE(), INTERVAL 1 MONTH)</span><br><span class="line"></span><br><span class="line">where inputtime&gt;DATE_SUB(CURDATE(), INTERVAL 1 YEAR)</span><br><span class="line"></span><br><span class="line">DATE_SUB()返回的是格式化后的时间：2014-05-17</span><br></pre></td></tr></table></figure>
+<h5 id="url-函数"><a href="#url-函数" class="headerlink" title="url() 函数"></a>url() 函数</h5><p>Django url() 可以接收四个参数，分别是两个必选参数：regex、view 和两个可选参数：kwargs、name，接下来详细介绍这四个参数。</p>
+<ul>
+<li>regex: 正则表达式，与之匹配的 URL 会执行对应的第二个参数 view。</li>
+<li>view: 用于执行与正则表达式匹配的 URL 请求。</li>
+<li>kwargs: 视图使用的字典类型的参数。</li>
+<li>name: 用来反向获取 URL。</li>
+</ul>
+<h5 id="git操作"><a href="#git操作" class="headerlink" title="git操作"></a>git操作</h5><p>git branch查看本地分支</p>
+<p>查看远程分支 git branch -a</p>
+<p>创建分支 git branch test</p>
+<p>切换分支到test ： git checkout test</p>
+<h5 id="django-crontab库"><a href="#django-crontab库" class="headerlink" title="django-crontab库"></a>django-crontab库</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install django-crontab</span><br></pre></td></tr></table></figure>
+<p>在django项目的<strong>settings.py</strong>的<strong>INSTALLED_APPS</strong>添加django-crontab。</p>
+<h4 id="django-crontab配置"><a href="#django-crontab配置" class="headerlink" title="django-crontab配置"></a>django-crontab配置</h4><p>django-crontab可以定时运行自定义命令和函数两种方式</p>
+<h5 id="定时函数"><a href="#定时函数" class="headerlink" title="定时函数"></a>定时函数</h5><p>在django项目的<strong>settings.py</strong>中添加以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CRONJOBS = (</span><br><span class="line">    (&apos;*/1 * * * *&apos;, &apos;你的app名.定时函数所在的py文件名.定时函数名&apos;),</span><br><span class="line">    (&apos;0   0 1 * *&apos;, &apos;你的app名.定时函数所在的py文件名.定时函数名&apos;, &apos;&gt; 输出文件路径和名称&apos;),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一种的意思就是每一分钟执行一次你的定时函数</li>
+<li>第二种时定时函数输出的内容到指定文件（如果该路径或文件不存在将会自动创建）</li>
+</ul>
+<h5 id="定时命令"><a href="#定时命令" class="headerlink" title="定时命令"></a>定时命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CRONJOBS = (</span><br><span class="line">    (&apos;10 12 * * *&apos;, &apos;django.core.management.call_command&apos;, [&apos;要执行的命令&apos;]),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>意思是在12点10分执行命令</li>
+</ul>
+<h5 id="定时任务的操作"><a href="#定时任务的操作" class="headerlink" title="定时任务的操作"></a>定时任务的操作</h5><ol>
+<li>python manage.py crontab add　　添加定时任务</li>
+<li>python manage.py crontab remove 清除定时任务</li>
+<li>python manage.py crontab show 显示定时任务</li>
+</ol>
+<h6 id="10月出现的问题"><a href="#10月出现的问题" class="headerlink" title="10月出现的问题"></a>10月出现的问题</h6><p>1.增量备份权限不够  </p>
+<blockquote>
+<p>原因：须有super权限在复制环境下启动或停止从属线程  </p>
+</blockquote>
+<p>2.安装mysql时，仓库。。。无Release文件，无法安全用该源进行更新  </p>
+<blockquote>
+<p>方法：sudo add-apt-repository  –remove ppa：//</p>
+</blockquote>
+<p>3.upload s3失败，connectionResetError  </p>
+<blockquote>
+<p>方法：加上–region参数</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/2018.09---mysql备份计划/" rel="next" title="mysql学习-2">
+                <i class="fa fa-chevron-left"></i> mysql学习-2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/24/2018.08/" rel="prev" title="mysql学习-1">
+                mysql学习-1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/my_photo.jpg"
+                alt="烟华。" />
+            
+              <p class="site-author-name" itemprop="name">烟华。</p>
+              <p class="site-description motion-element" itemprop="description">我的偶像万丈光芒，我不能一身戾气</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wenxn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#项目描述："><span class="nav-number">1.</span> <span class="nav-text">项目描述：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#aws-bill项目"><span class="nav-number">2.</span> <span class="nav-text">aws-bill项目</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#django与数据库的连接操作"><span class="nav-number"></span> <span class="nav-text">django与数据库的连接操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库的基本操作"><span class="nav-number"></span> <span class="nav-text">数据库的基本操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关于日期查询"><span class="nav-number"></span> <span class="nav-text">关于日期查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#url-函数"><span class="nav-number"></span> <span class="nav-text">url() 函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git操作"><span class="nav-number"></span> <span class="nav-text">git操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#django-crontab库"><span class="nav-number"></span> <span class="nav-text">django-crontab库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#django-crontab配置"><span class="nav-number"></span> <span class="nav-text">django-crontab配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定时函数"><span class="nav-number"></span> <span class="nav-text">定时函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时命令"><span class="nav-number"></span> <span class="nav-text">定时命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时任务的操作"><span class="nav-number"></span> <span class="nav-text">定时任务的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#10月出现的问题"><span class="nav-number">1.</span> <span class="nav-text">10月出现的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烟华。</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
