@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="wen">
 <meta property="og:description" content="要求实现功能1.lvs+keepalive2.七层负载3.web页面 拓扑图 其他lvs –(vip)haproxy(upstrem)–web(fastcgi)–php(解析代码)–mysql/redis 文件结构.├── ansible.cfg├── hosts├── playbook│   ├── lnmp_1.yaml （实现一键搭建lnmp）│   ├── lnmp_2.yaml （实现一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/07/18/【作业】ansible实现自动化架构/media/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-07-12%20%E4%B8%8B%E5%8D%883.37.26.png">
-<meta property="og:updated_time" content="2019-07-18T08:53:24.490Z">
+<meta property="og:image" content="http://yoursite.com/images/架构图.jpg">
+<meta property="og:updated_time" content="2019-07-19T06:37:08.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ansible实现自动化lnmp架构">
 <meta name="twitter:description" content="要求实现功能1.lvs+keepalive2.七层负载3.web页面 拓扑图 其他lvs –(vip)haproxy(upstrem)–web(fastcgi)–php(解析代码)–mysql/redis 文件结构.├── ansible.cfg├── hosts├── playbook│   ├── lnmp_1.yaml （实现一键搭建lnmp）│   ├── lnmp_2.yaml （实现一">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/18/【作业】ansible实现自动化架构/media/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-07-12%20%E4%B8%8B%E5%8D%883.37.26.png">
+<meta name="twitter:image" content="http://yoursite.com/images/架构图.jpg">
 
 
 
@@ -345,7 +345,7 @@
 
       
         <h1 id="要求实现功能"><a href="#要求实现功能" class="headerlink" title="要求实现功能"></a>要求实现功能</h1><p>1.lvs+keepalive<br>2.七层负载<br>3.web页面</p>
-<h1 id="拓扑图"><a href="#拓扑图" class="headerlink" title="拓扑图"></a>拓扑图</h1><p><img src="media/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202019-07-12%20%E4%B8%8B%E5%8D%883.37.26.png" alt="屏幕快照 2019-07-12 下午3.37.26"></p>
+<h1 id="拓扑图"><a href="#拓扑图" class="headerlink" title="拓扑图"></a>拓扑图</h1><p><img src="/images/架构图.jpg" alt=""></p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>lvs –(vip)haproxy(upstrem)–web(fastcgi)–php(解析代码)–mysql/redis</p>
 <h1 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h1><p>.<br>├── ansible.cfg<br>├── hosts<br>├── playbook<br>│   ├── lnmp_1.yaml （实现一键搭建lnmp）<br>│   ├── lnmp_2.yaml （实现一键搭建架构）<br>│   └── mysql_db.yaml （实现创建数据库和用户）<br>└── roles<br>    ├── lvs<br>    │   ├── files<br>    │   │   └── keepalived.conf.j2<br>    │   ├── handlers<br>    │   │   └── main.yaml<br>    │   └── tasks<br>    │       ├── deploy_lvs.yaml<br>    │       └── install_lvs.yaml<br>    ├── mysql<br>    │   ├── files<br>    │   │   └── my.cnf.j2<br>    │   ├── handlers<br>    │   └── tasks<br>    │       ├── create_mysqldb.yaml<br>    │       └── install_mysql.yaml<br>    ├── nginx<br>    │   ├── files<br>    │   │   ├── nginx.conf<br>    │   │   └── realserver.sh<br>    │   ├── handlers<br>    │   └── tasks<br>    │       └── install_nginx.yaml<br>    └── web<br>        ├── files<br>        │   └── nginx.conf<br>        ├── handlers<br>        │   └── main.yaml<br>        └── tasks<br>            ├── copy_conf.yaml<br>            ├── install_nginx.yaml<br>            ├── install_php-fpm.yaml<br>            └── install_wordpress.yaml</p>
 <h1 id="部署lvs1与lvs2"><a href="#部署lvs1与lvs2" class="headerlink" title="部署lvs1与lvs2"></a>部署lvs1与lvs2</h1><p>1.安装软件和依赖<br>yum install ipvsadm keepalived gcc openssl openssl-devel</p>
